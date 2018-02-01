@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block scripts %}
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['\\(','\\)']]}
+});
+</script>
+
+<script src='http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML'></script>
+{% endblock %}
+
+{% block title %}{{essay.title}}{% endblock %}
+
+{% block maintext %}
+<h1>{{essay.title}} </h1>
+<p> Originally posted {{essay.date}}</p>
+<hr />
+
+{{essay.content|safe}}
+
+{% endblock maintext %}

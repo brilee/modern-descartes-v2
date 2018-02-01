@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Essays{% endblock %}
+
+{% block maintext %}
+
+<h2> Essays </h2>
+
+<hr />
+<h3>...by date</h3>
+<ul>
+{% for essay in essays_sorted %}
+    <li>{{essay.date}}&nbsp;|&nbsp; <a href="/essays/{{essay.slug}}">{{essay.title}}</a></li>
+{% endfor %}
+</ul>
+
+<hr />
+<h3>...by category</h3>
+{% for category, essays in essays_by_category.items() %}
+<h4>{{category}}</h4>
+	<ul>
+		{% for essay in essays %}
+		<li>{{essay.date}}&nbsp;|&nbsp; <a href="/essays/{{essay.slug}}">{{essay.title}}</a></li>
+		{% endfor %}
+	</ul>
+{% endfor %}
+
+<p><a href="/essays/rss.xml">RSS</a></p>
+
+{% endblock maintext %}
