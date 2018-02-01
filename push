@@ -1,0 +1,3 @@
+source config
+
+gsutil -m cp -r deploy/ gs://$BUCKET_NAME
