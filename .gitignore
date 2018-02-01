@@ -4,4 +4,4 @@ pyvenv.cfg
 bin/*
 lib/*
 include/*
-deploy/*
+staging/*
