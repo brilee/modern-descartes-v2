@@ -1,0 +1,41 @@
+Trip Report: World AI Go Open
+2017/9/16
+
+From Aug 14-Aug 18, I was in Ordos City, China, to compete in the first World AI Go Open, with [MuGo](https://github.com/brilee/MuGo), toy go AI that I'd built for fun. Despite coming in 11th place out of 12 contestants, I had a blast there and I'm happy to have met so many other Go AI developers. Much thanks to the WAIGO organizers for organizing this event and sponsoring many teams, including myself, to come to China.
+
+I couldn't figure out a way to weave all these thoughts into a narrative, so here's a brain dump instead.
+
+
+Cool Tidbits
+------------
+- I got to meet all of the other Go AI developers. There was an interesting mix of company-sponsored teams, research groups, and solo developers. I was most struck by how long some of these people had been at Go AI - Lim Jaebum and Tristan Cazenave had apparently met at a Go AI competition 20 (!!!) years ago. A lot of people were poking to see if I'd come to the next major Go AI meetup in Tokyo. I'll have to see how much vacation time I have to spare :)
+- Mok Jinseok 9p interviewed me for a Korean documentary on Go AIs. He is apparently fluent in Korean, English, Chinese, and Japanese. It made me wonder: is this what happens when you take naturally intelligent humans and completely deprive them of a normal education? (Context: in Asia, aspiring professionals completely forgo normal schooling to dedicate 12 hours a day to studying Go, starting from age ~10).
+- I found out that Yuu Mizuhara, programmer of Panda Sensei (world's best tsumego solver AI) was sitting next to me at dinnertime. I then witnessed a hilarious exchange where Lim Jaebum said that his friend had invented a [tsumego generator](https://sahwal.com). We opened up Panda Sensei on one phone and the tsumego generator on another phone, and they faced off against each other. Panda sensei won handily :D
+- OracleWQ, the 12th place bot, used alpha-beta minimax search on top of a value network only. The value network seemed to have picked up some weird quirks, like favoring positions with stones on the second line. I think this was the effect of exhaustively searching all moves, whether sensible or not, and then picking whichever move happened to get the value network to output a slightly noisier/higher evaluation. Without a strong prior imposed by a policy network, the AI played very strange moves.
+- Ordos City is north of the Great Wall, and therefore Mongolian in culture. Their cuisine is pretty heavily milk-based, and almost all of the dishes I ate had some milk / yogurt mixed in. I saw some unique instruments and throat singing performances at the closing ceremony. I also stopped by [the Mausoleum of Genghis Khan](https://en.wikipedia.org/wiki/Mausoleum_of_Genghis_Khan).
+
+
+Technical Tidbits
+-----------------
+- Lim Jaebum, author of DolBaram, works for some Korean Go servers. He writes algorithms that figure out at the end of the game which groups are alive/dead/in seki. He noted that it was actually quite easy to judge group status for high-level games, but it was a different matter entirely to judge beginners' games! He noted that a useful heuristic is that if you run many Monte Carlo simulations on a board, and a group lives/dies 50% of the time, then it's probably in seki. That info can then be fed as a feature plane to a neural network. A more complicated heuristic to avoid upsetting seki is to never fill in the second-to-last liberty of a group, unless it matched a known dead shape. (There are only 20 or so of them.)
+- It seemed that Hideki Kato (coauthor of DeepZenGo), among others, shared the opinion that AlphaGo may have weaknesses that are not on display in life and death, capturing races, seki, because AlphaGo may have learned to avoid such situations. In some ways, this is appropriate - we don't think that getting better at drunk driving is a reasonable solution to a high rate of car accidents; instead, we learn to avoid drunk driving. But Hideki expressed hope that we could solve the problem properly.
+- Hideki also pointed out that the current generation of Go AIs (excluding the latest versions of AlphaGo) had a very human playstyle, partly because they had been bootstrapped from human games. Thus, the maximum strength of human game-bootstrapped AIs is probably top human professional level, plus a little bit.
+- I asked Hideki why we didn't use only policy + value nets, without random rollouts. He responded that currently, value nets were unable to evaluate L+D and that rollouts were necessary for that purpose. Tristan Cazenave had in fact brought a Go AI that used only policy/value nets. It did respectably well, but was eliminated in the quarterfinals.
+
+
+Funny Tidbits
+-------------
+- I was picked up from the Ordos City airport by Zhao Baolong 2p. I asked him who the strongest Go pro he'd ever defeated was, and he replied that he'd once defeated Ke Jie when Ke was 12 years old. Zhao went pro the same year Ke did, so I guess it's tough to live in that shadow.
+- Lim Jaebum spoke some English, but preferred to speak in Korean. I ended up translating his Korean to English, and then my partner translated my English into Chinese. This game of telephone happened back and forth whenever Jaebum wanted to ask a question.
+- Our prize money was delivered in cash (and 20% of the prize money was deducted for taxes, so it's not like they were trying to do things under the table). I ended up flying home with an inch-thick wad of 100CNY bills. I can only imagine that Hideki, DeepZenGo's only representative flew home with several bricks of money.
+- I was asked to sign some fans and books and t-shirts, for the first time in my life. Woo!
+- On our flight out of Ordos, our airplane taxied down a runway, then made a u-turn and took off from the same runway. I guess you can do that when your airport sees 1 plane / hour...
+
+
+FAQs
+----
+- So you won a game? [Yes, the records are here](https://github.com/yenw/computer-go-dataset/tree/master/AI/The%201st%20World%20AI%20Go%20Open%202017). I recommend not looking at the game I won, actually. It's sort of painful to look at. Instead, check out MuGo vs. Abacus.
+- When did I start working on MuGo? How long have I been working on it? I started the project last June and worked on it until September or so. Since then, I've worked on it on and off.
+- What's the deal with Ordos? Is it actually a ghost town? Yes. On the ride from the airport, it was a good 5 minutes before we saw our first car on the road. The traffic lights at the intersections had literally been turned off, and all 10 lanes of highway sat virtually empty. The apartment complex we stayed at the first night easily had capacity for 50,000 people, but judging by the lights in the windows at night, only 5% of the apartments were occupied. The restaurant we went to that night was devoid of customers, and our plates/teacups came shrink-wrapped, as if we were the first customers they had ever served. [correction: apparently this is a thing in China and has nothing to do with Ordos. Yes, they re-shrink-wrap the plates after washing.] The rest of the week went fine, though. Overall, Ordos was quite beautiful, and felt to me like an empty amusement park that was regularly cleaned and maintained and staffed despite the lack of parkgoers.
+
+

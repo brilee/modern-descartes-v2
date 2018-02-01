@@ -1,0 +1,22 @@
+What's a TensorFlow?
+2016/6/7
+
+TensorFlow is an open-source library from Google for numerical computation. Its intended application is in neural networks, but in fact it's quite more general than that.
+
+A tensor is a generalization of vectors and matrices. A single number is a 0th order tensor; a vector is a 1st order tensor, a matrix is a 2nd order tensor, and so on.<sup>[1](#tensor_correctness)</sup>
+
+If I had to describe TensorFlow in a few words, I would describe it as such: TensorFlow is Microsoft Excel in N dimensions.
+
+Turning this on its head, if I had to describe Excel in a few words, I would describe it as such: Excel could be called VectorFlow.
+
+Excel is not very well-respected for a variety of reasons, but it does do one thing very, very well, that I haven't really seen replicated in other popular programming environments: the metaphor of data flow. Everybody understands the metaphor in which one or more columns of data is transformed into another column of derived data. If you change one of the source columns, the derived columns automatically update. Even your grandparents understand this, and it's one of the reasons that Excel is so popular.
+
+But Excel does have a major limitation: it can only transform 1-dimensional data, due to its 2-dimensional visual environment. (Hence, VectorFlow). Most people don't ever need to go beyond this, and so they never notice it.
+
+But let's say your data has more dimensions than that. For example, let's say you had a black and white video (2 dimensions, plus time dimension), and you wanted to implement a motion blur by averaging three consecutive frames of the video. It'd be nice if you could implement that in a single formula, just like you might say `B2 = AVERAGE(A1, A2, A3)` in the one-dimensional case. Or, let's say you wanted to blur each frame individually, by averaging a 3x3 square of pixels. TensorFlow gives you a language with which you can specify these sorts of formulas! Once you've specified the formulas, TensorFlow can recompute derived values as necessary. (These sorts of "blur" operations are the centerpiece of convolutional neural networks, which is why TensorFlow is so useful in this field.)
+
+That's TensorFlow in a nutshell!
+
+<hr />
+
+<a name="myfootnote1">1</a>: Strictly speaking, a matrix isn't necessarily a tensor. We like to represent vectors as arrays of numbers, but a vector is more than than: it is a direction with magnitude. You can add vectors by placing them head-to-tail, without ever invoking actual numbers. The array of numbers you see is a _casting_ of that vector into a particular coordinate system. Similarly, a matrix is a casting of a 2nd-order tensor into a particular coordinate system. TensorFlow doesn't really deal with any of this more abstract mathematics; it abuses the word "tensor" to mean multidimensional matrix.

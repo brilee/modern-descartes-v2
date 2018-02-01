@@ -1,0 +1,172 @@
+Implementing the Game of Go (Part 1)
+2016/8/23
+
+(Edited on 9/28 to clean up some of the exposition and fix a major inefficiency in `find_reached`.)
+
+In this essay, I'll talk about implementing the rules of Go in Python, starting with a naive implementation (Part 1), and then optimizing it to make play execution faster (Part 2).
+
+Why do we care about the speed at which we can play moves in Go? In Chess, the [minimax algorithm](https://en.wikipedia.org/wiki/Minimax) is capable of exhaustively searching a game tree, and forms a good basis for a chess AI. In Go, the branching factor is much higher, making it impractical to implement a minimax algorithm. Monte Carlo tree search (MCTS) takes the alternate approach of semi-randomly playing out many possible continuations. Interestingly, MCTS converges to minimax as the number of playouts goes to infinity. The difference is that MCTS provides more useful results in the interim. Given that the number of playouts is extremely important to the quality of a MCTS-based AI, we are interested in churning through as many games of Go as possible in the shortest amount of time.
+
+So let's start with our implementation! If you're not familiar with the rules of Go, see [this page for a quick introduction](http://senseis.xmp.net/?RulesOfGoIntroductory)
+
+The Naive Implementation
+------------------------
+
+First, let's decide on a board and stone representation.
+
+The obvious format would be a 2-dimensional NxN array, with coordinates as 2-tuples (x, y). Then, `board[x][y]` would return either `WHITE`, `BLACK`, or `EMPTY`. Unfortunately, this would lead to some ugly code in python: `board[coord[0]][coord[1]]`. So instead, we'll go with a 1-dimensional array of length N * N, so that we can use the much prettier `board[coord]`.
+
+Furthermore, we'll represent stones using the characters O, X - mostly for easy printing, but also because an array of characters is just a string. So a board ends up being a string of length N * N.
+
+By using a string, we also get to avoid the slow `deepcopy` function, and immutability comes for free. To convert to/from flat coordinates, we'll define some helper functions:
+
+    N = 19
+    NN = N * N
+    WHITE, BLACK, EMPTY = 'O', 'X', '.'
+    EMPTY_BOARD = EMPTY * NN
+
+    def flatten(c):
+        return N * c[0] + c[1]
+
+    # Convention: coords that have been flattened have a "f" prefix
+    def unflatten(fc):
+        return divmod(fc, N)
+
+We'll also want an easy way to find all the neighbors of a coordinate. Since this is a frequent computation, we'll just cache the results as a list of length N * N.
+
+    def is_on_board(c):
+        return c[0] % N == c[0] and c[1] % N == c[1]
+
+    def get_valid_neighbors(fc):
+        x, y = unflatten(fc)
+        possible_neighbors = ((x+1, y), (x-1, y), (x, y+1), (x, y-1))
+        return [flatten(n) for n in possible_neighbors if is_on_board(n)]
+
+    # Neighbors are indexed by flat coordinates
+    NEIGHBORS = [get_valid_neighbors(fc) for fc in range(NN)]
+    assert sorted(NEIGHBORS[0]) == [1, N]
+    assert sorted(NEIGHBORS[1]) == [0, 2, N+1]
+    assert sorted(NEIGHBORS[N+1]) == [1, N, N+2, 2*N + 1]
+
+Next, let's define the useful concept of "reach", as given in the Tromp-Taylor rules. Reach is essentially the set of points neighboring a chain of stones.
+
+Reach is a useful concept in two ways: we want to know if a chain of stones can reach an empty point (the capture rule), and we want to know if a chain of empty spaces reaches black, white, or both colors (for assigning ownership of territory at the end).
+
+To deduce the reach of a stone, we use a flood-fill type algorithm to simultaneously discover the entire chain, as well as all of that chain's neighboring colors (the reach). We'll return both the chain and its reach, since both are useful.
+
+    def find_reached(board, fc):
+        color = board[fc]
+        chain = set([fc])
+        reached = set()
+        frontier = [fc]
+        while frontier:
+            current_fc = frontier.pop()
+            chain.add(current_fc)
+            for fn in NEIGHBORS[current_fc]:
+                if board[fn] == color and not fn in chain:
+                    frontier.append(fn)
+                elif board[fn] != color:
+                    reached.add(fn)
+        return chain, reached
+
+Now, we're ready to implement basic moves! We have to place our stone, and then handle any captures, prioritizing opponent captures over our own.
+
+    class IllegalMove(Exception): pass
+
+    def place_stone(color, board, fc):
+        return board[:fc] + color + board[fc+1:]
+
+    def bulk_place_stones(color, board, stones):
+        byteboard = bytearray(board, encoding='ascii') # create mutable version of board
+        color = ord(color)
+        for fstone in stones:
+            byteboard[fstone] = color
+        return byteboard.decode('ascii') # and cast back to string when done
+
+    def maybe_capture_stones(board, fc):
+        chain, reached = find_reached(board, fc)
+        if not any(board[fr] == EMPTY for fr in reached):
+            board = bulk_place_stones(EMPTY, board, chain)
+            return board, chain
+        else:
+            return board, []
+
+    def play_move_incomplete(board, fc, color):
+        if board[fc] != EMPTY:
+            raise IllegalMove
+        board = place_stone(color, board, fc)
+
+        opp_color = swap_colors(color)
+        opp_stones = []
+        my_stones = []
+        for fn in NEIGHBORS[fc]:
+            if board[fn] == color:
+                my_stones.append(fn)
+            elif board[fn] == opp_color:
+                opp_stones.append(fn)
+
+        for fs in opp_stones:
+            board, _ = maybe_capture_stones(board, fs)
+
+        for fs in my_stones:
+            board, _ = maybe_capture_stones(board, fs)
+
+        return board
+
+But we're not done yet - recall that the ko rule prevents repeating board positions. Let's record a "ko" coordinate, which is either a flattened coordinate, or None (indicating that there is no ko to worry about). To bundle these two concepts together, we'll use python's handy namedtuple to define a Position.
+
+    class Position(namedtuple('Position', ['board', 'ko'])):
+        @staticmethod
+        def initial_state():
+            return Position(board=EMPTY_BOARD, ko=None)
+
+        def play_move(self, color, fc):
+            ...
+            return new_position
+
+        def score(self):
+            ...
+
+Detecting kos is surprisingly easy, and is captured in a function `is_koish`. (See full code for details.). A ko occurs if `is_koish` is True, and exactly 1 stone has been captured. Now we just have to check that we aren't violating our ko constraint, and set the ko constraint in the returned position
+
+    class Position(namedtuple('Position', ['board', 'ko'])):
+        ...
+        def play_move(self, fc, color):
+            board, ko = self
+            if fc == ko or board[fc] != EMPTY:
+                raise IllegalMove
+
+            ... (Same code from play_move_incomplete)
+
+            if opp_captured == 1 and possible_ko_color == opp_color:
+                new_ko = fc
+            else:
+                new_ko = None
+
+            return Position(new_board, new_ko)
+
+At this point, our implementation can play an entire game.
+
+Finally, let's score our board. We'll assume the Chinese scoring system, which allows you to play as many moves as you want to capture opponent stones within your own territory. Then, for every empty region, we calculate the color of its borders, and then flood-fill that region with the same color.
+
+    class Position(namedtuple('Position', ['board', 'ko'])):
+        ...
+        def score(self):
+            board = self.board
+            while EMPTY in board:
+                fempty = board.index(EMPTY)
+                empties, borders = find_reached(board, fempty)
+                possible_border_color = board[list(borders)[0]]
+                if all(board[fb] == possible_border_color for fb in borders):
+                    board = bulk_place_stones(possible_border_color, board, empties)
+                else:
+                    # if an empty intersection reaches both white and black,
+                    # then it belongs to neither player. This can happen in seki.
+                    board = bulk_place_stones('?', board, empties)
+            return board.count(BLACK) - board.count(WHITE)
+
+Benchmarking this code, it appears that each move takes about 50 microseconds, on average, giving us 20,000 moves/sec. Given that the average full game is about 250 moves long, this naive implementation yields 80 games played per second. Some of the popular Go engines written in C are capable of ~10,000 games played per second - so clearly we have a long way to go! Not only that, our implementation makes it difficult to extract metadata like liberty counts that might be useful to help decide what moves an AI should play.
+
+[Download the code here](https://github.com/brilee/go_implementation/blob/master/go_naive.py)
+
+[Download the code here](/static/downloads/implementing_go_naive.py)

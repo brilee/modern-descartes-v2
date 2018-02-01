@@ -1,0 +1,108 @@
+Manipulating Probability Distribution Functions
+2017/1/20
+
+Introduction
+------------
+
+A probability distribution function (PDF) is a function that describes the relative likelihood that a given event will occur. PDFs come in two flavors: discrete and continuous. Discrete PDFs are called probability mass functions (PMF).
+
+In this essay I'll talk about different ways you can manipulate PDFs. I'll then use those manipulations to answer some questions: "Given independent samples from a distribution, what is the distribution describing the max of these samples?", and "If a process is memoryless, then how long will I wait for the next event to happen? How many events will happen in a given period of time?" (Answer: the exponential distribution and the Poisson distribution.)
+
+Basics
+------
+
+PDFs are generally normalized. This means that each PDF comes with a constant factor such that it integrates to 1. Similarly, the terms in a PMFs will add up to 1. 
+
+Given a PDF, you can integrate it to get a cumulative distribution function (CDF). If a PDF describes the probability that an outcome is exactly X, then a CDF describes the probability that an outcome is less than or equal to X. The complementary CDF, sometimes called the tail probability, is 1 minus the CDF, and describes the probability that an outcome is greater than X.
+
+By reversing the integral (i.e. by taking a derivative), you can turn a CDF back into a PDF.
+
+Given two independent events X and Y, the probability of both x and y happening is P(x, y) = P(x)P(y).
+
+Given two nonindependent events X and Y, the probability of both X and Y happening is P(x, y) = P(x | y)P(y) = P(y | x)P(x). P(x | y) notates "the probability of x happening, given that y has already happened". Incidentally, the symmetry of x and y in the above equations is the proof of [Bayes' rule](https://en.wikipedia.org/wiki/Bayes'_theorem).
+
+Given two independent PDFs X(x) and Y(y), the likelihood of an outcome z = x + y is given by the convolution of X and Y. This is a fancy way of saying "the sum of the probabilities for all combinations of x, y that add up to z". So, if you have two dice with PMF [1/6, 1/6, 1/6, 1/6, 1/6, 1/6], then the outcome 10 can be achieved in three ways - (6, 4), (5, 5), or (4, 6) - and the probability of each of those cases is 1/36. Overall, the likelihood of rolling a 10 with two dice is thus 3/36.
+
+Formalized, a convolution looks like this for the discrete case:
+
+$$(P * Q)(z) = \\Sigma P(x)Q(z-x)$$
+
+and like this for the continuous case:
+
+$$(P * Q)(z) = \\int P(x)Q(z-x)dx$$
+
+With these tools, we should be able to answer the order statistic problem and derive the Poisson distribution.
+
+Order statistics
+----------------
+
+Consider the following: If the strength of an earthquake is drawn randomly from some PDF, and we had 5 earthquakes, then what is the PDF that describes the strength of the largest earthquake? Or, a similar question that comes up in the analysis of [HyperLogLog](/essays/hyperloglog), or also Bitcoin mining: Given N random numbers, what is the PMF describing the maximum number of leading zeros in their binary representations? Both questions are examples of order statistics.
+
+Let's call our original PDF P(x). It would be great if we could just exponentiate our PDF, so that the solution is \\(P(x)^N\\). Alas, this isn't quite what we want, because \\(P(x)^N\\) gives us the probability that _all_ \\(N\\) earthquakes are exactly of strength \\(x\\), rather than the probability that the _biggest_ earthquake is strength \\(x\\).
+
+Instead, let's integrate our PDF to get the CDF \\(Q(x)\\), describing the probability that an earthquake's strength is less than or equal to \\(x\\). Now, when we exponentiate \\(Q(x)\\), \\(Q(x)^N\\) describes the probability that all \\(N\\) earthquakes have strength less than or equal to \\(x\\).
+
+Now that we have a CDF that describes the probability that all events are less than or equal to \\(x\\), we can take its derivative to get a new PDF describing the probability that an event is exactly equal to \\(x\\). \\(\\frac{d}{dx} [Q(x)^N]\\) is our final answer.
+
+Let's use this to solve the leading zeros problem described earlier. Flajolet's HyperLogLog paper gives the solution to this problem without much explanation (left as an exercise to the reader, etc.).
+
+<img src="/static/hyperloglog_maxzeros_eq.png" title="Flajolet's equation for likelihood of k max zeros from v draws" style="display: block; margin: 0 auto;"/>
+
+The PMF describing the probability of having \\(k\\) leading zeros is \\(P(k) = 2^{-(k+1)}\\), or [1/2, 1/4, 1/8, 1/16...]. The "integral" of this series are the partial sums, which are \\(Q(k) = 1 - 2^{-(k+1)}\\). Exponentiating gives \\(Q(k)^N = (1 - 2^{-(k+1)})^N\\). Finally, "taking the derivative" of a PMF is equivalent to subtracting adjacent terms, yielding MaxZeros\\((k, N) = (1 - 2^{-(k+1)})^N - (1 - 2^{-k})^N\\). That looks like what's in the paper! (The off by one error is because the paper defines their \\(k\\) as being the number of leading zeros plus one.)
+
+Memoryless processes
+--------------------
+
+A memoryless process is one for which previous events (or lack of events) don't affect subsequent events. For example, a slot machine should in theory be memoryless. For a memoryless process what is the PDF that describes the time in between events?
+
+Let's start by writing an equation that describes the memoryless property. Call our PDF \\(f(t)\\), where \\(t\\) is the time to the next event. Let's say some time \\(h\\) passes without an event happening. From here, the probability that an event happens at time t+h is \\(f(t+h) = f(t)\\left(1 - \\int_0^h f(s) ds\\right)\\). This follows from P(x, y) = P(x | y)P(y), where event x is "event happens at time t+h" and event y is "h time passed with no event happening"
+
+If we call \\(f(t)\\)'s integral \\(F(t)\\), then we can simplify as follows:
+
+$$f(t+h) - f(t) = -f(t)(F(h) - F(0))$$
+
+Now, divide both sides by \\(h\\). This looks familiar - both sides contain the definition of a derivative!
+
+$$\\frac{f(t+h) - f(t)}{h} = -f(t)\\frac{F(h) - F(0)}{h}$$
+
+Since this equation is valid for all positive \\(h\\), we take the limit as \\(h\\) goes to zero, and substitute the appropriate derivatives, yielding \\(f'(t) = -f(t)f(0)\\). Since \\(f(0)\\) is a constant, we'll call that constant \\(\\lambda\\) and the only function \\(f(t)\\) satisfying this differential equation is \\(f(t) = \\lambda e^{-\\lambda x}\\).
+
+This is called the [exponential distribution](https://en.wikipedia.org/wiki/Exponential_distribution). Lambda is a parameter that specifies the rate of events. The above derivation shows that the exponential distribution is the _only_ distribution satisfying the memoryless property.
+
+Deriving the Poisson Distribution
+---------------------------------
+
+The exponential distribution answers the question, "How long do I wait until the next event happens?". A similar, related question is, "In one unit of time, how many events can I expect to occur?" The answer to this question is given by the [Poisson distribution](https://en.wikipedia.org/wiki/Poisson_distribution).
+
+How might we use the exponential distribution to deduce the Poisson equation? Let's start with the easiest case. The probability that 0 events happen within 1 time unit is equal to the probability that the wait time is greater than 1 time unit. 
+
+$$P(0) = \\int_1^\infty \\lambda e^{-\\lambda x}dx = e^{-\\lambda}$$
+
+Moving up, there are many ways that 1 event can happen - the wait time could be 0.2, 0.3, 0.7, or anything less than 1. But importantly, it's not "at least 1 event", but rather "exactly 1 event". So we have to make sure that in the remaining time, no events happen. So what we end up with is a sort of convolution, where we sum over all possible combination of events x, 1 - x, where x is the time until first event, and there is no event in the remaining 1 - x time.
+
+$$
+\\begin{align}
+P(1) &= \\int_0^1 \\lambda e^{-\\lambda x}\\left(\\int_{1-x}^\infty \\lambda e^{-\\lambda t}dt\\right) dx \\\\
+&= \\int_0^1 \\lambda e^{-\\lambda x} e^{-\\lambda (1-x)} dx \\\\
+&= \\int_0^1 \\lambda e^{-\\lambda} dx\\\\
+&= \\lambda e^{-\\lambda}\\\\
+\\end{align}
+$$ 
+
+More generally, if we had some PDF describing the wait time for k events, then we could use the same strategy - sum over all combination of events x, 1 - x, where x is the time until k events and there is no event in the remaining 1 - x time. As it turns out, deducing the PDF describing wait time to k events is pretty easy to do: take the convolution of the exponential distribution with itself, (k - 1) times. The first convolution gives you the time to 2 events, the second convolution gives you the time to 3 events, and so on. These repeated convolutions give rise to the [Erlang distribution](https://en.wikipedia.org/wiki/Erlang_distribution). The repeated convolutions aren't that hard to calculate so I'll leave them as an exercise for the reader :)
+
+$$\\textrm{Exp * Exp * Exp (k times)} = \\frac{\\lambda^k x^{k-1}}{(k-1)!}e^{-\\lambda x}$$
+
+Substituting the Erlang distribution into our calculation above, we have:
+
+$$
+\\begin{align}
+P(k) &= \\int_0^1 \\frac{\\lambda^k x^{k-1}}{(k-1)!}e^{-\\lambda x} \\left(\\int_{1-x}^\infty \\lambda e^{-\\lambda t}dt\\right) dx\\\\
+&= \\int_0^1 \\frac{\\lambda^k x^{k-1}}{(k-1)!}e^{-\\lambda x} e^{-\\lambda (1-x)} dx\\\\
+&= \\frac{\\lambda^k}{(k-1)!e^\\lambda} \\int_0^1 x^{k-1} dx\\\\
+&= \\frac{\\lambda^k}{k!e^\\lambda}\\\\
+\\end{align}
+$$
+
+And there we have it: the Poisson distribution.
+

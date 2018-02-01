@@ -1,0 +1,143 @@
+How (Not?) to Use Python's List Comprehensions
+2016/9/4
+
+Everyone knows about the for loop:
+
+    all_possibilities = range(10)
+    result = []
+    for x in all_possibilities:
+        if x % 3 == 0:
+            result.append(x)
+    # result = [0, 3, 6, 9]
+
+Python has a nifty shortcut for this sort of accumulator pattern:
+
+    all_possibilities = range(10)
+    result = [x for x in all_possibilities if x % 3 == 0]
+
+Lesser known is that you can have nested list comprehensions, that handle nested for loops:
+
+    nested_list = [[0, 1], [2, 3], [4, 5], [6, 7], [8, 9]]
+    result = []
+    for sublist in nested_list:
+        for x in sublist:
+            if x % 3 == 0:
+                result.append(x)
+    # result = [0, 3, 6, 9]
+
+    # nested list comprehension version
+    result = [x for sublist in nested_list for x in sublist if x % 3 == 0]
+
+This form often confuses people new to nested list comprehensions. Human language is more suited to the following form:
+
+    # INCORRECT: raises NameError: name 'sublist' is not defined
+    result = [x for x in sublist for sublist in nested_list if x % 3 == 0]
+
+In fact, a list comprehension is something of a macro. You can think of a list comprehension as _expanding_ to an accumulator-pattern nested for loop. Then the reason for the NameError is clear.
+
+    # funny indentation pattern to make the similarities clearer
+    result = [x 
+    for sublist in nested_list
+        for x in sublist
+            if x % 3 == 0
+    ]
+
+    # can be thought of as expanding to
+    result = []
+    for sublist in nested_list:
+        for x in sublist:
+            if x % 3 == 0:
+                result.append(x)
+
+In support of this expansion hypothesis, list comprehensions used to have the strange side effect that they leak their intermediate variables, the same as a manually written for loop...
+
+    nested_list = [[0, 1], [2, 3], [4, 5], [6, 7], [8, 9]]
+    result = [x for sublist in nested_list for x in sublist if x % 3 == 0]
+    # after executing this list comprehension,
+    # the following variables are defined in namespace:
+    # x = 9
+    # sublist = [8, 9]
+
+Fortunately, leaky for loops are a problem of the past; Python 3 doesn't leak variables this way anymore!
+
+Once you understand this macro, it's not difficult to see how multiply nested list comprehensions should be unrolled.
+
+One situation where I took advantage of this feature was in a [2015 Mystery Hunt puzzle](http://web.mit.edu/puzzle/www/2015/puzzle/hunt_life_3_confirmed/) in which the puzzle boiled down to solving a set of 12 equations in 18 variables, where the variables were restricted to integers in the range [1, 26]. Naively, you could iterate over the 26 ^ 18 = 29479510200013918864408576 possibilities, and check each of them to see if they satisfied the set of equations. Of course, this would take forever to run! The trick is to discard possibilities as soon as you know they're invalid: if you know that A and B must satisfy A = 2B, then there's no point in iterating over the 26 ^ 16 possibilities for C,D,...Q,R when you know that the A = 2B constraint has already failed.
+
+    # Naive way:
+    result = []
+    for A in range(1, 27):
+        for B in range(1, 27):
+            for C in range(1, 27):
+                ...(15 more nested for loops)
+                    if A == 2 * B and (... more equations):
+                        result.append([A, B, C...])
+
+    # Smarter way:
+    result = []
+    for A in range(1, 27):
+        for B in range(1, 27):
+            if A == 2 * B:
+                for C in range(1, 27):
+                    ...(15 more nested for loops)
+                    if (... more equations):
+                        result.append([A, B, C...])
+
+If you're judicious about how early you filter out possibilities, then you can heavily trim down the number of possibilities to be checked!
+
+There only remains the problem of having a lot of nested for/if loops, which will wreak havoc on any editor, regardless how small your indentations are. Enter the single nested list comprehension that I used to solve the full set of equations in 18 variables:
+
+    from fractions import Fraction as F
+
+    results = [(a, b, g, d, e, z, et, th, i, k, th, mu, n, xi, o, pi, r, s)
+        for th in range(1, 27)
+        for o in range(1, 27)
+        for r in range(1, 27)
+        if 2*(th**2) + o**2 + r**2 == 1000
+        for s in range(1, 27)
+        for z in range(1, 27)
+        if (th**2 * z**2 * (s - z) + s**2) == 7225
+        for g in range(1, 27)
+        for d in range(1, 27)
+        for xi in range(1, 27)
+        if (g-1)**2 + d**2 + xi**2 - xi == 600
+        for (et, i) in ((xi-7, xi-11), (xi-11,xi-7), (xi+7, xi+11), (xi+11, xi+7))
+        if 0 < et <= 26 and 0 < i <= 26
+        for (a, mu) in ((4, 1), (2, 2), (1, 4))
+        for pi in range(1, 27)
+        if a*(a+pi) == 4 * g
+        for k in (3,4)
+        for b in range(1, 27)
+        for e in range(1, 27)
+        for n in range(1, 27)
+        if b**3 + z**3 + n**3 + o**9 == 1997
+        if F(a, k)**2 + F(b, n)**2 + F(d, xi)**2 + F(e, pi)**2 + F(et, mu)**2 + F(i, s)**2 == 6
+    ]
+
+    print('\t'.join(('a', 'b', 'g', 'd', 'e', 'z', 'et', 'th', 'i', 'k', 'l', 'mu', 'n', 'xi', 'o', 'pi', 'r', 's')))
+    for r in results:
+        print('\t'.join(map(str, r)))
+
+    # Output, in ~4 seconds:
+    # a   b   g   d   e   z   et  th  i   k   l   mu  n   xi  o   pi  r   s
+    # 4   9   19  12  15  3   1   20  5   4   20  1   9   12  2   15  14  5
+
+I think that's actually quite readable! Some of you may be spontaneously vomiting at this point.
+
+One drawback of this style of coding is that the fragments of this list comprehension are not first class objects. If you want to make changes to this list comprehension, editing the raw code of the list comprehension is the only way. This feels primitive in comparison to first class functions, where you can have a higher order function (map, filter, reduce) that takes another function as an argument. It's the difference in language usability of C versus Python. What would a world look like where you could pass in a list of list-comprehension-fragments, and return a function that executed the equivalent list comprehension?
+
+Well, Lisp can do that. I won't elaborate, because that would be an entirely new essay. Here's just a hint of how that might look:
+
+    (define listcompfrag1 ('for 'th '(iota 26 1)))
+    (define listcompfrag2 ('for 'o '(iota 26 1)))
+    (define listcompfrag3 ('for 'r '(iota 26 1)))
+    (define listcompfrag4 
+        ('if '(= 1000
+                 (+ (* 2 th th) 
+                    (* o o)
+                    (* r r)))))
+    ...
+
+    (expand-listcomp (listcompfrag1 listcompfrag2 ...))
+
+Anyway, that's enough list comprehensions for now. Don't do this at work, adults!

@@ -1,0 +1,22 @@
+How to Detect Edges using ConvNets
+2016/9/2
+
+Convolutional neural networks (CNNs) are great for processing inputs having spatial structure - for example, images, where the input at pixel (17, 17) is closely related to the input at pixel (17, 18). CNNs work by taking a small detection region (for example, a 5 x 5 square), and scanning (convolving) that detector region over the entire image. The same detector is applied to the whole image, and so, a feature can be detected regardless of whether it appears in the center of the image, or the upper left corner of the image.
+
+Let's figure out what happens at the edges of an image. We'll take a 100 x 100 pixel image as an example. When you scan with a 5 x 5 square, you end up with a 96 x 96 pixel image as output, because you can't scan the outermost 2 pixels of the image - at least, not without the detection region falling off the edge of the image. To fix this problem, many people will pad the image with zeros, so that you have an intermediate 104 x 104 image. The subsequent convolution then yields an output with dimensions 100 x 100. Padding allows a neural network to apply multiple convolutions without eroding the image to a single pixel. You might think that padding with zeros must introduce inaccuracies, but in practice, images tend to be centered properly and edge weirdnesses can be ignored.
+
+But what if the entire image is important? Say... what if we have a 19x19 image that represents a Go board? Edge effects are extremely important here! We can't go blindly pretending that the edge is the same as the center, the same way most CNNs do.
+
+The AlphaGo paper reveals the answer: add another input feature that consists entirely of ones! (An input feature is like the RGB channels of an image.)
+
+<img src="/static/alphago_input_features.png" title="AlphaGo Input Feature Planes" style="display: block; margin: 0 auto;"/>
+
+An input channel consisting entirely of ones, when padded with zeros, becomes a perfect way to detect when you're close to an edge. Instead of having a detection region that is oblivious to edge effects, a detection region can specify its edge requirements by using an appropriate mask on the zero-padded ones plane.
+
+<img src="/static/edge_detector_mask.png" title="Edge detector mask" style="display: block; margin: 0 auto;"/>
+
+<center>The "Tell me how close I am to the edge!" mask</center>
+
+The above mask will yield 0 if passed over the center of the image, but as it approaches edges and corners, will yield anywhere between +5 and +16, depending on how close it is to a corner.
+
+So there you have it: to give your CNN the ability to detect the edge of the image, simply add an input feature consisting entirely of ones!.

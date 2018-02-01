@@ -1,0 +1,16 @@
+Training AlphaGo's Policy Network
+2016/7/5
+
+Historically, algorithmic approaches to playing Go have not been very successful. AlphaGo's success comes not from sophisticated algorithms, but neural networks that mimic a human's game intuition.
+
+Central to AlphaGo's operation is the *policy network*, a neural network that takes a board position as input, and returns an array of probabilities for each move. This network is used to decide on a small number of possible continuations for further exploration. The policy network is a good starting point, as the training input is quite obvious. Simply feed it a set of professional-level games, and tell it to mimic professional-level play. Or, to be more precise about it: optimize the neural network to maximize the percentage of correctly guessed moves.
+
+This works surprisingly well, and a network trained in this way can play at 1 dan level. But there are glaring deficiencies in its play, which a human would probably diagnose as "lack of reading". Those deficiencies are quite expected given the architecture of a neural network, and Monte Carlo Tree Search will shore up those deficiencies nicely.
+
+But there are other deficiencies in this network's predictions.
+
+As it turns out, one of the best ways to predict a professional's next move is to look at the last move played. The next move is very likely to be within a few intersections of the previous move, and it becomes a winning "strategy" for the policy network to predict moves that are proximal to the previous move. In terms familiar to Go players - our network doesn't know when to tenuki, because it achieves its best prediction results by not playing tenuki! We optimized our network to predict professional moves, and that's exactly what we got. This is just one of the more obvious ways in which "optimizing for predicting professional plays" is different from "optimizing to play Go".
+
+To fix this issue, the AlphaGo team applied further learning techniques that actually optimized for winning moves, instead of correctly guessing moves. (Why not use this technique the entire way through? Because it's really computationally expensive. The initial training will get most of the results with much less effort, and then the expensive training can top off the playing level.)
+
+In the end, neural networks hve much in common with classical programming. Both do exactly what you optimize them to do - perhaps in surprising ways, but ultimately, not unexpected!

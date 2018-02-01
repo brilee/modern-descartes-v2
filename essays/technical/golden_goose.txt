@@ -1,0 +1,40 @@
+The Goose That Stopped Laying Golden Eggs
+2017/5/11
+
+There are many companies that have had great brands and have subsequently destroyed their reputation by pushing shoddy products. [This reddit thread](https://www.reddit.com/r/AskReddit/comments/3o7p5z/which_company_or_brand_no_longer_has_the_quality/) suggests brands like Craftsman, Pyrex, CNN, Breyers, RadioShack, among others. Was it just incompetence that led these companies to kill the goose that laid their golden eggs, or was there some other force at work?
+
+In some cases, incompetence was certainly at work. But it takes a strange kind of incompetence to be able to build a strong reputation for quality over multiple decades, only to decide one day that you didn't like making nice things any more. What if we instead assume that these companies were competent? What could explain their actions?
+
+Dealing with an aging goose
+---------------------------
+
+Consider the following: If you had a golden goose that was getting too old to lay eggs, what would you do? If you did nothing, you'd get a few golden eggs, and then you'd have an ordinary goose. You might wonder if there was something more you could do with your goose. You might even kill your goose in hopes of some gold, since you don't have much to lose.
+
+The aging goose in this story is the brand name, and the golden eggs are the sales revenue. Each of these formerly reputable brands has had their target market shrink in a foreseeable way. Who needs quality tools (Craftsman) to fix things when cheap disposable stuff is so common? Who needs quality bakeware (Pyrex) when the women who would have been using them are now working jobs and using that income to eat out? Who needs a quality TV channel (CNN) now when nobody watches TV anymore? You cannot monetize a quality brand when there aren't enough people interested in quality products.
+
+To make the metaphor more explicit, here's how you would slaughter your aging goose. Build subpar products and sell them at full price. In the decade it takes for people to catch on to your deception, you'll have pocketed a good sum of money and simultaneously have lost all of your brand reputation. This seems like a decent explanation for why a company might one day decide it didn't want to make nice things anymore.
+
+Goose demographics
+------------------
+
+An interesting question is whether golden geese are living longer or shorter nowadays, and whether their numbers have changed. In the age of internet commerce and ubiquitous 5 star rating systems, it's unclear whether brands are meaningless or even more important than before.
+
+There are a few different effects that are at play here.
+
+- The increased efficiency of rating systems makes is possible for consumers to get unexpectedly decent products at a good price, thinning the top end of the market. This decreases the number of viable brands.
+- Brand liquidation strategies don't work as well as they used to, because bad press gets around so much more quickly. Brands are more likely to fade into obscurity than leave a trail of betrayed devotees.
+- To the extent that an online marketplace's rating algorithms are trustworthy, the marketplace itself becomes a meta-brand.
+- To the extent that online rating algorithms are untrustworthy, brand reputation reemerges as the only way people can trust what they're buying. (An interesting case study here is AmazonBasics. AmazonBasics targets products with razor-thin margins, so it seems unlikely that they intend to make much profit from them. It's more like that it exists to provide customers a reliable product. So AmazonBasics is somewhat of a hedge against Amazon's rating algorithms not doing their job.)
+
+In general, I think that online marketplaces will eventually solve the ratings trustworthiness issues, leading to brand reputation being meaningless for indicating quality products. The result seems to be (from my limited vantage point) that brands are no longer about reliability and value, and more about lifestyle. It may also be that there are more brands than ever before, but they are targeting niche markets, thanks to the power of the internet.
+
+Other things to do with your goose
+----------------------------------
+
+If you don't like killing geese, there are a few other things you can do with your aging goose.
+
+One strategy is to pivot into the Golden Goose Circus business, and charge spectators to look at the goose that could lay golden eggs. (For example: Michael Jordan retired and made more money from endorsements than he earned during his career.)
+
+If you're a believer in cryonics, you could freeze your goose in liquid nitrogen and hope to revive him in the future (i.e. gracefully retire your brand name, and try to bring it back as "retro style" in a decade or two).
+
+Anyway, the word "goose" has reached semantic saturation, so I'll stop with the goose analogies now.

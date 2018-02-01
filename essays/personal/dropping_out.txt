@@ -1,0 +1,35 @@
+Dropping Out of Grad School
+2013/9/9
+
+I have some big news for everyone: I'm dropping out. I will be searching for software jobs in the Boston area over the next few months. If you or a friend are looking to hire a mathy kind of person with some formal CS background and some practical experience (mostly in python/django, scientific computing), send me a note.
+
+-------------------------------
+
+Some of you are probably wondering why it took me so long. 
+
+Before I started grad school, I had this to say to myself:
+
+> Note to my future self: If you're still a chemist, you better have a 
+> damn good reason why you haven't at least explored alternatives. 
+> Coward.
+
+And indeed I did explore alternatives - doing rotations in physical chemistry, inorganic chemistry, and origin of life/organic chemistry. I definitely considered dropping out then, as my first few rotations turned out to be not particularly captivating. I wrote some scathing lines about chemistry academia, and offered this rebuttal to the obvious question:
+
+> (To answer the obvious question, "Why are you still here, then?", 
+> I would answer, "I wouldn't be, except that by staying here, 
+> I get an opportunity to study abiogenesis, which has for a 
+> long time been a big question in my mind.")
+
+That was a lie. Sure, abiogenesis was a big question in my mind. But I don't think I'm enough of a scholar to do anything more than speculate about the question. I think the reason I felt an attraction to the field was probably because it was the last big open question in chemistry, required unusual epistemic care, and involved more than just endless screening of new reaction conditions. 
+
+Then, I had the fortune of discovering L. Mahadevan's biophysics/applied math group, which was a welcome relief from the world of chemistry. I quite happily imbibed much mathematics and physics while I was there. But what I eventually realized was that I was trying to relive an undergrad in math and physics. That ship, unfortunately, had already sailed, and I was in grad school. Grad school is about research. You get your PhD by doing research, not by taking lots of fun classes and reading about cool things. And that was the sentiment which I reluctantly began to accept, about halfway through my second year of grad school.
+
+Unfortunately, research was a complete grind for me. I was unable to work on any of my side projects, because whenever I thought about working on them, I would be overridden with guilt that said, "no, Brian, you should be working on research". And yet, I wouldn't do research either, ultimately procrastinating on Hacker News, reddit, facebook, or my RSS feed. I wasn't getting anything done, and felt like I was languishing away in grad school. 
+
+Being at Harvard didn't help my situation very much, either. Everyone is just so... accepting of my achievements in life. Clearly, since I'm going to Harvard (and have graduated from MIT), I must know exactly what I'm doing with my life, and I must be going on to do great things. (It also doesn't help that I competed in an international olympiad in high school.) Everybody is just too awed by my pedigree to ask me any hard questions about my life, and the result is that I feel like my glory days are behind me, and that there is nowhere to go but down. If nothing else, dropping out  will force me to abandon the life buoy that I've been clinging onto, and force me to remake myself. 
+
+In contrast to research, coding has always been an immersive experience for me. There was one three day stretch where I was reading and learning how to use Django. I would wake up in the morning and rush to my computer to pick up coding where I'd left off the night before. I don't think that's ever happened to me outside of some particularly addictive MMORPGs. Probably the most telltale moment came when one morning, I thought that I should probably start doing some research. After all, it would be a pretty poor showing, if right after coming back from a vacation to Asia, I procrastinated from morning to bedtime. So I went about trying to find a website blocker to prevent myself from procrastinating, but ultimately couldn't find one that would do exactly what I wanted it to do. So instead, I spent the morning reading up on Google Chrome extensions and javascript and how I could write my own website blocker. You can be sure that I wasn't reading Reddit while writing my own Chrome extension.
+
+So, what's next?
+
+At this point, my plans for dropping out and finding a job in software are set. I considered staying on for research while moonlighting CS, or taking classes towards a Master's in physics/applied math/CS, but I think the time for earning credentials is over. The only thing left to do is to throw myself into the software world.

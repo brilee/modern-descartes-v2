@@ -1,0 +1,20 @@
+Intraprocess Communication
+2014/3/17
+
+I recently wrote a sudoku solver in a mutable object-oriented style (Code is at github.com/brilee/games). This mutability posed some strange problems for me when it came time to clone the board state and carry out the depth-first brute-force.
+
+In short, I implemented the DFS .solve() method recursively by copying the board once for each move I wanted try, making a trial move, and then calling .solve() on the copied board. This has a problem, though - after having recursively spawned several generations of copied boards, it's not clear how to "unwind" the computation so that the one solved {great}^n-granddaughter is correctly passed back upwards. Furthermore, if no valid continuations are found at some generation, that error must also be passed upwards so that parent generation can aggregate failure information and continue passing it up.
+
+I ended up solving this problem by making liberal use of Python exceptions. Every time an attempted assignment/elimination failed, an exception is raised, which propagates upwards to the copier by virtue of Python exceptions' dynamic scoping. If all possible pathways raise exceptions, then that computational pathway itself raises an exception.
+
+This brings us to intraprocess communication. (As opposed to interprocess communications.)
+
+There are a few established ways for child functions to pass information back to the parent function. The most obvious one is by way of the return value (Functional style). The second obvious way is by mutating a shared variable, which might be global, local, or shared object (C-style). The last way is via exceptions/errors.
+
+It might be strange to think of exceptions as an information channel, but if you look at languages like Go and C, the convention is to use function returns as a channel for errors/exceptions, while doing their work on objects whose pointers are passed in. Bash uses the concept of stdin, stdout, and stderr - one input channel and two output channels, one of which is devoted to transmitting errors. I think that learning how a language handles errors versus regular output reveals a lot about the philosophy and use cases of the language.
+
+Norvig's sudoku solver, which inspired mine, mixes both output and error streams. His functions either return a pointer to a board in the case of success, or return False. Python's dynamic typing makes this mixed return type possible. A language like Haskell or OCaml would express this idea as a "Maybe SudokuBoard".
+
+I decided to explicitly split the two streams, so that errors are passed through normal Python exceptions, while information is carried through board state.
+
+Python's exceptions are somewhat strange in that they are dynamically scoped - the catcher of the exception depends on when / how the exception-raising function is called. In some sense, this dynamic scoping is what let me easily "jump" the divide between different generations of cloned boards. 

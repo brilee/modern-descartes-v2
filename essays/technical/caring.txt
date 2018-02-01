@@ -1,0 +1,22 @@
+Running out of Care
+2015/11/29
+
+I've always had trouble caring about all of the things that the world wants me to care about. I've never felt particularly compelled to donate to all the charity drives that happened around me in high school / college / work / in the street / etc. I've also never cared much for social justice movements or political movements. I even started wondering at some point whether I was defective in some way for not caring about things. I decided that the answer was no, since I do care about some things, like the growth of the Go community.
+
+I think the problem is that as a native of the Internet, I've been inundated with demands for "care" my entire life.
+
+I've never lived in the 60s. But I can imagine that 50 years ago, the only way to spread a message or make a plea for help was to go out on the streets to solicit people, or perhaps take out radio/TV ads, or to convince a government agency that your cause needed to be addressed. It was expensive, both in time and money, to ask people to care. And so, the demands for care tended to be limited in quantity, as well as higher in quality. People would be more likely to respond to them.
+
+Today, the Internet has become a ridiculously cheap platform for spreading messages. Demands for care are now vastly greater in quantity and vastly lower in quality. The media is constantly trying to get you outraged at minor offenses that happen in this one small town that you've never heard of. Naturally, we learn to ignore this deluge, to preserve our emotional sanity.
+
+Imagine a country boy visiting a city for the first time. He's overwhelmed by the aggressive panhandling, and gives out his money to everybody who asks. Our country boy starts realizing that there's no end to the demands for his money, and learns to avoid the panhandlers. Eventually, he doesn't even need to think about it - as soon as anybody in shoddy clothes starts approaching him, the words "No, sorry" are already coming out of his mouth. And so it is with the Internet.
+
+![care factory out of stock](/static/carefactory.jpg I wrote this essay just so that I could use this image)
+
+The dilemna now faced by demanders of care is identical to the dilemna that advertisers now face. After all, advertisers are also trying to get you to care about something - their product.
+
+I've had some personal experience with trying to get people to care about my causes. Maybe ironically, even as I ignore other people/organizations' attempts to get me to care about their pet issues, I struggle as a Go organizer to get people interested in Go.
+
+Fortunately for me, Go is obscure, but not so obscure that people won't stumble onto it on their own. The people who walk into my beginner events are typically people who have already heard of Go and are interested to learn more. So, instead of focusing my energy on convincing the world to care about Go, I focus on getting interested people to care _more_ about Go. These people sometimes go on to tell their friends about Go.
+
+I think the moral here is that it's hard to get someone to care if they don't already care. Instead, find people who already care a little bit, and nurture the care. Don't broadcast your message/opinions; instead, wait until people ask you to tell them more. The Internet is very good at helping people find what they're looking for, so set up your booth and wait for people to walk in.

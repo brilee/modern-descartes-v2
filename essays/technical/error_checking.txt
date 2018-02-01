@@ -1,0 +1,21 @@
+Four Short Stories on Error Checking
+2012/6/24
+
+My microwave clock has been broken since a power outage. It now reads something like 7 hours behind the real time. I've been too lazy to fix it, but the bright side is that it's 7 hours behind, and not 15 minutes behind. If it were 15 minutes behind, then who knows - I might mistake it to be the correct time, and end up fifteen minutes late to an appointment.
+
+
+
+During the early years of computing, scientists and engineers were responsible for running numerical simulations of various sorts. To do this, they needed randomized starting conditions. Von Neumann favored the  ["middle square"](http://en.wikipedia.org/wiki/Middle-square_method) method. While this method was not a very good pseudo-random number generator, its speed made up for its shortcomings in those early days. Additionally, a useful property of the middle-square method was that when it fell into a short cycle, it was immediately obvious. While other methods may have had undetectable cycles of intermediate length, the middle-square method would invariably output legitimate pseudorandom numbers for some time, then fall into a cycle of length 1, 2 or 4. [1]
+
+
+
+One day, I was playing with some traffic models. My goal was to be able to correctly model the behavior of a line of cars as they accelerated from a standstill when the light turned from red to green. [2] I had collected some actual data at an intersection, and was planning to test my model against the data, as well as to fit two parameters. I ran a short program to fit these parameters and plot the actual times vs. my program's predicted times. To my astonishment, I had almost a perfect fit! Upon deeper inspection, it turned out that my model had merely gotten the times right by coincidence - while the cars behaved nicely long enough to get to the intersection, afterwards, their velocities oscillated with exponentially growing amplitude. I would have missed this if I had not insisted on checking the raw numbers from the simulation. I recoded my simulation and got a worse fit, but at least it didn't blow up as it had before.
+
+
+
+(This last story is fiction. Or so, I hope)
+The US News and World Report was doing its annual ranking of universities. They had recently changed the weightings on some of the subscores. Upon running their algorithm, an unexpected candidate rose to the top - Caltech! (Zing.) They concluded that there must have been a mistake with their algorithm, readjusted their weightings, and reran their algorithm. This time, Harvard rose to the top, as it should have. Happy with their results, US News and World Report published their university rankings and raked in a lot of dough.
+
+Notes:
+(1) Is it actually true that all cycles are short? A few minutes tinkering around with code seems to say yes.
+(2) The time for the nth car to reach the intersection is approximately 2*n seconds

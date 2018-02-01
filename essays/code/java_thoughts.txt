@@ -1,0 +1,89 @@
+A Pythonista's Initial Thoughts on Java
+2015/3/16
+
+Over the last two months, I've been working with Java for the first time in my coding career. It's been... an interesting experience, to say the least. Given my coding style and preferences, I wouldn't have imagined that I'd like Java at all, but I've found myself surprised at how reasonable it can be. One major caveat - since Java is such a massive landscape, my experience is heavily a function of Hubspot's Java development environment. With that in mind, here are some observations.
+
+<hr/>
+
+Maven, one of Java's dependency + build + test management solutions, is light years ahead of Python's setuptools/pip/virtualenv ecosystem.
+
+Python encourages the use of `pip install` whenever you need a library, which leaves a difficult-to-reproduce environment of installed libraries. (If you're lucky, you'll have remembered to create a new virtualenv.) This environment "just works" for the original developer, but makes lots of pain for the teammate that has to re-figure out how to download the right versions of all libraries. Java's Maven, on the other hand, can and should be configured to fail your build if you either have extraneous or missing dependency declarations. By encouraging a workflow that's equivalent to reinstalling from a git clone, Maven makes it easy to keep all your dependencies in order.
+
+Additionally, Pip doesn't do recursive dependencies. Pip instead encourages you to specify every single direct and indirect dependency at the project root level. This works well enough when your dependency tree is only one or two levels deep, but at three or more, it becomes a nightmare quite quickly. Maven, on the other hand, fully supports recursive dependency trees, and additionally provides workarounds for version and namespace conflict issues.
+
+The downside of Maven is that if you just want to run some quick test code, the overhead of initializing and configuring a Maven project is discouraging. To be fair to Maven, half of this overhead is inherent to a compiled language like Java. Python lets you open up an interpreter prompt and have your irreproducible environment of installed libraries at your fingertips for quick experimentation.
+
+<hr/>
+
+Java code tends to make heavy use of dependency injection (DI). DI is a fancy name for "instead of directly calling imported globals, pass them in as function arguments and invoke them as local variables". It's useful for substituting mock depencies into your code for testing. The idea can be implemented in Python as follows:
+
+    # without DI:
+    # file 1
+    import world;
+    def f():
+        world.destroy()
+
+    # file 2
+    from file_1 import f
+    def use_f(): f()
+    def test_f():
+        # Patch module with a mocked out method.
+        # When you reimport the same module, Python detects that it's
+        # already imported the module, and returns a reference to it.   
+        import world, fake_world
+        original_world_destroy = world.destroy
+        world.destroy = fake_world.destroy
+        f()
+        # restore original function
+        world.destroy = original_world_destroy
+
+    # with DI:
+    # file 1
+    def f(world_module):
+        world_module.destroy()
+
+    # file 2
+    from file_1 import f
+    import world
+    def use_f(): f(world)
+
+    import fake_world
+    def test_f(): f(fake_world)
+
+DI is an interesting idea. Since it's a hassle to stuff dependencies into function signatures, you would probably only want to use it for things you actually intend on swapping out in tests. Java/Guice goes a bit overboard with DI, requiring an all or nothing approach. Python can probably benefit from DI in these small doses.
+
+<hr />
+
+No list of Java commentary is complete without mentioning its verbosity. Boo. You might think that with such verbose type information built into the language, Java might even be able to verify that your switch-case statements cover all cases exhaustively, and not bug you at compile-time about the missing default case if you have covered them all. Nope. On the plus side, while trying out Java's switch-case statement, I made a classic missing break fallthrough bug, which my IDE promptly caught. +1 for IDEs.
+
+Due to its simple type system, Java doesn't allow keyword arguments. If you want to use them anyway, you can pass in a Map&lt;String,Object&gt;, but the recommended workaround is the Builder pattern, which is disgustingly verbose.  In between variable declarations, the builder's variable declarations, getters, setters, constructors, and the build() method, it comes out to ~9X lines of code, where X is the total number of args and kwargs. 
+
+OCaml manages to do kwargs despite strong typing - [http://caml.inria.fr/pub/docs/u3-ocaml/ocaml051.html](http://caml.inria.fr/pub/docs/u3-ocaml/ocaml051.html) - so it's clearly not impossible to do. But in the meantime, Java is stuck with the Builder pattern.
+
+<hr />
+
+Judicious use of [annotations](http://docs.oracle.com/javase/tutorial/java/annotations/index.html) can greatly simplify Java code. That being said, this great power is essentially a neutered Lisp macro. If an idea is hard to express in Java, just escape the confining grasp of Java and enter the anarchic world of plaintext annotations that can be interpreted and executed in arbitrary ways. As a simple example, [annotations allow keyword arguments with defaults](http://docs.oracle.com/javase/tutorial/java/annotations/declaring.html)! The downside of annotations is that implementing them seems rather annoying. Lisp macros are less mysterious and more accessible.
+
+That being said, the difficulty of implementing your own annotation might be considered a feature. The Lisp community is notorious for not being able to cooperate on a single dialect + ecosystem. But in Java, [even annotations invoke the oversight of a standards committee](https://jax-rs-spec.java.net/nonav/2.0-rev-a/apidocs/index.html).
+
+<hr />
+
+XML is to Java as JSON is to Ruby + Python + Javascript. As you might expect, XML comes with its own ecosystem of tooling.
+
+Java's native XML API for navigating through nodes is horrendously verbose. Java's solution to this self-inflicted problem is XPath expressions. With Python/Ruby/JS, the built-in syntactic support for dictionary+list access makes operating with JSON painless, so that "JSONPath" never had to be invented. 
+
+XPath expressions look like `/property/blah` and when executed, do the equivalent of `json_node['property']['blah']`. XPath can compactly express more powerful selectors, like "find all nodes directly under the `objects` node having property X = Y", which looks like `/objects/*[@X=Y]`. The equivalent selector in JSON land would have to be written manually as either a filter or for loop. I find declarative programming to be nicer than imperative or functional programming, so XPath expressions are neat.
+
+XML can also declare that it is conforming to a certain document schema. For example, Maven configuration files are XML files, and the XML schema declaration (XSD) can be found at [http://maven.apache.org/xsd/settings-1.0.0.xsd](http://maven.apache.org/xsd/settings-1.0.0.xsd). This XSD has information like what element names are valid; what child elements can be expected; what options are available on certain elements, and so on. As you can see, the XSD is yucky and nobody would ever want to figure out how to write their own. But if somebody else has done it for you, it means that your IDE can autocomplete things and tell you when you've made a syntax mistake in your XML document, which is amazingly convenient. 
+
+For example, Liquibase database schema migrations are written in XML. Using the Liquibase XSD, you and your IDE can easily write schema migrations and be fairly confident that there isn't a syntax error that's going to drop your tables. YAML / JSON configuration files, on the other hand, are quite typo-prone, which can be frustrating.
+
+Given that XSDs are supposed to help you construct XML files, I decided to look, and successfully discovered that [schema declarations for schema declarations exist](http://www.w3.org/2001/XMLSchema.xsd). I find this utterly hilarious. I'm sure it's the magnum opus of whoever managed to write that document, and I can only imagine the satisfaction of successfully validating the document against itself.
+
+<hr />
+
+I think the common theme here is that Java is well-suited for large teams. With large teams, a core group of programmers can do the annoying and difficult work that will enable everyone else to work together in a way that is mutually intelligible to everyone. In Java, solutions tend to be fully baked, and make your life reasonably pleasant; the downside is that it's difficult to create your own solutions. Problems that have not yet been solved in Java will eventually be solved, but until then you're basically out of luck, because you certainly aren't going to want to implement a solution yourself.
+
+To summarize: Python makes small projects easy, medium projects easy, and large projects hard. Java makes small projects medium, medium projects medium, and large projects medium-hard.
+
+Different tools for different scales.

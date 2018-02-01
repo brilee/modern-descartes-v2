@@ -1,0 +1,38 @@
+Why We Hate Surge Pricing - and what Uber can do about it
+2015/3/1
+
+Surge pricing debates are back along with gratuitous amounts of snow in Boston. Uber, the media's perennial flogging boy, is predictably enough at the center of it again. I decided to take a deeper look at the whole issue.
+
+Uber's proponents say that surge pricing brings out extra drivers exactly at the moments when they're most needed to help ferry a large number of stranded passengers around. The theory of surge pricing is straightforward, uncontroversial, and broadly supported by economists to be more optimal than constant pricing for all parties involved. 
+
+Opponents of surge pricing call it price gouging at the moment when they most need the ride and have no choice but to pay the extra price. They are mocked by the intelligentsia as economic halfwits, and are told that they deserve to walk home for their ignorance.
+
+<hr/>
+
+I generally subscribe to the belief that evolution works and that our instincts are a good baseline. If you know nothing else, going with your gut feeling is probably not that bad. Our instincts are notoriously inaccurate when it comes to sufficiently advanced science and technology, but in areas of human interaction and game theory, they turn out to be surprisingly adept.
+
+It follows then, that there's a reason we shun the idea of surge pricing. If we can understand what this reason is, we'll be better able to decide whether to ignore our emotions as unsophisticated or to embrace them as wise. We could also redesign economic incentives to avoid the pitfalls our emotions are trying to steer us from.
+
+<hr/>
+
+Why anger, anyway? What does getting angry at surge pricing accomplish?
+
+Anger at surge pricing is supposed to discourage it within our society. Somehow, the mechanisms of evolution and altruism dictate that if a society's better off without something, then we will probably evolve an emotional response discouraging that something. I don't think science understands yet how this happens, but it does.
+
+Our social disapproval of stealing, for example, is pretty easy to explain. We accomplish more together when we're not spending our efforts playing zero-sum games with each other.
+
+But why might it be advantageous for evolution to deter the supposedly economically efficient surge pricing?
+
+Surge pricing has two main effects. First, it reallocates limited resources to the people who are willing to pay the most for them. Second, it encourages more supply, alleviating the scarcity problem.
+
+Economically, the first effect should be a net utility plus, since the people who gain more benefit are the ones who receive the resources. But in practice, they're merely allocated to those who are the least price sensitive. The benefit only exists on paper for certain utility functions and wealth distributions. Unfortunately, this problem isn't going to be solved without some radical restructuring of society.
+
+The second effect is an undisputed plus, both economically and emotionally speaking. If this effect were strong enough, I think we might be able to overlook the negative reallocation effect. But historically, this second effect hasn't materialized.
+
+Imagine your neighborhood cobbler raises prices on his shoes because of leather shortages. It's unlikely that a new cobbler will open shop, or that leather will be moved from nearby towns to fill the gap in supply - at least, not within the next month before your shoes wear through. When your neighborhood gas station raises gas prices during a hurricane, it's unlikely that production, refinement, piping, and trucking of gas can ramp up in the two days before the hurricane passes. The overhead cost of restructuring the market prevents optimal distribution of supply.
+
+When there's a blizzard and Uber says "triple prices today", should you believe that there's going to be additional taxi drivers as a result? Theoretically, there should be, but we know how that's worked out in the past. It could very well be that Uber is the first market that is well-oiled enough that surge pricing actually brings about increased supply, and within the duration of the surge pricing. But until Uber has released data defending this claim, they'll continue to take justified criticism that they're taking advantage of scarcity to increase profits.
+
+My recommendation to Uber, and to anybody who would institute surge pricing, is to stay tight-lipped about the part where only the rich get to use taxis during surge pricing, and instead emphasize the part where your surge pricing policy actually brings more supply to the table. Even more importantly, release the data supporting this assertion. Increasing supply is widely understood, widely accepted, and does not trigger the same emotional response against wealth inequality.
+
+People aren't stupid; if they can see that there are cabs to take them home where before there were not enough cabs, then they'll overlook the increased prices. So far, they've only seen that they can't take a cab home because the cabs are too expensive.

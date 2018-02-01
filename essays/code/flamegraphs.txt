@@ -1,0 +1,109 @@
+Profiling with Flame graphs
+2016/10/6
+
+I recently learned about flame graphs, a technique to quickly understand the performance of your program. Although I've used profilers in the past, I've always found it difficult to glean actionable insight from their output. Instead, visualizing profiler output as a flame graph makes the big picture more obvious and makes it easier to figure out which part of your code you should be optimizing.
+
+There are two main strategies for profiling: tracing and statistical. Tracing profilers work by attaching an observer to the stack, such that every function call is logged (call stack, duration, etc.). A statistical profiler instead periodically samples the current call stack of the program.
+
+Both kinds of profilers yield a tree of method calls, where each node in the tree is annotated with a number. For tracing profilers, the number represents some duration of time; for statistical profilers, the number is a sample count. While the tracing profiler produces more accurate numbers at the expense of greater overhead, both profilers produce numbers that are proportional to "how much does this function call contribute to overall runtime?".
+
+Once you have this annotated tree of method calls, the next step is to figure out which parts of your code are slow or unnecessary. This can be a difficult task because a textual representation of this data is inherently linear, whereas the profiler output is inherently tree-like. Different parts of your program may have different topological characteristics (average depth of call stacks, average number of subroutines per function, etc.), and to see past these differences, a good representation should embrace the tree-like structure of the output.
+
+Let's look at some specific examples of profiler output. I was recently optimizing some python code that implements the game of Go. The built-in profiler for Python is cProfile, a tracing profiler. Shown below is the default output of cProfile, which I found difficult to analyze.
+
+    15761968 function calls (15761867 primitive calls) in 43.709 seconds
+
+    Ordered by: cumulative time
+
+       ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+         18/1    0.003    0.000   43.709   43.709 {built-in method exec}
+            1    0.000    0.000   43.709   43.709 go_benchmark.py:1(<module>)
+            1    0.000    0.000   43.673   43.673 go_benchmark.py:66(measure_game_exec)
+            1    0.000    0.000   43.673   43.673 timeit.py:216(timeit)
+            1    0.000    0.000   43.673   43.673 timeit.py:170(timeit)
+            1    0.002    0.002   43.673   43.673 timeit.py:82(inner)
+         1000    0.342    0.000   43.671    0.044 go_benchmark.py:67(snippet)
+       288000    2.020    0.000   40.765    0.000 go_naive.py:117(play_move)
+       505000    2.083    0.000   37.145    0.000 go_naive.py:65(maybe_capture_stones)
+       542000    7.275    0.000   36.130    0.000 go_naive.py:38(find_reached)
+      1084000    1.199    0.000   27.596    0.000 go_naive.py:35(unpack_bools)
+      1084000   26.398    0.000   26.398    0.000 go_naive.py:36(<listcomp>)
+         1000    0.187    0.000    2.558    0.003 go_naive.py:150(score)
+       505014    0.325    0.000    0.797    0.000 {built-in method any}
+      3543001    0.765    0.000    0.765    0.000 {method 'pop' of 'list' objects}
+       288000    0.406    0.000    0.701    0.000 go_naive.py:96(is_koish)
+      3506765    0.601    0.000    0.601    0.000 {method 'append' of 'list' objects}
+      1933000    0.594    0.000    0.594    0.000 go_naive.py:67(<genexpr>)
+       288000    0.363    0.000    0.363    0.000 go_naive.py:55(place_stone)
+       289000    0.170    0.000    0.298    0.000 <string>:12(__new__)
+        60000    0.214    0.000    0.261    0.000 go_naive.py:58(bulk_place_stones)
+       288000    0.246    0.000    0.246    0.000 go_naive.py:99(<setcomp>)
+
+[cProfile viewer](https://github.com/ymichael/cprofilev) is a slight upgrade, allowing you to interactively explore the call tree via child/parent relationships. It does a better job at pinpointing slow code, but you can still only see one node at a time.
+
+
+    15759261 function calls (15759234 primitive calls) in 42.862 seconds
+
+    Ordered by: cumulative time
+    List reduced from 397 to 1 due to restriction <'play_move'>
+
+    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+    288000    1.989    0.000   39.922    0.000 implementing_go/go_naive.py:117(play_move)
+
+
+    Called By:
+
+        Ordered by: cumulative time
+        List reduced from 397 to 1 due to restriction <'play_move'>
+
+    Function was called by...
+    implementing_go/go_naive.py:113(play_move)  <-
+    ncalls  tottime  cumtime
+    287389    1.983   39.762  go_benchmark.py:67(snippet)
+
+
+    Called:
+
+        Ordered by: cumulative time
+        List reduced from 397 to 1 due to restriction <'play_move'>
+
+    Function called...
+    implementing_go/go_naive.py:113(play_move)  ->
+    ncalls  tottime  cumtime
+    288000    0.095    0.095  implementing_go/go_naive.py:7(swap_colors)
+    288000    0.343    0.343  implementing_go/go_naive.py:55(place_stone)
+    504998    2.023   36.366  implementing_go/go_naive.py:65(maybe_capture_stones)
+    288000    0.398    0.690  implementing_go/go_naive.py:96(is_koish)
+    287993    0.170    0.295  <string>:12(__new__)
+    248999    0.040    0.040  {built-in method len}
+    505000    0.104    0.104  {method 'append' of 'list' objects}
+   
+
+A flame graph presents profiler output as a tree, and simultaneously presents timing information via width of the rectangles. It's by far the best way I know of to present this sort of data. Here's an example of a flame graph:
+
+<object type="image/svg+xml" data="/static/go_naive_unpack_bools.svg" width="100%">Your browser doesn't support SVGs.</object>
+
+In this graph, the horizontal axis is execution time or sampling counts (depending on the type of profiler that produced the data) and the vertical axis is the call depth.
+
+This flame graph is from a benchmark of part of my Go AI. I don't know about you, but that big lump at the very top is the first thing I notice -- it takes up about 2/3 of the width of the graph. Since my code spends most of its time here, it's a prime target for optimization efforts. After rejiggering that part of the code, I ended up with a 4x speedup. Granted, an improvement of that magnitude is lucky, and can occur independently of the profiling + visualization technique used.
+
+I'm happiest about how quickly I was able to identify the offending code with flame graphs. With cProfile's tabular output, I had been staring for a few minutes and still could not identify the slow part of the code. But with the flame graph, I could see the biggest problem almost instantly, while also gaining a sense of where the next biggest problems were.
+
+After optimization, the new flame graph looks like this:
+
+<object type="image/svg+xml" data="/static/go_naive_optimized.svg" width="100%">Your browser doesn't support SVGs.</object>
+
+In general, you can find low-hanging optimizations until your flame graph looks like a series of equally-sized blocks. At that point, you'll have to work harder to eke out each smaller improvement in performance (by attacking one block after another).
+
+While I've shown you a graph from Python, flame graphs are easy to generate for any language and any profiler. See [Brendan Gregg's website](www.brendangregg.com/flamegraphs.html) for a handy list of flame graph-compatible profilers and the `flamegraph.pl` SVG generation script itself. I used [python-flamegraph](https://github.com/evanhempel/python-flamegraph) as my sampling profiler. If your favorite profiler doesn't offer a flame graph-compatible output, it should be simple to convert the actual output to one that's `flamegraph.pl`-compatible -- it's just  (call_stack, number) pairs.
+
+Another thing to keep in mind when using statistical profilers is the invisible error bars on your sample counts. In general, when you have a large number \\(N\\) of chances to observe a rare event (with probability \\(p\\)), you will observe the event \\(Np\\) times, on average. Furthermore, the variance of the number of observation is also \\(Np\\), meaning that the standard deviation is \\(\sqrt{Np}\\). So if you see that a particular call is made 9 times, then the error bars are \\(9 \pm 3\\). (The math behind this sort of sampling is explained by the [Poisson distribution](https://en.wikipedia.org/wiki/Poisson_distribution) ).
+
+A useful rule of thumb is: the code snippet you're measuring should have racked up at least 100 samples. This will give you 100 \\(\pm\\) 10 samples (10% error bars) on that code snippet.
+
+People always say that the first rule of optimization is "always profile first". I had resisted this advice, mostly because wading through a wall of numbers was always such a pain. Now that I know that flame graphs can alleviate this pain, profiling code has becomes that much easier to do. Give it a try!
+
+<hr />
+
+Major thanks to Leah Hanson for walking me through the basics of flame graphs and showing me how amazing they are.
+

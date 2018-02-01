@@ -1,0 +1,9 @@
+Path Shenanigans
+2014/3/14
+
+I had turned in my working laptop for repairs and was doing some work on my ~5 year old macbook. I was trying to figure out why my python dict comprehensions were throwing syntax errors, and realized my python version was old. I checked my $PATH variable, which turned out to be an amalgation of 6 different python versions (of which only the first one did anything). 
+
+Turns out that when I was just starting to program, I did all sorts of crazy stuff. Thinking back, I dimly remembering experimenting with the then-new and hyped Python 3.0 at the same time that I was taking an introductory python class that used Python 2.6. I had to submit python2.6 syntax programs for grading, and since I didn't know how to import print functions from the future, I ended up changing my python version back and forth by rerunning the appropriate installer downloaded from python.org. I had no idea how to use the command line, so double-clicking the "installer" was the way to go.
+
+Each reinstallation detected that the python version requested was already installed, and thus "installed" that python version by appending the appropriate $PATH prepend to the end of my .bash_profile file. So over the course of 5 different python version "changes", my .bash_profile accumulated a bunch of $PATH edits, so that it looked something like $PATH="/path/to/python/2.6/bin:$PATH"; export PATH; $PATH="/path/to/python/3.0/bin"; export PATH; (times 6).
+

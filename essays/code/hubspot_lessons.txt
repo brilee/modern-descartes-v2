@@ -1,0 +1,18 @@
+Lessons from a year at Hubspot
+2015/5/10
+
+I started working at Hubspot almost exactly a year ago. I've improved at the actual mechanics of writing code, but along the way, I learned some other things that that I didn't expect to learn.
+
+1. Support knows more about the product than you. Yes, even the part of the product you're developing. Ask them questions; you'll be surprised at what you learn. The corollary to this lesson is that in order to learn your product thoroughly, you have to be actively using it yourself and talking to people who are having frustrations with the way your product works.
+
+2. Opengrok (a tool for searching through multiple codebases) is incredibly useful. The most simple use of Opengrok is to search the literal text of a cryptic error message to see where and why it's being thrown. Another use is to find multiple working examples of a particular code construct.
+
+3. Upon first seeing a "mature" codebase, you'll start itching to rewrite it. Ignore it; whether the code needs a rewrite or not, now is not the time. By working with the nitty-gritty bits of the code for another 3-6 months, you'll learn how the original developers fell into various pitfalls. Additionally, you'll get the rewrite done much more quickly once you're familiar with all the things that need to happen.
+
+    (This lesson probably applies to things that are not code. Like, say, our government or healthcare or other X system you think is horrible.)
+
+4. Always have a guaranteed-success side project you can be working on, whether at work or at home. It can be depressing to not be getting things done on your main project. Having a side project will let you ease that feeling of helplessness and remind yourself that you can still accomplish tasks.
+
+5. When you change something about how your data structures work, always fix the old data and migrate it to the new format! It's seductively easy to put in an if statement here and there to handle the two varieties of data - but not only will you (and the rest of your team) have to remember to write these if statements for the rest of eternity, but the next time a data structure change happens, you'll have not three, but _four_ varieties of data, and in general, up to 2^n cases to deal with. And if you're going to have to eventually fix it, why not fix it now, while the code's fresh in your mind?
+
+    In one case at Hubspot, we rewrote our system for customer-created forms completely, but left the old forms system lying around. Hacky support for editing/rendering these forms, processing the data submitted through these old forms, as well as integrations with other parts of our infrastructure has now been dragged, kicking and screaming, through two generations of code overhauls. Sick of all the nonsense, I went and migrated all of that forms data. All in all, the number of lines of code (let alone time spent) involved in my data migration is approximately 20x to 50x less than the number of lines in production required to support the old forms system.

@@ -1,0 +1,123 @@
+Why RESTful APIs?
+2016/9/22
+
+This was originally a talk given at the Recurse Center. It explores the technical origins and necessities of remote procedure calls, and how RESTful style tries to address some of those problems.
+
+What's an API?
+--------------
+
+Let's talk about software. Software works by having multiple layers of abstractions; each layer is implemented in terms of the layer below it. 
+
+<img src="/static/call_graph.svg" title="Call graph, with each layer calling a layer below it" style="display: block; margin: 0 auto; max-width:384px;"/>
+
+An API, then, is the abstraction presented by each layer to the layer above it.
+
+Normally, each of these methods in the call graph are happening on the same machine. This is the case for apps around, say 2005. But nowadays, we like to leverage other people's machines to run our apps.
+
+What this means is that at some point, a function call has to be made across the network. This is sometimes called an RPC - a "Remote Procedure Call". RPCs, unlike local calls, also have to deal with network reliability issues.
+
+<img src="/static/call_graph_remote.svg" title="Call graph, with local/remote split" style="display: block; margin: 0 auto; max-width:512px;"/>
+
+Network reliability
+-------------------
+
+One of the problems that arise specifically for RPCs is network unreliability. Packets can be delayed, dropped, duplicated, arrive out of order, and God knows what else. (TCP does guarantee in-order delivery, but HTTP/1.1 opens up new TCP connections for each request, so that guarantee is lost.)
+
+Let's address each of these failure modes individually.
+
+If an action requires more than two requests to happen successfully, this is a recipe for failure, as either request may be dropped/retried unpredictably. It's better to design the API to require one request for actions that happen together.
+
+If a request is dropped, it can simply be retried. This shifts one class of problems (dropped requests) to another class (duplicated requests).
+
+If a request is duplicated, what can we do? REST provides an architectural principle to help us deal with this.
+
+What is REST?
+-------------
+
+REST stands for Representational State Transfer. This is a compact way of saying, "Don't tell me what to do; show me what you want the end result to be".
+
+Instead of giving instructions like "Move 10 feet north", you give instructions like "Move to [latitude, longitude]". You can see how this helps with accidentally duplicated API calls. Once you have a strategy for dealing with retries, you can even begin using retries as a strategy for dealing with network reliability!
+
+What's in an RPC protocol?
+--------------------------
+
+An RPC protocol describes the mechanics of how a function call is to be made over the network.
+
+There are lots of factors that go into designing a good RPC protocol. At the bare minimum, an RPC should support basic function calls with fixed or variable number of arguments, as well as optional orguments. It should support a variety of return types, as well as a variety of errors. In other words, it should replicate the local computing experience as much as possible. Of course, an RPC should also have well-defined serialization/deserialization semantics that can be implemented in any languages.
+
+Designing RPCs is hard! Microsoft's got an RPC protocol. Google's got an RPC protocol. If you want to dig into libraries like Cap'n Proto, you too can have your own high-performance RPC. But for the rest of us, there's HTTP, and it's okay.
+
+HTTP as an RPC protocol
+-----------------------
+
+HTTP stands for "HyperText Transfer Protocol". As the name suggests, HTTP was originally designed to transfer HyperText (HTML) documents. But over time, the HTTP spec has evolved to give it increasingly more whistles and knobs, nearly all of which are useful for turning HTTP into a fully fledged RPC protocol. You shouldn't feel obligated to use every whistle and knob, but you should be aware of them, so you don't reinvent the wheel.
+
+Let's look at an HTTP request-response pair.
+
+    (Request)
+
+    POST /v1/charges HTTP/1.1
+    Host: api.stripe.com
+    Authorization: Basic c2tfdGVzdF9CUW9raWtKT3ZCaUkySGxXZ0g0b2xmUTI6
+    User-Agent: curl/7.43.0
+    Accept: */*
+    Content-Type:application/x-www-form-urlencoded
+    Content-Length: 97
+
+    amount=2000&currency=usd&source=tok_189fT72eZvKYlo2CBPeBNQGk&description="Charge for example.com"
+
+    (Response)
+
+    HTTP/1.1 200 OK
+    Server: nginx
+    Date: Tue, 20 Sep 2016 20:57:25 GMT
+    Content-Type: application/json
+    Content-Length: 1490
+    Connection: keep-alive
+    Cache-Control: no-cache, no-store
+    Request-Id: req_9EO5sf0IRWo3xW
+    ...(omitted response headers)
+
+    {
+      "id": "ch_18vvIv2eZvKYlo2C9gIZnjUP",
+      "object": "charge",
+      "amount": 2000,
+      "currency": "usd",
+      "description": "\"Charge for example.com\"",
+    ...
+    }
+
+There's a lot of features here, and I'll briefly summarize the most important ones:
+
+(Request)
+
+- Method (GET, POST, etc.): What you want to do to the resource
+- Resource (/v1/charges): Which resource
+- Body: How to change the resource
+
+(Response)
+
+- Status Code/Message: Whether your request worked or not
+- Response Body: The result of the function call
+
+In these five fields, you can see the majority of the details required to execute an RPC and handle return values / errors. HTTP is not a fully general RPC; the Method / Resource / Body fields place some pretty heavy expectations on how you should structure your function calls. But this is intentional; the idea is to force you to adopt an RPC style that is more RESTful and more robust to network weirdness.
+
+Also notable is the Authorization header for auth purposes. Accept, Accept-Charset, Accept-Encoding, Content-Encoding, and Content-Type headers are used to control unicode encodings, as well as compression algorithms for transferred data.
+
+You can find a lot of good principles for RESTful API design at [restapitutorial.com](http://www.restapitutorial.com/lessons/restquicktips.html)
+
+Practical Notes
+---------------
+
+- People have differing ideas of what constitutes RESTful APIs, with differing degrees of dogmatism. I've presented here the simplest core that everyone agrees on.
+
+- It's annoying to manually specify all the nuances that a fully RESTful API should support (i.e. a successful create should return 201 Created, with URL of created object in a Location header, instead of returning 200 OK). So people tend to use REST frameworks that handle all these nuances for them. But this brings us back again to the problem that nobody agrees what RESTful means, and each framework implements the nuances a bit differently...
+
+- In a purely RESTful world, you would access the HTML version of an object and the API-friendly version at the same URL, by simply toggling the Accept headers. In practice, most people split off the api as a separate subdomain `api.mysite.com`, to leverage DNS as a load balancing tool.
+
+- POST, PUT, and DELETE are a rather limited set of verbs. What if there's an action you want to take that's not one of these verbs? Say, "Expire". The conventional solution is to create an "expiration" object (`POST /expirations`), whose creation triggers the desired side effect. This works pretty well, and as a bonus, you now have an audit log of expiration actions. It's reminiscent of Java's OOP culture - everything's a noun, including the verbs.
+
+Takeaways
+---------
+
+If there's one thing you should get out of this talk, it's that HTTP exists and does a lot of things. If you find yourself trying to invent some new way to do a RPC on top of HTTP, first make sure that you aren't reinventing the wheel!

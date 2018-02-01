@@ -1,0 +1,22 @@
+Work habits
+2015/11/7
+
+I've always resisted writing about work habits and the things I've learned over the past year and a half of working at a real job, mostly because I figured that the lessons I'd learned would be useless to other people. But the more I think about it, the more I come to realize that there are useful things to be said here.
+
+Since starting my work at Hubspot, I've become quite a bit more productive. Part of this productivity is just being familiar with the code base. But part of it is also learning how to get yourself started on something that seems too difficult.
+
+Let me explain that last part some more. There's a spectrum of tasks you can encounter: tasks you've done frequently, tasks you've done once, tasks you've never done (but know others who have), and tasks for which there is no real precedent (at least, that you know of).
+
+For the tasks you've done frequently, the barrier to getting started is quite low. You know you just need to get step X, Y, and Z done, and that'll do it. If you're feeling like procrastinating on some other stuff, you can finish off these steps quickly and without issue.
+
+On the other hand, for tasks you don't even know how to get started on, there's a very large barrier to getting started. In fact, until you know how to start, the barrier is infinitely high. How can you make progress when you don't know what the next step is? What if you do it wrong? You might be able to figure it out if you sat for a day and thought really hard about it. But thinking is exhausting; it's much easier to do something you know. Like playing Candy Crush, or checking your email or Facebook. And so, this task ends up sitting on your TODO list for months at a time.
+
+The trick, then, is to break this big barrier into lots of small barriers, by prechewing your problem, breaking it into many subtasks. But wait, you say. You're telling me that "Thinking is hard. The solution is to think.". Yes, it's true. It's subtle, but you can fool your mental barriers this way. You start by telling yourself, "it's okay, I don't actually plan to do this, I'm just going to lay out the steps to doing it", which seems like a much easier task. And then, when those steps are laid out, you realize the task isn't actually that hard. And then the task gets done.
+
+When I sit down to lay out steps to a problem, I find that there are a few helpful tricks.
+
+1. Ask the Internet how to solve your problem. You'll be surprised at how often this works.
+2. Ask somebody else how to solve your problem. You'll also be surprised at how often this works. Sometimes, just the mere act of formulating your problem as a question is enough to help you realize what has to be done.
+3. Pretend that somebody just asked you to explain what this task is. For example, when I wrote this essay, I pretended to ask myself "Hey, so I hear you're writing an essay on how to develop work habits. Give me the rundown". I started speaking out loud to explain my thoughts, and by the time I finished rambling, I knew what essay I had to write. Done.
+
+Once you've broken down your problem into subtasks, you'll be surprised at how much easier it is to do. Write down these subtasks, and if you come back later, you'll know exactly where to get started. Just follow the instructions from your past self, and everything will be okay.

@@ -1,0 +1,21 @@
+Making "Real" Programs
+2014/3/14
+
+I got my programming start by writing solutions to Project Euler problems. My programs would be short scripts that ran some computation, printed out the result, and then exited.
+
+For the longest time, I didn't understand how one could make "real programs", like, say, Microsoft Word, that waited for user input and didn't just disappear after doing something. It took me an embarassingly long time to figure this out, but eventually, I realized that the trick was very simple: just have a listener loop! 
+
+    settings = load_settings()
+    while True:
+        user_request = receive_input()
+        do_something(user_request, settings)
+
+And a bit better, if you don't want to freeze up the entire user interface while your program runs, start up a new thread to deal with the user's request while the original loop continues to wait on new requests.
+
+    settings = load_settings()
+    while True:
+        user_request = receive_input()
+        t = Thread(target=do_something, args=(user_request, settings))
+        t.start()
+
+That's all there is to it, really.

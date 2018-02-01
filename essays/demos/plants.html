@@ -1,0 +1,283 @@
+Fractal Plants
+2014/5/1
+
+<p>I've been pretty curious about 3D graphics for a while, so I finally checked out Udacity's 3D graphics class, which was a very well-taught course.</p>
+
+<p>The basics work out something like this:</p>
+<ul>
+<li> Triangles exist in 3-dimensional space.</li>
+<li> In conjunction with a light source, a camera, and some vector math to calculate reflection/illumination, the image captured by a virtual cross-section can be computed.</li>
+<li> The computed image can then be rasterized / rendered to screen - ultimately, the result is a series of colored pixels.</li>
+<li> Nobody uses triangles directly; for example, you can call THREE.SphereGeometry(radius, latitude_resolution, longitude_resolution) to create a mesh of appropriately placed triangles at desired fineness. Other useful primitives exist, like rectangular prisms, toruses, spline extrusions, and cylinders.</li>
+<li> Meshes are wrapped in THREE.Object3D(). Objects can be added as children to each other, and their relative orientations specified. </li>
+<li> Rotation, scaling, and translation operations are applied hierarchically/recursively throughout the entire tree of objects, so that complex objects can be manipulated with respect to each other without much difficulty.</li>
+</ul>
+
+<p>The combination of these ideas suffices to implement this fractal tree generator.</p>
+
+<div id="flowerpot"><p>Tree Generator goes here. WebGL/THREE.js might not work on your browser. (Only seems to work on Chrome on my machine.)</p></div>
+
+<p>I found the quaternion/affine transformation approach to manipulating vectors/points mind-blowing. Think first about how one would represent rotations and scaling operations with matrices. Seems pretty easy - an orthogonal matrix is a rotation, and a diagonal matrix scales in the directions as according to the numbers on the diagonal. Now, how would you represent translations as a matrix? You can't; they're not linear. But instead of multiplying n-vectors by nxn matrices, you can instead multiply (n+1)-vectors by (n+1)x(n+1) matrices, and the extra 'space' suddenly allows you to represent translations as matrices (subject to constraints that help evade the nonlinearity issue). All graphics cards use this convention and optimize heavily for multiplication of 4x4 matrices.</p>
+
+<p>This ultimately means that the operation of creating a branch (with subbranches), and rotating it, is extremely simple. Each level of nesting simply concatenates another translation, scaling, and rotation matrix to the list of transforms. </p>
+
+<p>On the coding side, this was my first time writing a significant piece of javascript, and my general impression of the language is that javascript sucks and is horribly designed. But we all knew that anyway. I think the saving grace of javascript is that it has top-notch support for functions. This alone means that essentially, anything you could have done in a functional language, you can reimplement in javascript, work with those tools, and ignore the crappiness of the rest of the language. My final code made abundant use of functions and the simplest possible objects, and I'm pretty happy with it.</p>
+
+<p>I experimented with implementing my program using fancier JS constructs, but quickly ran into the issue that the class / inheritance system for Javascript is extremely hacky and there are all sorts of workarounds for the lack of proper inheritance. See <a href="https://stackoverflow.com/questions/728360/most-elegant-way-to-clone-a-javascript-object"> this hilarious discussion on the simple act of copying an object</a>. I even ended up using the horrible <code>clone = JSON.parse(JSON.stringify(dict))</code> at one point. I suppose that copying objects is inherently a tricky business, but at least Python attempts to address it by providing __copy__ and __deepcopy__ handles to implement. Another limitation I quickly ran into was the amorphous boundaries between what is an object, what is a function, and what is an array.</p>
+
+<p>This being said, Javascript has a really vibrant community of open-source code. THREE.js obviously takes center stage, underscore.js made me praise the gods, and where else would I be able to find such a simple drag-and-drop solution to creating a GUI?</p>
+
+<p>Anyway, enough blabbing - twiddle with the tree and share if you stumble on something unusual! The parameter space is not very large, and I hope to create a more 'natural'-looking fractal tree generator at some point.</p>
+
+
+<script src="/static/js/underscore.min.js"></script>
+<script src="/static/js/three.min.js"></script>
+<script src="/static/js/dat.gui.min.js"></script>
+
+<script>
+
+// This determines the relative dimensions of all branches/leaves/camera position / lighting positions.
+// All other user-controlled parameters are dimensionless.
+var L = 100;
+
+// Extract the GET parameters from URL and initialize options
+var query_params = load_url_query_params();
+
+var color_options = {
+    branch_color: query_params['branch_color'] || "#502716",
+    leaf_color: query_params['leaf_color'] || "#12520e"
+};
+
+var angle_options = {
+    angle: parseFloat(query_params['angle']) || 54,
+    dihedral: parseFloat(query_params['dihedral']) || (1/2.618034) * 360 //golden ratio,
+};
+
+var topology_options = {
+    aspect_ratio: parseFloat(query_params['aspect_ratio']) || 10,
+    shortening_factor: parseFloat(query_params['shortening_factor']) || 0.75, 
+    core_branch: query_params['core_branch'] === undefined || query_params['core_branch'] === 'true',
+    num_branches: parseInt(query_params['num_branches']) || 4
+};
+var generations = parseInt(query_params['generations']) || 4;
+
+function load_url_query_params() {
+    var query_params = {};
+    decodeURIComponent(location.search).substr(1).split("&").forEach(function(item) {query_params[item.split("=")[0]] = item.split("=")[1]});
+    return query_params;
+}
+
+function dump_url_query_params() {
+    var all_params = {}
+    _.each(arguments, function(arg) {
+        for (var key in arg) {
+            if (!(_.isFunction(arg[key]) || _.isObject(arg[key])))
+            all_params[key] = arg[key];
+        }
+    });
+    var list_params = _.pairs(all_params);
+    var query_strings = _.map(list_params, function(pair){return pair.join("=")});
+    return "?" + encodeURIComponent(query_strings.join("&"));
+}
+
+function export_params(){
+    var base_url = location.href.split("?")[0];
+    var params = dump_url_query_params(angle_options, color_options, topology_options, {'generations' : generations});
+    alert("Copy this link to share with friends:\n" + base_url + params);    
+}
+
+// End all parameter / initialization crap
+
+
+// Begin constructing/initializing the entire scene.
+var scene, camera, renderer, gui;
+var branchMaterial, leafMaterial, treeObject;
+
+// Computing the dimensions of the scene/camera
+var flowerpot_div = document.getElementById("flowerpot");
+var windowsize = getComputedStyle(flowerpot_div.parentNode);
+var width = Math.max(parseInt(windowsize.width) - parseInt(windowsize.padding) * 2, 400);
+var height = Math.floor(width * 2 / 3);
+
+
+// Use a shared material across the entire tree. Makes it easier to change color of the whole thing at once.
+function hexstr_to_int(hexstring) { 
+    return parseInt("0x" + hexstring.slice(1));
+}
+
+branchMaterial = new THREE.MeshLambertMaterial({
+    'color': hexstr_to_int(color_options.branch_color), 
+    'ambient': 0x404040
+});
+leafMaterial = new THREE.MeshLambertMaterial({
+    'color': hexstr_to_int(color_options.leaf_color), 
+    'ambient': 0x404040
+});
+
+function update_colors(){
+    leafMaterial.color.setHex(hexstr_to_int(color_options.leaf_color));
+    branchMaterial.color.setHex(hexstr_to_int(color_options.branch_color));
+}
+
+// Recursive methods for generating trees/branches/leaves
+
+function createBranch(generations_left, size, topology_options) {
+    var to = topology_options;
+    var base_radius = size / to.aspect_ratio;
+    var base_length = size;
+
+    if (generations_left === 0) {
+        // Last generation of the tree. Let's make some leaves.
+        var leafObject = new THREE.Object3D();
+        leafObject.generation = 0;
+
+        var leaf = new THREE.Mesh(
+            new THREE.SphereGeometry(base_radius*2, 4, 4), 
+            leafMaterial
+        );
+        leaf.position.y = base_radius;
+
+        leafObject.add(leaf);
+        return leafObject;
+    } else {
+        // Not the last generation. 
+        // Let's make a branch and recursively construct daughter branches
+        var branchObject = new THREE.Object3D();
+        branchObject.generation = generations_left;
+
+        // The branch itself.
+        var branch = new THREE.Mesh(
+            new THREE.CylinderGeometry(base_radius * to.shortening_factor, base_radius, base_length, 8, 1, true), 
+            branchMaterial
+        );
+        branch.position.y = base_length / 2;
+        branchObject.add(branch);
+
+        // The continuation of the branch
+        if (to.core_branch) {
+            var nextCoreBranch = createBranch(generations_left - 1, size * to.shortening_factor, to);
+            nextCoreBranch.position.y = base_length;
+            nextCoreBranch.is_core_branch = true;
+            branchObject.add(nextCoreBranch);
+        }
+
+        // Daughter branches
+        for (var i = 0; i < to.num_branches; i++) {
+            var daughterBranch = createBranch(generations_left - 1, size*to.shortening_factor, to);
+            daughterBranch.position.y = base_length;
+            daughterBranch.is_core_branch = false;
+            daughterBranch.branch_id = i;
+            branchObject.add(daughterBranch);
+        }
+        branchObject.position.y = base_length / 2;
+
+        // Method for setting angles and dihedrals of daughter branches
+        branchObject.tweak = function (angle_options) {
+            var ao = angle_options;
+
+            _.each(branchObject.children, function(child) {
+                // Ignore the branch mesh itself; we want to deal with 
+                // children's orientation to the branch itself.
+                if (!(child instanceof THREE.Mesh)) {
+                    // We don't want to rotate all branches; just the non-core branches.
+                    if (!child.is_core_branch) {
+                        child.rotation.z = ao.angle * Math.PI/180;
+                        child.rotation.y = (ao.dihedral * branchObject.generation + 360 * child.branch_id / to.num_branches) * Math.PI/180;
+                    }
+                    if (branchObject.generation > 1) {
+                        child.tweak(angle_options);
+                    }
+                }
+            });
+        }
+        return branchObject;
+    }
+}
+
+function createTree (generations, topology_options) {
+    var treeObj = createBranch(generations, L, topology_options);
+    treeObj.is_core_branch = true;
+    treeObj.position.y = -L * generations * topology_options.shortening_factor * 0.5;
+    treeObj.name = "Tree";
+
+    return treeObj;
+}
+
+function init_scenecameralights() {
+    scene = new THREE.Scene();
+    scene.fog = new THREE.Fog(0x808080, L*20, L*40);
+    camera = new THREE.PerspectiveCamera( 75, width / height, L/100, L*100 );
+    camera.position.z = L * generations * 0.75;
+    scene.add(new THREE.AmbientLight( 0x404040 ));
+
+    var numLights = 3
+    var zenith = 30 * Math.PI/180;
+    for (var i = 0; i < numLights; i++) {
+        var directionalLight = new THREE.DirectionalLight( 0xAAAAAA, 1.0 );
+        directionalLight.position.set(
+            Math.sin(zenith) * Math.cos(i / numLights * 2 * Math.PI), 
+            Math.cos(zenith), 
+            Math.sin(zenith) * Math.sin(i / numLights * 2 * Math.PI)
+        );
+        scene.add(directionalLight)
+    }
+}
+
+function init_renderer() {
+    renderer = new THREE.WebGLRenderer({antialias: true});
+    renderer.setClearColor( 0xAAAAAA, 1.0 );
+    renderer.setSize( width, height );
+    flowerpot_div.appendChild(renderer.domElement);
+}
+
+function init_GUI() {
+    var gui = new dat.GUI();
+
+    var h = gui.addFolder("Color settings");
+    h.addColor(color_options, "branch_color").name("Branch Color");
+    h.addColor(color_options, "leaf_color").name("Leaf Color");
+
+    var h = gui.addFolder("Angle settings");
+    h.add(angle_options, "angle").min(0.0).max(120.0).step(0.5).name("Trunk-branch angle");
+    h.add(angle_options, "dihedral").min(-180.0).max(180.0).step(0.5).name("Dihedral rotation");
+
+    var h = gui.addFolder("Topology settings");
+    h.add(window, "generations").min(1).max(6).step(1).name("Generations");
+    h.add(topology_options, "num_branches").min(1).max(6).step(1).name("Daughter count");
+    h.add(topology_options, "aspect_ratio").min(1.0).max(20.0).step(0.1).name("Aspect ratio");
+    h.add(topology_options, "shortening_factor").min(0.6).max(1.5).step(0.01).name("Shrinking ratio");
+    h.add(topology_options, "core_branch").name("Z-axis continuation");
+    h.add(window, "setup_tree").name("Rerender the tree");
+
+    gui.add(window, "export_params").name("Share this tree!");
+}
+
+function setup_tree() {
+    var prev_tree = _.find(scene.children, function (child) {
+        return child.name === "Tree"
+    });
+    if (prev_tree) {
+        scene.remove(prev_tree);
+    }
+    treeObject = createTree(generations, topology_options);
+    scene.add(treeObject);
+}
+
+function animate() {
+    requestAnimationFrame(animate);
+    treeObject.tweak(angle_options);
+    update_colors();
+    renderer.render(scene, camera);
+    treeObject.rotation.y += 0.02;
+}
+
+function init() {
+    init_scenecameralights();
+    init_renderer();
+    init_GUI();
+    setup_tree();
+    animate();    
+}
+
+init();
+</script>

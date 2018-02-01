@@ -1,0 +1,111 @@
+My Path to Machine Learning
+2017/3/14
+
+3 years ago, I dropped out of graduate school and started working at HubSpot as a backend software engineer. After 2 years at HubSpot, I left to focus on machine learning, and now I'm employed as an engineer working on ML at Verily. This is the story of how I made my transition.
+
+The AlphaGo Matches
+-------------------
+
+I remember DeepMind's announcment that it had defeated a professional in the same way most people remember 9/11. My coworker ran into me in the hallway and said, "Hey Brian, did you hear that they beat a Go professional on a 19x19?". The last I'd heard, the best Go AI needed a four stone handicap - a significant difference in strength from top players - so my immediate response was, "How many stones handicap?". He said none. I didn't believe him, but I rushed to my desk nonetheless to check it out. My jaw dropped as I read about AlphaGo's 5-0 victory against Fan Hui. Somehow, Go AI had made a huge leap in strength with the addition of neural networks.
+
+The next week saw intense debate among my Go playing friends about whether AlphaGo would be able to beat Lee Sedol in two months. I was of the rare opinion that it was over - humanity would lose. Of course, that didn't stop me from watching all five games live. I remember after Lee's third straight loss, the sinking feeling I had in my stomach that AlphaGo was just strictly better than humans - its neural networks had captured the essence of human intuition while backing it up with the extensive search that machines are so good at.
+
+Go had gained its reputation as the ultimate anti-computer game because of its resistance to rules. For every Go proverb that suggests one rule, there's another proverb that suggests the opposite rule. The one constant in Go is balance, as exemplified by the wry proverb, "If either player has all four corners, then Black [traditionally the weaker player] should resign". Yet AlphaGo had managed to master Go on its own.
+
+This idea that human intuition could be replicated by an algorithm is a scary one - how many jobs resist automation, simply because we can't specify a set of rules in software? What if we could just train a neural network on a million examples, and have it figure out a set of rules on its own? That was the world that AlphaGo's success was suggesting. [Ilya Sutskever suggests](http://yyue.blogspot.com/2015/01/a-brief-overview-of-deep-learning.html) that if, somewhere in the world, there exists a savant who could do some task in a split second, then there probably exists a neural network that could do the same. I wanted to understand how machines could develop an intuition that mimicked a human's intuition.
+
+Learning the basics
+-------------------
+
+After leaving HubSpot in May 2016, I decided that my next project would be to fully understand the theory behind AlphaGo. I started with Michael Nielsen's excellent online textbook [Neural Networks and Deep Learning](http://neuralnetworksanddeeplearning.com/). Even though the material covered is pretty old, relative to the state of the art, the theory is explained well enough that I had no trouble understanding how and why the latest papers improved on the basic networks shown in the textbook.
+
+I was lucky enough to have seen many of these ideas before in other contexts. Backpropagation, and TensorFlow's automated differentiation on directed acyclic graphs, are both hinted at by [SICP's discussion of symbolic differentiation](https://mitpress.mit.edu/sicp/full-text/book/book-Z-H-16.html#%_sec_2.3.2). Convolution operations were basic ideas in the field of image processing, which I had gotten familiar with during my grad school research.
+
+I found [Chris Olah's blog](http://colah.github.io/) and [Andrej Karpathy's blog](http://karpathy.github.io/) to be very useful resources in understanding the capabilities and workings of neural networks. More recently, Google Brain has started publishing a [series of visualizations on deep learning](http://distill.pub/). The [TensorFlow tutorials](https://www.tensorflow.org/tutorials/deep_cnn) are also very instructive. It's also useful to read the primary literature on ArXiV. (There's no particular reading list here; I dug through citations whenever I was curious about something.)
+
+I spent a lot of time reading older papers on convnets and on previous attempts to write Go AIs - MCTS, as well as low-level considerations, like efficient representations of Go boards and quick computations of board updates and hashes. I also looked through the source code of [Pachi](https://github.com/pasky/pachi) and its baby version [Michi](https://github.com/pasky/michi). Armed with this knowledge, I started implementing my own [mini-AlphaGo program, MuGo](https://github.com/brilee/MuGo).
+
+The first time I got my policy network to work, my mind was blown. The moves were not particularly good, but the moves followed the basic patterns of local shape. As I implemented more input features, I could see deficiencies in play being fixed one by one. Along the way, I solved lots of miscellaneous engineering problems, like how to handle a training set that was much larger than my RAM, or how to store the processed training set on my SSD.
+
+These months culminated with the US Go Congress in August, where I met Aja Huang (AlphaGo's lead programmer) and several other computer Go people. That was quite an inspirational week. 
+
+The Recurse Center
+------------------
+
+Based in NYC, the [Recurse Center](https://www.recurse.com) is a self-directed educational retreat for programmers. I would describe RC as a place for people to learn all the things or work on all the projects they never had the time or courage to try. I attended for 3 months, starting in mid-August immediately after the Go Congress, and ending in mid-November of 2016.
+
+I came in wanting to focus on ML and to work on projects with other people who were similarly inclined. Unsurprisingly, ML was a trendy topic there, alongside Rust and Haskell. I ended up figuring out many of my neural network issues with the help of other Recursers (numerical stability issues; [weight initialization issues](/essays/initializing_weights_DCNN); [seemingly useless input features](/essays/convnet_edge_detection)), and I in turn helped advise others on designing and debugging their models' performance.
+
+Some other projects I did with other Recursers included
+
+- implementing a RNN
+- reading + discussing the Gatys style transfer paper
+- helping optimize a Chess engine (written in Go, funnily enough)
+- getting familiar with various profiling tools and [performance visualization techniques](/essays/flamegraphs)
+- digging into [why my dataset for MuGo compressed poorly](/essays/bitpacking_compression)
+- rewriting MuGo's board representation
+- giving a few talks (on AlphaGo; on [REST](/essays/why_rest))
+- implementing coroutines in C
+- implementing HyperLogLog in Go
+
+RC's main benefit was in improving my general programming level. Recursers tend to come from such a wide variety of backgrounds, and have expertise in the most unusual of systems. For example, I had never done any GPU programming before, having relied to TensorFlow's nice wrappers. But I had little difficulty finding a few other people who had graphics expertise who were happy to work on something basic with me. Another group of Recursers were working on independently implementing the [Raft consensus protocol](https://raft.github.io/) in various languages, with the goal of getting their implementations talking to each other. I would have loved to join in if I had more time.
+
+I'd gladly go to RC again the next time I get an opportunity. If the stuff I did sounds fun and you have 2-3 months of free time, you should [apply to RC too](https://www.recurse.com/apply).
+
+Finding a Job
+-------------
+
+As RC came to an end, I thought about what sort of ML job would be best for me. I had learned quite a bit about the different aspects of ML via my MuGo project - obtaining and processing data sources, feature engineering and model design, and scaling up training of the model. I decided that I wanted a project of similar breadth that was more difficult in some of these aspects. That could mean more machines for training, handling much larger quantities of data, or using new models. I also wanted to be in an environment where I could learn from more experienced practioners of ML.
+
+This limited my options to the big companies that were doing ML on a larger scale: Google, OpenAI, Facebook, Uber ATC, Microsoft Research, Baidu, and of course DeepMind, the company behind AlphaGo. There were a handful of other companies doing "big data" systems that also seemed interesting: Heap and Kensho, among others. I sent off my resume and pinged my friends at these companies.
+
+In the meantime, I started brushing up on the basics of ML that I'd skipped because of my focus on neural networks and AlphaGo. I spent the most time on [Axler's Linear Algebra Done Right](https://www.amazon.com/dp/3319110799), but I also watched all of [Andrew Ng's Coursera class](https://www.coursera.org/learn/machine-learning/), and skimmed through the [final exams for Harvard's introductory statistics class](http://projects.iq.harvard.edu/stat110/handouts). I continued to read papers that popped up via HN or through other recommendation sources like [Jack Clark's Import AI newsletter](https://jack-clark.net/import-ai/).
+
+Here are notes from my interviews:
+
+**Kensho**: Applied here because their company had a heavy academic bent. I think I slipped through the cracks as they switched their hiring pipeline software, so I didn't finish my interviews.
+
+**Heap**: Applied here because of their experience working with large quantities of semistructured data. They had the most difficult yet practical interviews of any of the companies I'd applied to, with the exception of OpenAI. They were a pleasure to work with, but I ultimately turned down their offer for Google.
+
+**Baidu**: Applied here mostly because Andrew Ng was working there. No response. I didn't know anybody here; resume probably went straight to the trash.
+
+**MS Research**: Applied here because I'd seen some interesting research on language translation using RNNs. Initially, there was no response. I then had Dan Luu refer me, and I got a hilarious email from not even a recruiter, but a contractor whose job it was to recruit people to talk to recruiters. This contractor asked me to submit my personal information via Word Doc. Some of the fields in this Word document were literally checkboxes - I wasn't sure if the intent was for me to print out the documents, check the boxes, and send the scanned document, or for me to replace ☐ 'BALLOT BOX' (U+2610) with ☑ 'BALLOT BOX WITH CHECK' (U+2611). I did the latter but it probably didn't matter.
+
+**Facebook**: Applied here because Facebook has some intriguing technology with automatic image labeling + captioning, as well as newsfeed filtering problems. I had a friend in the Applied ML department refer me, and got a call from a very skeptical-sounding recruiter who seemed fixated on how many years of experience I had. I got a call back the next day saying they were proceeding with more experienced candidates. This annoyed me because clearly the referral had obligated them to call me, but the recruiter came in with preconceived notions and didn't attempt to gain any bits of information during our conversation.
+
+**DeepMind**: Applied here because of AlphaGo and other basic research around deep learning techniques. Started with some quizzes on math and CS - didn't have much trouble with these. The quizzes were literally quizzes, involving ~50 questions covering the breadth of an undergraduate education. I guess the UK takes their undergraduate education more seriously than in the US.
+
+I told DeepMind that I wanted a Research Engineer position, which is a research assistant who knows enough about both software engineering and research to accelerate the research. They agreed that I was suitable and gave me additional quizzes on undergraduate statistics, and a coding test that explored the efficient generation and utilization of random numbers. I really liked that coding test - it was reasonable and I learned something useful.
+
+Then the interview process went somewhat off the rails; I talked to at least 4 different engineering managers of various kinds with no indication of when the process would be over. This was in addition to the 3 people I had already had quizzes with. I actually lost count of how many people I talked to. Eventually I ran out of intelligent questions to ask, and when the last manager asked if I had any questions for him, I sat in silence for a minute, then literally asked the question, "so when is this process going to be over?". I guess my rejection was the answer to that question.
+
+**OpenAI**: Applied here because of their talent and their mission ([AI for the masses and not just for AmaGooBookSoft](https://openai.com/about/)). I didn't get a response until I pinged Greg Brockman, who I knew via the Chemistry Olympiad in high school. It's a small world. I chatted briefly with one of their research engineers, and then was flown in for a weeklong onsite. Apparently this was common; I met many others there who were there for many weeks working on various projects. The idea is to get to know each candidate as much as possible, and to also spread the wealth, in terms of opportunities to work with world-class researchers. 
+
+The week I spent at OpenAI was incredible, and I regret not clearing more of my calendar to spend another week there. I got to meet many of the top researchers in the world, and I learned something new at every lunch and dinner.
+
+**Uber ATC**: Applied here because self-driving cars. I started off interviewing for a ML role, but I think I flunked my conversational interview because I referred to the k-means clustering algorithm as sort of hacky. I meant this in the sense that it was a one-off algorithm that didn't really share many ideas with other models in ML, and because its behavior was [highly dependent on initial randomization](https://en.wikipedia.org/wiki/K-means%2B%2B), among other quirks. But I was too tired that day to express this more eloquently. Uber ATC is Serious Business and they don't do Hacky Things there.
+
+Anyway, they were nice enough to let me continue interviewing for a regular engineering position, and I was happy enough with that, since I would probably be working closely with many aspects of their self-driving car project, anyway. I did another phone screen which focused more on coding style and testing than on algorithms. The onsite, again, was mostly discussion: my past projects, my thoughts on effective software processes, system design conversations. There was just the one old-school hard algorithmic question. Given the nature of what they were building, their engineers tended to be low-level embedded C++ engineers, and they seemed to lean on the conservative side. Again, the impression was of Serious Business. They appeared to have a healthy work environment, in contrast to the Susan Fowler exposé that erupted recently. Perhaps Uber ATC was geographically isolated from the drama at Uber HQ. I got an offer from Uber but ultimately declined in favor of Google.
+
+**Google**: I had a friend refer me, and got a call back from a recruiter who explained the process to me. I was going to be scheduled for a phone screen, but was then fast-tracked to the onsites, for whatever reason. (Maybe my Google Search history? My blog? High school math competitions? Who knows.) The onsite consisted of four algorithmic interviews of various kinds and one system design interview. All in all, the interview problems were not as hard as I had been expecting them to be. The questions never explicitly asked about data structures, but their solutions lent themselves to thinking about data structures. I enjoyed chatting with each of my interviewers, and it repeatedly blew my mind how large Google was, and the scale at which it operated. This part of the interview process was pleasantly speedy, in contrast to the rumors I had heard about Google's recruitment pipeline being a mess.
+
+After my interview, the team fit process at Google was actually quite a pleasure to work through. I had an incredible recruiter who talked through what I wanted to do, and who went through great lengths to find the right teams to talk with. My eventual choice to work at Google was in no small part due to his efforts. The recruiter's incentive structure was quite interesting, actually. He claimed that his bonus depended solely on getting me to join Google, and a different committee would be responsible for negotiating my offer. Thus, it set up a relationship where my recruiter was actually incentivized to argue to the compensation committee on my behalf. Maybe the good cop/bad cop routine was designed to let my guard down, but it was nice to work with someone who wasn't simultaneously trying to sell the company while stonewalling my negotiating attempts.
+
+As mentioned earlier, the team I'll be joining at Google is actually within [Verily](https://verily.com), which is one of the Alphabet companies.
+
+The Path Ahead
+--------------
+
+It's been one year now since AlphaGo first declared victory over Lee Sedol, and it's been quite a journey since then.
+
+I realized while at OpenAI that I have so much more to learn. I had been reading papers and implementing toy systems, but there was a fundamental maturity of understanding that I lacked. I guess that's just to be expected; almost every researcher I met at OpenAI had a PhD in ML and had spent at least 5 years thinking about these ideas.
+
+I left OpenAI's office with the impression that after reading the entirety of [Goodfellow/Bengio/Courville's DL book](http://www.deeplearningbook.org/) and another year or two of practical experience, I might begin to actually understand ML. But it'll be tough. Chapter 2 (linear algebra) summarizes all of Linear Algebra Done Right in a dense 22 pages, then goes on to mention more things I hadn't known about. Given that that's the chapter I expected to understand most thoroughly, I'm afraid to think of how many ideas in the other chapters will just fly over my head because I can't fully appreciate the basics.
+
+I ran into Ian Goodfellow later and he told me that those introductory chapters, although dense, are probably the most important chapters because they will stay relevant for decades to come, while the other chapters will be outdated in a few years' time. So I'll just have to slog through them.
+
+Along those lines, I think the most important advice I can give to other people is to not shy away from the math. In many cases, if you understand the basic statistical, numerical computation, and probabilistic ideas, the applications to ML are one simple step away.
+
+
+
+

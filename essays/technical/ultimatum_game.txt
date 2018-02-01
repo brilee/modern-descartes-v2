@@ -1,0 +1,18 @@
+The Ultimatum Game
+2016/6/27
+
+With the recent announcement of Brexit, and with Trump on the horizon, I've been worried for the state of Western politics. It's easy to dismiss Brexiters as ignorant, selfish assholes who would prefer to see the world burn. But I don't think it's quite that simple.
+
+There's a psychology experiment called the Ultimatum Game. In this game, one person receives a lump sum of money, and he can choose to distribute this lump sum to himself and another person however he likes (i.e. the ultimatum). The second person, upon receiving this ultimatum, can choose to accept it, in which case the money is paid out according to the proposed distribution, or he can choose to reject it, in which case neither person gets anything.
+
+The game-theoretic optimal strategy is to just take most of the money for yourself, and offer the other person a token sum. Something's better than nothing, so the other person may as well accept.
+
+But this isn't how it actually plays out. In practice, people tend to reject splits more inequitable than 70-30. While this might be irrational in the one-shot scenario, it is rational in the long run, because people will be forced to offer you a larger split.
+
+I think this is essentially the same game that is playing out with globalization today. Bremainers would like free trade and immigration - policies that economists agree create wealth. This created wealth is the lump sum of money that the Bremainers can choose to split with the Brexiters. But because Bremainers have taken a large split of the gains, Brexiters have voted to reject the ultimatum, intentionally destroying wealth in the process. In this interpretation, Brexit is a strategy to force a more equitable split in the future.
+
+There's another reason that rejection could be a rational strategy. In the Ultimatum game, a key assumption is that a dollar is better than nothing, regardless of what the other person gets. In theory, the minimally acceptable split is 0-100. But in real life, this isn't necessarily true.
+
+Goods fall into two categories, broadly speaking: non-rival and rival. Here's Oprah's take on non-rival goods: "You get a car, you get a car, you get a car, everybody gets a car!". But some goods are rival: not everybody can drive their new cars on the now-congested streets. Not everybody can live in the nice neighborhoods, and not everybody can send their kids to the best schools. The minimally acceptable split must take into account the effect of rival goods, especially when the game is played on the scale of billions of dollars. In this interpretation, the ultimatum offered to Brexiters might be positive on paper, but negative in reality.
+
+To stop Trump (and future Trump-ist candidates), we're going to have to address these two failure modes of the Ultimatum game. It'd be a shame to destroy free wealth (and more generally, the Western economy) because the two sides can't agree on a split.

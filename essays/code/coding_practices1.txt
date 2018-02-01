@@ -1,0 +1,24 @@
+Coding practices, part 1 of ?
+2014/10/13
+
+Since starting to work professionally with Python, I've picked up a few things here and there that I feel have improved my appreciation for good code. Here are some of my discoveries.
+
+* Named arguments are good. Take, for example, the UNIX utility `grep`. Does `grep foo bar.txt` search for the string `foo` in the file `bar.txt`, or did you accidentally just try to search for the string `bar.txt` in the file `foo`? If instead you could write `grep --pattern=foo --file=bar.txt`, you can see that it is then immediately obvious which argument is which. Grep is a utility that everyone is familiar with and uses on possibly a daily basis, but your library is probably not!
+
+* Named arguments are good, but following conventions with properly ordered positional arguments can also be good. When ordering arguments to your functions, put the most significant one at the end. This tradition comes from the functional programming world's currying idiom, in which the first (n-k) arguments are injected into a function, creating a new function that only needs its last (k) arguments to continue executing. If `grep` is a function of two arguments, then `grep pattern` is a curried function taking one more argument - the filename. It makes perfect sense to have a function that searches for a hardcoded `pattern` in an arbitrary `file`; it doesn't make sense to have a function that searches a hardcoded `file` for an arbitrary `pattern`.
+
+    Until I understood this convention, I could never remember whether Python's `filter` method took the function first and the iterable second, or vice versa. Python's filter() function starts with the lambda, and then the list to be filtered, allowing curried filter functions to be created more intuitively.
+
+* Boolean logic containing anything more than one clause belongs in its own short function, not inline. This makes it vastly easier to test that the correct code branch is being taken for various inputs, instead of having to try and trigger different code paths with multiple integration tests with slightly varying inputs.
+
+* Classes can be used as namespaces where you can put "globals" everywhere as instance variables. Don't do that. They are basically globals and are bad for all the same reasons that globals are bad. 
+
+* If you are going to have globals in a class, declare them all at the top, in the `__init__` method. 
+
+* If your class requires any significant initialization code, don't put them in the init() method. Nothing's more surprising than failing to instantiate an object. Instead, require an explicit `obj.acquire_connection()` call.
+
+* Classes are good for subclassing. Previously, where I might have built a module containing a set of functions building upon each other, I tend to now create classes with instance methods that build upon each other. The reason this is nice is because you can then subclass and swap out / modify any of those instance methods as you please. It is essentially a not-magic way of monkeypatching code to your taste.
+
+* Put non-ascii bytes or unicode characters in every single applicable test. Get yourself into unicode messes until you intuitively understand encoding and decoding and what is just bytes.
+
+* Use the right level of abstraction to transform data. If you would like to make adjustments to ordinary text, regular expressions are fine. If you would like to make adjustments to JSON data, deserialize the data first. If you would like to make adjustments to HTML, use a proper parsing library. I haven't yet stumbled on one, but I would love to see a SQL API that allowed me to construct queries in essentially the form of a parsed AST.

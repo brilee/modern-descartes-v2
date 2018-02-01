@@ -1,0 +1,22 @@
+Korea's Education Reform
+2011/7/5
+
+Asian countries (Korea, China, Singapore, Taiwan, India in particular) have education systems from K-12 and beyond, which place heavy emphasis on rote memorization and fully test-based admissions. This emphasis has resulted in high scores on international standardized tests (e.g. the PISA). It has also resulted in a supposed lack of creativity/innovation, uniformity of graduates, and a bit of jealousy from Western nations. These education systems are in contrast with that of the United States, whose top universities draw worldwide acclaim despite a poor showing at the primary and secondary education level.
+
+I've heard from several Korean relatives and friends that Korea's universities are moving to include extracurricular activities and essays in their admissions processes. This is actually a fairly controversial move, because Koreans take pride in their rigorous but "fair" admissions process. If an applicant has high scores, there is no question that he/she deserves a spot at a top university. The converse of this statement is obviously untrue, yet Korean parents would rather have a stellar, but nontraditional applicant be denied admission than to open the door for possible affirmative action, legacy admissions, nepotism, and subjectivity (in their eyes). And well, looking at admissions for top universities, they've got a point.
+
+On the other hand, Korean universities are beginning to realize that test scores aren't a complete measure of an applicant's potential. The question is then: what is?
+
+The U.S. answer to this question (as represented by the Ivy League and most other top schools) is to look at extracurricular activities and essay-writing. I believe that this methodology is based on a historically strong correlation between three groups of people: successful people <--> wealthy people <--> people who have the opportunity to pursue extracurricular activities (i.e. are not burdened by having to work on the farm/take part-time jobs after school). In more recent years, this correlation has mostly dissolved (women join the workforce, freeing their childrens' time; much fewer farmers; child labor laws), yet retained some of its validity (people who pursue extracurriculars tend to be conscientious, which is a strong predictor for success). So this answer works reasonably well for the U.S., although the question remains whether extracurriculars/essay writing is going the way of the SATs for entrance into top-tier universities. (to be expanded upon in a future post)
+
+
+
+So, to answer the title of my post. No, Korea's education reforms will not work.
+
+My answer comes from the observation that Koreans are not like Americans. (Well, duh. But stay with me.) Korea needs to discover metrics that are tailored to discriminating among ability within their own population, not to copy metrics that are tailored for use by American universities.
+
+The U.S. pool of college hopefuls is quite heterogeneous in two dimensions - scientific aptitude and conscientiousness. (I say "scientific aptitude" instead of "IQ" because I want to stress that scientific aptitude is a function of both nature and nurture. A similar disclaimer holds with conscientiousness.) MIT and Caltech seem to select for scientific aptitude, by looking at things like AMC/AIME scores, national and international olympiads, participation in science fairs and ISEF/ISTS, and interesting hobbies. Harvard, along with the Ivies and most other top-tier colleges, seems to select for conscientiousness by looking at extracurricular activities, traditionally defined. So to each college, their own metrics.
+
+The Korean pool of college hopefuls is heterogeneous in scientific aptitude, but has a homogeneously high conscientiousness. Since extracurricular activities are a proxy for conscientiousness, they are in fact, particularly useless for the Koreans. Instead, Korean universities can assume that their applicants have high conscientiousness, and should instead tailor their search for students with high scientific aptitude. They can do this by sponsoring science fairs, science bowls, science olympiads, and so on.
+
+This would also have the added benefit of incentivizing the Korean primary education system to nurture their students' scientific aptitude. A magic bullet for all of Korea's woes.
