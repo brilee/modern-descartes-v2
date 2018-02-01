@@ -1,3 +1,5 @@
 source config
 
-gsutil -m cp -r deploy/ gs://$BUCKET_NAME
+gsutil acl ch -u AllUsers:R gs://$WEBSITE_URL
+gsutil web set -m index.html -e 404.html gs://$WEBSITE_URL
+gsutil -m rsync -R staging gs://$WEBSITE_URL
