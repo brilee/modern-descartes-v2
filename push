@@ -1,6 +1,5 @@
 source config
 
-gsutil web set -m index.html -e 404.html gs://$WEBSITE_URL
 gsutil -m cp -r -Z staging/* gs://$WEBSITE_URL
-gsutil iam ch allUsers:objectViewer gs://$WEBSITE_URL
 gsutil -m setmeta -h "Content-Type:text/html; charset=utf-8" gs://$WEBSITE_URL/essays/*
+gsutil setmeta -h "Content-Type:text/xml; charset=utf-8" gs://$WEBSITE_URL/essays/rss.xml
