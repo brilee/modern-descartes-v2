@@ -92,7 +92,7 @@ def compile_essays():
     print("Compiled {} essays".format(len(all_essays)))
     return all_essays
 
-def compile_all():
+def compile_all(local=False):
     assert STAGING_DIR not in ('/', '.', '..')
     subprocess.check_call('rm -r {}'.format(STAGING_DIR), shell=True)
     compile_html('404.html', '404.html')
@@ -107,6 +107,19 @@ def compile_all():
     make_rss(essays_sorted)
     subprocess.check_call('cp -r {static} {staging}/{static}'.format(
         static=STATIC_DIR, staging=STAGING_DIR), shell=True)
+    if local:
+        abs_dir = os.path.join(os.path.abspath('.'), STAGING_DIR)
+        subprocess.check_call(['find', os.path.join(abs_dir, 'essays'),
+            '-type', 'f', '-exec',
+            'sed', '-i', '', 's|href="/|href="{}/|g'.format(abs_dir), '{}', '+'])
+        subprocess.check_call(['find', os.path.join(abs_dir, 'essays'),
+            '-type', 'f', '-exec',
+            'sed', '-i', '', 's|src="/|src="{}/|g'.format(abs_dir), '{}', '+'])
 
 if __name__ == '__main__':
-    compile_all()
+    if len(sys.argv) == 2 and sys.argv[1] == 'local':
+        compile_all(local=True)
+    elif len(sys.argv) == 1:
+        compile_all()
+    else:
+        print("Usage: python {} [local]")
