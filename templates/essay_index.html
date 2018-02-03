@@ -10,7 +10,7 @@
 <h3>...by date</h3>
 <ul>
 {% for essay in essays_sorted %}
-    <li>{{essay.date}}&nbsp;|&nbsp; <a href="/essays/{{essay.slug}}">{{essay.title}}</a></li>
+    <li>{{essay.date}}&nbsp;|&nbsp; <a href="/{{ESSAY_WEBDIR}}/{{essay.slug}}">{{essay.title}}</a></li>
 {% endfor %}
 </ul>
 
@@ -20,11 +20,11 @@
 <h4>{{category}}</h4>
 	<ul>
 		{% for essay in essays %}
-		<li>{{essay.date}}&nbsp;|&nbsp; <a href="/essays/{{essay.slug}}">{{essay.title}}</a></li>
+		<li>{{essay.date}}&nbsp;|&nbsp; <a href="/{{ESSAY_WEBDIR}}/{{essay.slug}}">{{essay.title}}</a></li>
 		{% endfor %}
 	</ul>
 {% endfor %}
 
-<p><a href="/essays/rss.xml">RSS</a></p>
+<p><a href="/{{ESSAY_WEBDIR}}/rss.xml">Atom</a></p>
 
 {% endblock maintext %}

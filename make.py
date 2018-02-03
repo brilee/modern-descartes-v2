@@ -2,15 +2,22 @@ from collections import namedtuple, defaultdict
 import datetime
 import os
 import subprocess
+import sys
 
+import feedgenerator
 from jinja2 import  Environment, FileSystemLoader, select_autoescape
 import mistune
 
+with open('config') as f:
+    WEBSITE_URL = f.read().strip()
 
+# Where to look for various files
 ESSAY_DIR = "essays"
 STATIC_DIR = "static"
 STAGING_DIR = "staging"
 TEMPLATE_DIR = "templates"
+
+ESSAY_WEBDIR = "essays"
 
 ALLOWED_EXTENSIONS = ('.md', '.txt', '.html')
 MARKDOWN_EXTENSIONS = ('.md', '.txt')
@@ -29,13 +36,27 @@ compile_markdown = mistune.Markdown()
 Essay = namedtuple('Essay', ['slug', 'title', 'date', 'content', 'category'])
 
 def make_rss(compiled_essays):
-    pass
+
+    feed = feedgenerator.Atom1Feed(
+        title="Modern Descartes - Essays by Brian Lee",
+        link=os.path.join(WEBSITE_URL, ESSAY_WEBDIR),
+        description="I seek, therefore I am")
+    for essay in compiled_essays[:10]:
+        feed.add_item(
+            title=essay.title,
+            link=os.path.join(WEBSITE_URL, ESSAY_WEBDIR, essay.slug),
+            description=essay.content,
+            pubdate=essay.date)
+    with open(os.path.join(STAGING_DIR, ESSAY_WEBDIR, 'rss.xml'), 'w') as f:
+        feed.write(f, 'utf-8')
 
 def compile_html(template_name, output_file, **context):
+    default_context = {"ESSAY_WEBDIR": ESSAY_WEBDIR}
+    default_context.update(**context)
     output_path = os.path.join(STAGING_DIR, output_file)
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     template = JINJA_ENV.get_template(template_name)
-    compiled = template.render(**context)
+    compiled = template.render(**default_context)
     with open(output_path, 'w') as f:
         f.write(compiled)
 
