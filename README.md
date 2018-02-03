@@ -2,8 +2,6 @@
 
 This is a static site generator that compiles a set of markdown files, generates HTML, and then pushes HTML/CSS/JS to a Google Cloud Storage bucket for serving.
 
-
-
 # Instructions to myself
 ```
 python3 -m venv .
@@ -26,8 +24,10 @@ gsutil iam ch allUsers:objectViewer gs://$WEBSITE_URL
 Finally, you'll want to [install pandoc](https://pandoc.org/installing.html)
 
 # How to compile/deploy
+```
 python3 make.py
 ./push
+```
 
 If you change anything about the compilation step, do a manual check over essays exercising various features - in particular:
     - fractal plants (javascript embedded snippets)
