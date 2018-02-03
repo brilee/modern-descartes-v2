@@ -11,49 +11,49 @@ In this essay I'll talk about how to estimate this cutoff point for arbitrary ra
 Derivation
 ----------
 
-Let's start by calling the size of the space \\(N\\). We'd like to figure out the \\(k\\) such that \\(k\\) randomly chosen numbers from the range \\(1...N\\) will have a probability \\(p\\) of avoiding collision. For the original birthday paradox, \\(N = 365\\), \\(p = 0.5\\), and we would like to reproduce \\(k = 23\\).
+Let's start by calling the size of the space $N$. We'd like to figure out the $k$ such that $k$ randomly chosen numbers from the range $1...N$ will have a probability $p$ of avoiding collision. For the original birthday paradox, $N = 365$, $p = 0.5$, and we would like to reproduce $k = 23$.
 
-We'll select numbers one by one to calculate the probability of a collision. The first selection avoids collision with probability 1, but the second selection has a slightly smaller \\(\\frac{N-1}{N}\\) probability of avoiding collision. Assuming that no collision occurred after the second selection, the third selection has \\(\\frac{N-2}{N}\\) probability of avoiding collision, and so on until the \\(k\\)th selection with \\(\\frac{N-k+1}{N}\\) probability. Taking the product of each event's probability, we find that the probability of avoiding all collisions is:
+We'll select numbers one by one to calculate the probability of a collision. The first selection avoids collision with probability 1, but the second selection has a slightly smaller $\frac{N-1}{N}$ probability of avoiding collision. Assuming that no collision occurred after the second selection, the third selection has $\frac{N-2}{N}$ probability of avoiding collision, and so on until the $k$th selection with $\frac{N-k+1}{N}$ probability. Taking the product of each event's probability, we find that the probability of avoiding all collisions is:
 
-$$\\frac{N}{N}\cdot \\frac{N-1}{N}\cdot\cdot\cdot \\frac{N-k+1}{N}$$
+$$\frac{N}{N}\cdot \frac{N-1}{N}\cdot\cdot\cdot \frac{N-k+1}{N}$$
 
-At this point, we pull out our first trick: the binomial theorem approximation, when \\(|n\\epsilon| \\ll 1\\). 
+At this point, we pull out our first trick: the binomial theorem approximation, when $|n\epsilon| \ll 1$. 
 
-$$(1 + \\epsilon)^n = 1 + n\\epsilon + \\frac{n(n-1)}{2}\\epsilon^2 + ... \\approx 1 + n\\epsilon$$
+$$(1 + \epsilon)^n = 1 + n\epsilon + \frac{n(n-1)}{2}\epsilon^2 + ... \approx 1 + n\epsilon$$
 
-We can make the above approximation because if \\(n\\epsilon \\ll 1\\), then \\(n^2\\epsilon^2 \\ll n\\epsilon\\) and can be ignored. In our case, \\(\\epsilon = -\\frac{1}{N}\\).
+We can make the above approximation because if $n\epsilon \ll 1$, then $n^2\epsilon^2 \ll n\epsilon$ and can be ignored. In our case, $\epsilon = -\frac{1}{N}$.
 
-For example, \\(\\left(\\frac{364}{365}\\right)^2 = 0.994528\\), while \\(0.994521 = \\frac{363}{365}\\). Almost identical!
+For example, $\left(\frac{364}{365}\right)^2 = 0.994528$, while $0.994521 = \frac{363}{365}$. Almost identical!
 
 Our product of probabilities is thus approximately equal to
 
-$$..\\approx \\left(\\frac{N-1}{N}\\right)^0 \cdot \\left(\\frac{N-1}{N}\\right)^1 \cdot \\left(\\frac{N-1}{N}\\right)^2 \cdot \cdot \cdot \\left(\\frac{N-1}{N}\\right)^{k-1} = \\left(\\frac{N-1}{N}\\right)^\\frac{k(k-1)}{2}$$
+$$..\approx \left(\frac{N-1}{N}\right)^0 \cdot \left(\frac{N-1}{N}\right)^1 \cdot \left(\frac{N-1}{N}\right)^2 \cdot \cdot \cdot \left(\frac{N-1}{N}\right)^{k-1} = \left(\frac{N-1}{N}\right)^\frac{k(k-1)}{2}$$
 
-While this approximation is valid for each individual term in the product, it might not be valid in the aggregate. In other words, it's true that \\(0.99^5 \\approx 0.95\\), but it's less true that \\(0.99^{25} \\approx 0.75\\), and very untrue that \\(0.99^{50} \\approx 0.5\\). And if we want to solve our problem for arbitrary \\(p\\), we'll run into this problem for certain! To overcome this problem, we'll use one of the many limits involving \\(e\\):
+While this approximation is valid for each individual term in the product, it might not be valid in the aggregate. In other words, it's true that $0.99^5 \approx 0.95$, but it's less true that $0.99^{25} \approx 0.75$, and very untrue that $0.99^{50} \approx 0.5$. And if we want to solve our problem for arbitrary $p$, we'll run into this problem for certain! To overcome this problem, we'll use one of the many limits involving $e$:
 
-$$e = lim_{n\\to\\infty}\\left(1 + \\frac{1}{n}\\right)^n$$
+$$e = lim_{n\to\infty}\left(1 + \frac{1}{n}\right)^n$$
 
 Exponentiating both sides, we get a rearranged version of this equation:
 
-$$p = lim_{n\\to\\infty}\\left(1 + \\frac{1}{n}\\right)^{n\\ln p} = lim_{n\\to\\infty}\\left(1 - \\frac{1}{n}\\right)^{-n\\ln p}$$
+$$p = lim_{n\to\infty}\left(1 + \frac{1}{n}\right)^{n\ln p} = lim_{n\to\infty}\left(1 - \frac{1}{n}\right)^{-n\ln p}$$
 
-The second equality follows from another application of our first trick \\((1 + \\epsilon)^n \\approx 1 + \\epsilon n\\), with \\(n = -1\\).
+The second equality follows from another application of our first trick $(1 + \epsilon)^n \approx 1 + \epsilon n$, with $n = -1$.
 
-\\(N=365\\) is close enough to infinity, so we can say that
+$N=365$ is close enough to infinity, so we can say that
 
-$$p \\approx \\left(\\frac{N-1}{N}\\right)^{-N\\ln p}$$
+$$p \approx \left(\frac{N-1}{N}\right)^{-N\ln p}$$
 
 This looks pretty similar to our previous equation, so all that's left is to set the exponents equal, and solve:
 
-$$-N\\ln p = \\frac{k(k-1)}{2}$$
+$$-N\ln p = \frac{k(k-1)}{2}$$
 
-$$-2N\\ln p = k(k-1) \\approx (k-0.5)^2$$
+$$-2N\ln p = k(k-1) \approx (k-0.5)^2$$
 
-$$k = \\sqrt{-2N\\ln p} + 0.5$$
+$$k = \sqrt{-2N\ln p} + 0.5$$
 
-Substituting \\(N = 365, p = 0.5\\), we get \\(k = 22.9944\\), matching the known solution.
+Substituting $N = 365, p = 0.5$, we get $k = 22.9944$, matching the known solution.
 
-If you're not concerned about constant factors, all you need to remember is that for some given \\(p\\), \\(k\\) scales as \\(\\sqrt{N}\\).
+If you're not concerned about constant factors, all you need to remember is that for some given $p$, $k$ scales as $\sqrt{N}$.
 
 Conclusion 
 ----------
@@ -66,5 +66,5 @@ Another place this derivation shows up is in calculating false positive probabil
 
 The two key tricks in this derivation are
 
-- using the Binomial approximation to simplify complex fractions into powers of a common term, \\(\\frac{N-1}{N}\\)
-- using an equation involving \\(e\\) to ensure correctness as the powers of \\(\\left(\\frac{N-1}{N}\\right)^k\\) grow large
+- using the Binomial approximation to simplify complex fractions into powers of a common term, $\frac{N-1}{N}$
+- using an equation involving $e$ to ensure correctness as the powers of $\left(\frac{N-1}{N}\right)^k$ grow large

@@ -15,7 +15,7 @@ In neural networks, each neuron typically takes in many inputs, combines them as
 
 Choices for activation functions vary widely. Here are some popular ones:
 
-Rectified linear unit (zero when \\(x < 0\\))
+Rectified linear unit (zero when $x < 0$)
 
 <img src="/static/ReLU_graph.png" title="Rectified linear unit" style="display: block; margin: 0 auto;"/>
 

@@ -6,7 +6,6 @@ import sys
 
 import feedgenerator
 from jinja2 import  Environment, FileSystemLoader, select_autoescape
-import mistune
 
 with open('config') as f:
     WEBSITE_URL = f.read().strip()
@@ -20,7 +19,6 @@ TEMPLATE_DIR = "templates"
 ESSAY_WEBDIR = "essays"
 
 ALLOWED_EXTENSIONS = ('.md', '.txt', '.html')
-MARKDOWN_EXTENSIONS = ('.md', '.txt')
 
 BASIC_PAGES = (
     '404.html',
@@ -30,8 +28,6 @@ BASIC_PAGES = (
 JINJA_ENV = Environment(
     loader=FileSystemLoader('templates'),
     autoescape=select_autoescape(['html', 'xml']))
-
-compile_markdown = mistune.Markdown()
 
 Essay = namedtuple('Essay', ['slug', 'title', 'date', 'content', 'category'])
 
@@ -79,9 +75,12 @@ def compile_essays():
                 essay_date = datetime.date(year=int(year), month=int(month),
                     day=int(day))
                 essay_content = f.read()
-
-            if extension in MARKDOWN_EXTENSIONS:
-                essay_content = compile_markdown(essay_content)
+            result = subprocess.run(
+                "pandoc -f markdown -t html --mathjax",
+                stdout=subprocess.PIPE,
+                input=essay_content.encode('utf8'),
+                shell=True)
+            essay_content = result.stdout.decode('utf-8')
 
             essay = Essay(slug=essay_shortname, title=essay_longname,
                 date=essay_date, content=essay_content, category=category)

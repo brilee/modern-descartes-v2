@@ -58,11 +58,11 @@ In support of this expansion hypothesis, list comprehensions used to have the st
     # x = 9
     # sublist = [8, 9]
 
-Fortunately, leaky for loops are a problem of the past; Python 3 doesn't leak variables this way anymore!
+Fortunately, leaky list comprehensions are a problem of the past; Python 3 doesn't leak variables this way anymore!
 
 Once you understand this macro, it's not difficult to see how multiply nested list comprehensions should be unrolled.
 
-One situation where I took advantage of this feature was in a [2015 Mystery Hunt puzzle](http://web.mit.edu/puzzle/www/2015/puzzle/hunt_life_3_confirmed/) in which the puzzle boiled down to solving a set of 12 equations in 18 variables, where the variables were restricted to integers in the range [1, 26]. Naively, you could iterate over the 26 ^ 18 = 29479510200013918864408576 possibilities, and check each of them to see if they satisfied the set of equations. Of course, this would take forever to run! The trick is to discard possibilities as soon as you know they're invalid: if you know that A and B must satisfy A = 2B, then there's no point in iterating over the 26 ^ 16 possibilities for C,D,...Q,R when you know that the A = 2B constraint has already failed.
+One situation where I took advantage of this feature was in a [2015 Mystery Hunt puzzle](http://web.mit.edu/puzzle/www/2015/puzzle/hunt_life_3_confirmed/) in which the puzzle boiled down to solving a set of 12 equations in 18 variables, where the variables were restricted to integers in the range [1, 26]. Naively, you could iterate over the $26^{18}$ = 29479510200013918864408576 possibilities, and check each of them to see if they satisfied the set of equations. Of course, this would take forever to run! The trick is to discard possibilities as soon as you know they're invalid: if you know that A and B must satisfy A = 2B, then there's no point in iterating over the $26^{16}$ possibilities for C,D,...Q,R when you know that the A = 2B constraint has already failed.
 
     # Naive way:
     result = []

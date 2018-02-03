@@ -80,7 +80,7 @@ Miscellaneous thoughts
 
 - There were a lot of interconnected hyperparameters, making this far from a drop-in algorithm:
     - the number of moves randomly sampled at the start to generate enough variation , compared to the size of the board, the typical length of game, and the typical branching factor/entropy introduced by each move.
-    - the size of the board, the dispersion factor of the Dirichlet noise, the \\(L_2\\) regularization strength that causes the policy net's outputs to be more disperse, the number of MCTS searches that were used to overcome the magnitude of the priors, and the \\(P_{UCT}\\) constant (not given in paper) used to weight the policy priors against the MCTS searches.
+    - the size of the board, the dispersion factor of the Dirichlet noise, the $L_2$ regularization strength that causes the policy net's outputs to be more disperse, the number of MCTS searches that were used to overcome the magnitude of the priors, and the $P_{UCT}$ constant (not given in paper) used to weight the policy priors against the MCTS searches.
     - the learning rate, batch size, and training speed as compared to the rate at which new games were generated.
     - the depth of old games that were revisited during training, compared to the rate at which new version of AGZ were promoted.
 

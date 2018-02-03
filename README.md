@@ -14,6 +14,7 @@ Then, read docs at [https://cloud.google.com/storage/docs/hosting-static-website
 - make a bucket with the name of your website. (and update config with the website URL)
 - set DNS to point at `c.storage.googleapis.com.` with a CNAME (trailing dot not a typo). (Note: CNAME does not support the root domain (domain.com), but only subdomain.domain.com. You'll want to set an alias to forward domain.com to subdomain.domain.com; implementation differs by DNS provider.)
 
+Finally, you'll want to [install pandoc](https://pandoc.org/installing.html)
 
 # How to compile/deploy
 python3 make.py

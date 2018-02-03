@@ -1,36 +1,36 @@
 The asymptotic value of 2n choose n
 2017/4/29
 
-What is the asymptotic value of \\({2n \\choose n}\\) as \\(n\\) goes to infinity?
+What is the asymptotic value of ${2n \choose n}$ as $n$ goes to infinity?
 
 There's a stupid solution that involves plugging in [Stirling's approximation](https://en.wikipedia.org/wiki/Stirling%27s_approximation) three times and cleaning up the ensuing mess, but I thought of a better solution.
 
-Let's start by figuring out the ratio of two adjacent terms. Taking \\(n = 4, 5\\) as an example, we have:
+Let's start by figuring out the ratio of two adjacent terms. Taking $n = 4, 5$ as an example, we have:
 
-\\({8 \\choose 4} = \\frac{8!}{4!4!}\\)
+${8 \choose 4} = \frac{8!}{4!4!}$
 
-\\({10 \\choose 5} = \\frac{10!}{5!5!} = {8 \\choose 4} \cdot \\frac{10 \\cdot 9}{5 \\cdot 5}\\)
+${10 \choose 5} = \frac{10!}{5!5!} = {8 \choose 4} \cdot \frac{10 \cdot 9}{5 \cdot 5}$
 
-So it seems that as we increment \\(n\\), we're multiplying by \\(\\frac{2n(2n-1)}{n^2} \\approx 4\\). Therefore, the dominant term in the asymptotic growth rate is \\(4^n\\).
+So it seems that as we increment $n$, we're multiplying by $\frac{2n(2n-1)}{n^2} \approx 4$. Therefore, the dominant term in the asymptotic growth rate is $4^n$.
 
 Can we do better? Yes. Let's take a closer look at the approximation we made in the last step.
 
-The approximation we took was to multiply by \\(\\frac{2n}{2n-1}\\) and pretend it didn't happen. And that's for a single step, for \\(n \\rightarrow n+1\\). When you aggregate all of these small errors from 1 to \\(n\\), you get an extended product:
+The approximation we took was to multiply by $\frac{2n}{2n-1}$ and pretend it didn't happen. And that's for a single step, for $n \rightarrow n+1$. When you aggregate all of these small errors from 1 to $n$, you get an extended product:
 
-\\(P = \\frac{2}{1} \\cdot \\frac{4}{3} \\cdot \\frac{6}{5} \\cdot \\frac{8}{7}\\cdot\\cdot\\cdot \\frac{2n}{2n-1}\\)
+$P = \frac{2}{1} \cdot \frac{4}{3} \cdot \frac{6}{5} \cdot \frac{8}{7}\cdot\cdot\cdot \frac{2n}{2n-1}$
 
-So we're overestimating by a factor of \\(P\\). How can we estimate the value of this product? Well, it would be nice if we could cancel out the numerator and denominator of adjacent terms... What if we take the complementary series to fill in the gaps?
+So we're overestimating by a factor of $P$. How can we estimate the value of this product? Well, it would be nice if we could cancel out the numerator and denominator of adjacent terms... What if we take the complementary series to fill in the gaps?
 
-\\(P' = \\frac{3}{2} \\cdot \\frac{5}{4} \\cdot \\frac{7}{6} \\cdot \\frac{9}{8}\\cdot\\cdot\\cdot \\frac{2n-1}{2n-2}\\)
+$P' = \frac{3}{2} \cdot \frac{5}{4} \cdot \frac{7}{6} \cdot \frac{9}{8}\cdot\cdot\cdot \frac{2n-1}{2n-2}$
 
-\\(P \\cdot P' = \\frac{2}{1} \\cdot \\frac{3}{2} \\cdot \\frac{4}{3} \\cdot \\frac{5}{4}\\cdot\\cdot\\cdot \\frac{2n-1}{2n-2} \\cdot \\frac{2n}{2n-1} = 2n \\)
+$P \cdot P' = \frac{2}{1} \cdot \frac{3}{2} \cdot \frac{4}{3} \cdot \frac{5}{4}\cdot\cdot\cdot \frac{2n-1}{2n-2} \cdot \frac{2n}{2n-1} = 2n $
 
-By multiplying these two series together, everything cancels out perfectly, in a zipper-like fashion. Our next approximation is to say that, since these two infinite series are complementary, they each contribute a half of the final product. Each component series is therefore worth \\(P \\approx P' \\approx \\sqrt{2n}\\), and our improved asymptotic value is \\(\\frac{4^n}{\\sqrt{2n}}\\).
+By multiplying these two series together, everything cancels out perfectly, in a zipper-like fashion. Our next approximation is to say that, since these two infinite series are complementary, they each contribute a half of the final product. Each component series is therefore worth $P \approx P' \approx \sqrt{2n}$, and our improved asymptotic value is $\frac{4^n}{\sqrt{2n}}$.
 
 It's definitely not true that the two halves are equal in value, though. As it turns out, there's an infinite series that describes the divergence between these two halves: the [Wallis product](https://en.wikipedia.org/wiki/Wallis_product). There's a nifty proof of this product by Euler - see the Wikipedia article for details.
 
-\\(W = \\frac{P}{P'} = \\frac{2}{1} \\cdot \\frac{2}{3} \\cdot \\frac{4}{3} \\cdot \\frac{4}{5} \\cdot \\frac{6}{5} \\cdot \\frac{6}{7} \\cdot\\cdot\\cdot = \\frac{\\pi}{2}\\)
+$W = \frac{P}{P'} = \frac{2}{1} \cdot \frac{2}{3} \cdot \frac{4}{3} \cdot \frac{4}{5} \cdot \frac{6}{5} \cdot \frac{6}{7} \cdot\cdot\cdot = \frac{\pi}{2}$
 
-Using the Wallace product, we can upgrade our approximation to an equality: \\(P \\cdot P' \\cdot W = P^2 = 2n \\cdot \\frac{\\pi}{2} = \\pi n\\)
+Using the Wallace product, we can upgrade our approximation to an equality: $P \cdot P' \cdot W = P^2 = 2n \cdot \frac{\pi}{2} = \pi n$
 
-The actual asymptotic value is therefore \\(\\frac{4^n}{\\sqrt{\\pi n}}\\). This value can be confirmed by the brute-force Stirling's approximation solution.
+The actual asymptotic value is therefore $\frac{4^n}{\sqrt{\pi n}}$. This value can be confirmed by the brute-force Stirling's approximation solution.
