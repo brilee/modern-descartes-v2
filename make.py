@@ -86,13 +86,13 @@ def compile_essays():
                 date=essay_date, content=essay_content, category=category)
             all_essays.append(essay)
 
-            compile_html('essay_detailed.html', 
-                'essays/{}'.format(essay.slug), essay=essay)
+            compile_html('essay_detailed.html',
+                'essays/{}/index.html'.format(essay.slug), essay=essay)
     print("Compiled {} essays".format(len(all_essays)))
     return all_essays
 
 def compile_all(local=False):
-    assert STAGING_DIR not in ('/', '.', '..')
+    assert STAGING_DIR not in ('/', '.', '..', '')
     subprocess.check_call('rm -r {}'.format(STAGING_DIR), shell=True)
     compile_html('404.html', '404.html')
     compile_html('index.html', 'index.html')
@@ -104,7 +104,7 @@ def compile_all(local=False):
     compile_html('essay_index.html', 'essays/index.html',
         essays_sorted=essays_sorted, essays_by_category=essays_by_category)
     make_rss(essays_sorted)
-    subprocess.check_call('cp -r {static} {staging}/{static}'.format(
+    subprocess.check_call('cp -r -p {static} {staging}/{static}'.format(
         static=STATIC_DIR, staging=STAGING_DIR), shell=True)
     if local:
         abs_dir = os.path.join(os.path.abspath('.'), STAGING_DIR)

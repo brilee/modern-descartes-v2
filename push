@@ -1,5 +1,3 @@
 source config
 
-gsutil -m cp -r -Z staging/* gs://$WEBSITE_URL
-gsutil -m setmeta -h "Content-Type:text/html; charset=utf-8" gs://$WEBSITE_URL/essays/*
-gsutil setmeta -h "Content-Type:text/xml; charset=utf-8" gs://$WEBSITE_URL/essays/rss.xml
+gsutil -m rsync -r -d staging gs://$WEBSITE_URL
