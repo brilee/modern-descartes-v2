@@ -5,7 +5,7 @@ import subprocess
 import sys
 
 import feedgenerator
-from jinja2 import  Environment, FileSystemLoader, select_autoescape
+from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 
 WEBSITE_URL = 'http://www.moderndescartes.com'
@@ -79,7 +79,7 @@ def compile_essays():
                 stdout=subprocess.PIPE,
                 input=essay_content.encode('utf8'),
                 shell=True)
-            essay_content = result.stdout.decode('utf-8')
+            essay_content = result.stdout.decode('utf8')
 
             essay = Essay(slug=essay_shortname, title=essay_longname,
                 date=essay_date, content=essay_content, category=category)
@@ -121,4 +121,4 @@ if __name__ == '__main__':
     elif len(sys.argv) == 1:
         compile_all()
     else:
-        print("Usage: python {} [local]")
+        print("Usage: python {} [local]".format(sys.argv[0]))
