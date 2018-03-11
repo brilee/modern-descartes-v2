@@ -1,3 +1,1 @@
-source config
-
 gsutil -m rsync -r -d staging gs://www.moderndescartes.com
