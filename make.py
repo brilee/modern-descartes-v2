@@ -7,9 +7,8 @@ import sys
 import feedgenerator
 from jinja2 import  Environment, FileSystemLoader, select_autoescape
 
-with open('config') as f:
-    WEBSITE_URL = f.read().strip()
 
+WEBSITE_URL = 'http://www.moderndescartes.com'
 # Where to look for various files
 ESSAY_DIR = "essays"
 STATIC_DIR = "static"
@@ -108,16 +107,17 @@ def compile_all(local=False):
         static=STATIC_DIR, staging=STAGING_DIR), shell=True)
     if local:
         abs_dir = os.path.join(os.path.abspath('.'), STAGING_DIR)
-        subprocess.check_call(['find', os.path.join(abs_dir, 'essays'),
-            '-type', 'f', '-exec',
+        subprocess.check_call(['find', abs_dir,
+            '-type', 'f', '-name', '*.html', '-exec',
             'sed', '-i', '', 's|href="/|href="{}/|g'.format(abs_dir), '{}', '+'])
-        subprocess.check_call(['find', os.path.join(abs_dir, 'essays'),
-            '-type', 'f', '-exec',
+        subprocess.check_call(['find', abs_dir,
+            '-type', 'f', '-name', '*.html', '-exec',
             'sed', '-i', '', 's|src="/|src="{}/|g'.format(abs_dir), '{}', '+'])
 
 if __name__ == '__main__':
     if len(sys.argv) == 2 and sys.argv[1] == 'local':
         compile_all(local=True)
+        subprocess.call(['open', 'staging/index.html'])
     elif len(sys.argv) == 1:
         compile_all()
     else:
