@@ -1,0 +1,333 @@
+Visualizing TensorFlow's streaming shufflers
+2018/4/4
+
+# Introduction
+
+If you've ever played Magic: The Gathering or other card games involving large, unwieldy decks of cards, you've probably wondered: How the heck am I supposed to shuffle this thing? How would I even know if I were shuffling properly?
+
+As it turns out, there are similar problems in machine learning, where training datasets routinely exceed the size of your machine's memory. Shuffling here is very important; imagine you (the model) are swimming through the ocean (the data) trying to predict an average water temperature (the outcome). You won't really be able to give a good answer because the ocean is not well shuffled.
+
+In practice, insufficiently shuffled datasets tend to manifest as spiky loss curves: the loss drops very low as the model overfits to one type of data, and then when the data changes style, the loss spikes back up to random chance levels, and then steadily overfits again.
+
+TensorFlow provides a rather simple api for shuffling data streams: [Dataset.shuffle(buffer_size)](https://www.tensorflow.org/programmers_guide/datasets#randomly_shuffling_input_data). I wanted to understand how the level of shuffledness changed as you fiddled with the `buffer_size` parameter.
+
+# Visualizing shuffledness
+
+The seemingly simple way to measure shuffledness would be to come up with some measure of shuffledness, and compare this number between different invocations of `dataset.shuffle()`. But I spent a while trying to come up with an equation that could measure shuffledness and came up blank. As it turns out, people have come up with complicated test suites like [Diehard](https://en.wikipedia.org/wiki/Diehard_tests) or [Crush](https://en.wikipedia.org/wiki/TestU01) to try to measure the quality of pseudorandom number generators, so it suffices to say that it's a hard problem.
+
+Instead, I decided I'd try to visualize the data directly, in a way that would highlight unshuffled patches of data.
+
+To do this, we use the Hilbert Curve, a space-filling fractal that can take a 1D sequence of data and shove it into a 2D space, in a way that if two points are close to each other in the 1D sequence, then they'll be close in 2D space.
+
+<table style="margin: 0 auto; caption-side: bottom">
+<caption>Hilbert curves of order 1...5</caption>
+<tr>
+<td><img src="/static/shuffling_viz/hilbert_curve_1.svg"></td>
+<td><img src="/static/shuffling_viz/hilbert_curve_2.svg"></td>
+<td><img src="/static/shuffling_viz/hilbert_curve_3.svg"></td>
+<td><img src="/static/shuffling_viz/hilbert_curve_4.svg"></td>
+<td><img src="/static/shuffling_viz/hilbert_curve_5.svg"></td>
+</tr>
+</table>
+
+
+Each element of the list then gets mapped to a color on the color wheel.
+
+<figure style="text-align: center">
+<img src="/static/shuffling_viz/basic_scaling_1024_0.png">
+<img src="/static/shuffling_viz/basic_scaling_1024_1.png">
+<figcaption>A sorted list and a shuffled list.</figcaption>
+</figure>
+
+# Exploring shuffler configurations
+
+## Basic shuffling
+
+Let's start with the simplest shuffle. We'll start with a dataset and stream it through a shuffler of varying size. In the following table, we have datasets of size $2^{10}, 2^{12}, 2^{14}$, and shufflers of buffer size 0%, 1%, 10%, 50%, and 100% of the data size.
+
+<table style="margin: 0 auto; caption-side: bottom">
+<caption>A single shuffler of buffer size ratio 0 - 1, acting on datasets of size $2^{10} - 2^{14}$.</caption>
+<tr><th colspan="7">Buffer size ratio </th></tr>
+<tr>
+<th rowspan="4"># data</td>
+<td />
+<th>0</th>
+<th>0.01</th>
+<th>0.1</th>
+<th>0.5</th>
+<th>1</th>
+</tr>
+<tr>
+<th>1024</th>
+<td><img src="/static/shuffling_viz/basic_scaling_1024_0.png"></td>
+<td><img src="/static/shuffling_viz/basic_scaling_1024_0.01.png"></td>
+<td><img src="/static/shuffling_viz/basic_scaling_1024_0.1.png"></td>
+<td><img src="/static/shuffling_viz/basic_scaling_1024_0.5.png"></td>
+<td><img src="/static/shuffling_viz/basic_scaling_1024_1.png"></td>
+</tr>
+<tr>
+<th>4096</th>
+<td><img src="/static/shuffling_viz/basic_scaling_4096_0.png"></td>
+<td><img src="/static/shuffling_viz/basic_scaling_4096_0.01.png"></td>
+<td><img src="/static/shuffling_viz/basic_scaling_4096_0.1.png"></td>
+<td><img src="/static/shuffling_viz/basic_scaling_4096_0.5.png"></td>
+<td><img src="/static/shuffling_viz/basic_scaling_4096_1.png"></td>
+</tr>
+<tr>
+<th>16384</th>
+<td><img src="/static/shuffling_viz/basic_scaling_16384_0.png"></td>
+<td><img src="/static/shuffling_viz/basic_scaling_16384_0.01.png"></td>
+<td><img src="/static/shuffling_viz/basic_scaling_16384_0.1.png"></td>
+<td><img src="/static/shuffling_viz/basic_scaling_16384_0.5.png"></td>
+<td><img src="/static/shuffling_viz/basic_scaling_16384_1.png"></td>
+</tr>
+</table>
+
+As it turns out, using a simple `dataset.shuffle()` is good enough to scramble the exact ordering of the data when making multiple passes over your data, but it's not good for much else. It completely fails to destroy any large-scale correlations in your data.
+
+Another interesting discovery here is that the buffer size ratio [buffer size / dataset size] appears to be scale-free, meaning that even as we scaled up to a much larger dataset, the qualitative shuffling behavior would remain unchanged if the buffer size ratio stays the same. This gives us the confidence to say that our toy examples here will generalize to real datasets.
+
+## Chained shufflers
+
+The next thought I had was whether you could do any better by chaining multiple .shuffle() calls in a row. To be fair, I kept the memory budget constant, so if I used 4 chained shuffle calls, each shuffle call would get 1/4 the buffer size. In the following table, we have 1, 2, or 4 chained shufflers, with buffer size ratios of 0%, 1%, 10%, and 50%. _All graphs from here on use a dataset size of $2^{14}$._
+
+<table style="margin: 0 auto; caption-side: bottom">
+<caption>Multiple chained shufflers (1, 2, or 4) with varying buffer sizes.</caption>
+<tr><th colspan="5"># chained shufflers </th></tr>
+<tr>
+<th rowspan="5">buffer size</td>
+<td />
+<th>1</th>
+<th>2</th>
+<th>4</th>
+</tr>
+<tr>
+<th>0</th>
+<td><img src="/static/shuffling_viz/chained_scaling_0_1.png"></td>
+<td><img src="/static/shuffling_viz/chained_scaling_0_2.png"></td>
+<td><img src="/static/shuffling_viz/chained_scaling_0_4.png"></td>
+</tr>
+<tr>
+<th>0.01</th>
+<td><img src="/static/shuffling_viz/chained_scaling_0.01_1.png"></td>
+<td><img src="/static/shuffling_viz/chained_scaling_0.01_2.png"></td>
+<td><img src="/static/shuffling_viz/chained_scaling_0.01_4.png"></td>
+</tr>
+<tr>
+<th>0.1</th>
+<td><img src="/static/shuffling_viz/chained_scaling_0.1_1.png"></td>
+<td><img src="/static/shuffling_viz/chained_scaling_0.1_2.png"></td>
+<td><img src="/static/shuffling_viz/chained_scaling_0.1_4.png"></td>
+</tr>
+<tr>
+<th>0.5</th>
+<td><img src="/static/shuffling_viz/chained_scaling_0.5_1.png"></td>
+<td><img src="/static/shuffling_viz/chained_scaling_0.5_2.png"></td>
+<td><img src="/static/shuffling_viz/chained_scaling_0.5_4.png"></td>
+</tr>
+</table>
+
+The discovery here is that chaining shufflers results in worse performance than just using one big shuffler.
+
+## Sharded shuffling
+
+It seems, then, that we need some way to create large-scale movement of data. The simplest way to do this is to shard your data into multiple smaller chunks. In fact, if you're working on very large datasets, chances are your data is already sharded to begin with. In the following table, we have 1, 2, 4, or 8 shards of data, with buffer size ratios of 0%, 1%, 10%, and 50%. The order of shards is randomized.
+
+<table style="margin: 0 auto; caption-side: bottom">
+<caption>A single shuffler reading (1, 2, 4, or 8) shards in random order.</caption>
+<tr><th colspan="6">number of shards </th></tr>
+<tr>
+<th rowspan="5">buffer size</td>
+<td />
+<th>1</th>
+<th>2</th>
+<th>4</th>
+<th>8</th>
+</tr>
+<tr>
+<th>0</th>
+<td><img src="/static/shuffling_viz/sharded_scaling_0_1.png"></td>
+<td><img src="/static/shuffling_viz/sharded_scaling_0_2.png"></td>
+<td><img src="/static/shuffling_viz/sharded_scaling_0_4.png"></td>
+<td><img src="/static/shuffling_viz/sharded_scaling_0_8.png"></td>
+</tr>
+<tr>
+<th>0.01</th>
+<td><img src="/static/shuffling_viz/sharded_scaling_0.01_1.png"></td>
+<td><img src="/static/shuffling_viz/sharded_scaling_0.01_2.png"></td>
+<td><img src="/static/shuffling_viz/sharded_scaling_0.01_4.png"></td>
+<td><img src="/static/shuffling_viz/sharded_scaling_0.01_8.png"></td>
+</tr>
+<tr>
+<th>0.1</th>
+<td><img src="/static/shuffling_viz/sharded_scaling_0.1_1.png"></td>
+<td><img src="/static/shuffling_viz/sharded_scaling_0.1_2.png"></td>
+<td><img src="/static/shuffling_viz/sharded_scaling_0.1_4.png"></td>
+<td><img src="/static/shuffling_viz/sharded_scaling_0.1_8.png"></td>
+</tr>
+<tr>
+<th>0.5</th>
+<td><img src="/static/shuffling_viz/sharded_scaling_0.5_1.png"></td>
+<td><img src="/static/shuffling_viz/sharded_scaling_0.5_2.png"></td>
+<td><img src="/static/shuffling_viz/sharded_scaling_0.5_4.png"></td>
+<td><img src="/static/shuffling_viz/sharded_scaling_0.5_8.png"></td>
+</tr>
+</table>
+
+## Parallel-read sharded shuffling
+
+The last table didn't look particularly great, but wait till you see this one. A logical next step with sharded data is to read multiple shards concurrently. Luckily, TensorFlow's [dataset.interleave](https://www.tensorflow.org/api_docs/python/tf/data/Dataset#interleave) API makes this really easy to do. 
+
+The following table has 1, 2, 4, 8 shards, with 1, 2, 4, 8 of those shards being read in parallel. _All graphs from here on use a buffer size ratio of 1%._
+
+<table style="margin: 0 auto; caption-side: bottom">
+<caption>A single shuffler reading multiple shards in parallel.</caption>
+<tr><th colspan="6">shards read in parallel </th></tr>
+<tr>
+<th rowspan="5"># shards</td>
+<td />
+<th>1</th>
+<th>2</th>
+<th>4</th>
+<th>8</th>
+</tr>
+<tr>
+<th>1</th>
+<td><img src="/static/shuffling_viz/parallel_read_scaling_1_1.png"></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th>2</th>
+<td><img src="/static/shuffling_viz/parallel_read_scaling_2_1.png"></td>
+<td><img src="/static/shuffling_viz/parallel_read_scaling_2_2.png"></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th>4</th>
+<td><img src="/static/shuffling_viz/parallel_read_scaling_4_1.png"></td>
+<td><img src="/static/shuffling_viz/parallel_read_scaling_4_2.png"></td>
+<td><img src="/static/shuffling_viz/parallel_read_scaling_4_4.png"></td>
+<td></td>
+</tr>
+<tr>
+<th>8</th>
+<td><img src="/static/shuffling_viz/parallel_read_scaling_8_1.png"></td>
+<td><img src="/static/shuffling_viz/parallel_read_scaling_8_2.png"></td>
+<td><img src="/static/shuffling_viz/parallel_read_scaling_8_4.png"></td>
+<td><img src="/static/shuffling_viz/parallel_read_scaling_8_8.png"></td>
+</tr>
+</table>
+
+We're starting to see some interesting things, namely that when #shards = #parallel reads, we get some pretty darn good shuffling. There are still a few issues: because all the shards are exactly the same size, we see stark boundaries when a set of shards are completed simultaneously. Additionally, because each shard is unshuffled, we see a slowly changing gradient across the image as each shard is read from front to back in parallel. This pattern is most apparent in the 2, 2 and 4, 4 table entries.
+
+## Parallel-read sharded shuffling, with shard size jittering
+
+Next, I tried jittering the shard sizes to try and fix the shard boundary issue. The following table is identical to the previous one, except that shard sizes range from 0.75~1.5x of the previous table's shards.
+
+<table style="margin: 0 auto; caption-side: bottom">
+<caption>A single shuffler reading multiple shards in parallel (shard sizes jittered).</caption>
+<tr><th colspan="6">shards read in parallel </th></tr>
+<tr>
+<th rowspan="5"># shards</td>
+<td />
+<th>1</th>
+<th>2</th>
+<th>4</th>
+<th>8</th>
+</tr>
+<tr>
+<th>1</th>
+<td><img src="/static/shuffling_viz/parallel_read_scaling_jittered_1_1.png"></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th>2</th>
+<td><img src="/static/shuffling_viz/parallel_read_scaling_jittered_2_1.png"></td>
+<td><img src="/static/shuffling_viz/parallel_read_scaling_jittered_2_2.png"></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th>4</th>
+<td><img src="/static/shuffling_viz/parallel_read_scaling_jittered_4_1.png"></td>
+<td><img src="/static/shuffling_viz/parallel_read_scaling_jittered_4_2.png"></td>
+<td><img src="/static/shuffling_viz/parallel_read_scaling_jittered_4_4.png"></td>
+<td></td>
+</tr>
+<tr>
+<th>8</th>
+<td><img src="/static/shuffling_viz/parallel_read_scaling_jittered_8_1.png"></td>
+<td><img src="/static/shuffling_viz/parallel_read_scaling_jittered_8_2.png"></td>
+<td><img src="/static/shuffling_viz/parallel_read_scaling_jittered_8_4.png"></td>
+<td><img src="/static/shuffling_viz/parallel_read_scaling_jittered_8_8.png"></td>
+</tr>
+</table>
+
+This table doesn't look that great; the big blobs of color occur because whichever shard is the biggest, ends up being the only shard left over at the end. We've succeeded in smearing the sharp shard boundaries we saw in the previous table, but jittering has not solved the large-scale gradient in color.
+
+## Multi-stage shuffling
+
+So now we're back to reading in parallel from many shards. How might we shuffle the data within each shard? Well, if sharding the original dataset results in shards that fit in memory, then we can just shuffle them - simple enough. But if not, then we can actually just recursively shard our files until they get small enough to fit in memory! The number of sharding stages would then grow as log(N).
+
+Here's what two-stage shuffling looks like. Each stage is shuffled with the same parameters - number of shards, number of shards read in parallel, and buffer size.
+
+<table style="margin: 0 auto; caption-side: bottom">
+<caption>Recursive sharding/shuffling, with two stages of sharding/shuffling.</caption>
+<tr><th colspan="6">shards read in parallel </th></tr>
+<tr>
+<th rowspan="5"># shards</td>
+<td />
+<th>1</th>
+<th>2</th>
+<th>4</th>
+<th>8</th>
+</tr>
+<tr>
+<th>1</th>
+<td><img src="/static/shuffling_viz/twice_shuffled_1_1.png"></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th>2</th>
+<td><img src="/static/shuffling_viz/twice_shuffled_2_1.png"></td>
+<td><img src="/static/shuffling_viz/twice_shuffled_2_2.png"></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th>4</th>
+<td><img src="/static/shuffling_viz/twice_shuffled_4_1.png"></td>
+<td><img src="/static/shuffling_viz/twice_shuffled_4_2.png"></td>
+<td><img src="/static/shuffling_viz/twice_shuffled_4_4.png"></td>
+<td></td>
+</tr>
+<tr>
+<th>8</th>
+<td><img src="/static/shuffling_viz/twice_shuffled_8_1.png"></td>
+<td><img src="/static/shuffling_viz/twice_shuffled_8_2.png"></td>
+<td><img src="/static/shuffling_viz/twice_shuffled_8_4.png"></td>
+<td><img src="/static/shuffling_viz/twice_shuffled_8_8.png"></td>
+</tr>
+</table>
+
+This table shows strictly superior results to our original parallel read table. 
+
+# Conclusions
+
+I've shown here a setup of recursive shuffling that should pretty reliably shuffle data that is perfectly sorted. In practice, your datasets will have different kinds of sortedness at different scales. The important thing is to be able to break correlations at each of these scales.
+
+To summarize:
+
+- A single streaming shuffler can only remove correlations that are closer than its buffer size.
+- Shard your data and read in parallel.
+- Shards should themselves be free of large-scale correlations.
+- For really big datasets, use multiple passes of shuffling.
+
+All code can be found on [Github](https://github.com/brilee/shuffling_experiments).
