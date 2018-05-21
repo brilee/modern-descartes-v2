@@ -23,7 +23,7 @@ So we're overestimating by a factor of $P$. How can we estimate the value of thi
 
 $P' = \frac{3}{2} \cdot \frac{5}{4} \cdot \frac{7}{6} \cdot \frac{9}{8}\cdot\cdot\cdot \frac{2n-1}{2n-2}$
 
-$P \cdot P' = \frac{2}{1} \cdot \frac{3}{2} \cdot \frac{4}{3} \cdot \frac{5}{4}\cdot\cdot\cdot \frac{2n-1}{2n-2} \cdot \frac{2n}{2n-1} = 2n $
+$P \cdot P' = \frac{2}{1} \cdot \frac{3}{2} \cdot \frac{4}{3} \cdot \frac{5}{4}\cdot\cdot\cdot \frac{2n-1}{2n-2} \cdot \frac{2n}{2n-1} = 2n$
 
 By multiplying these two series together, everything cancels out perfectly, in a zipper-like fashion. Our next approximation is to say that, since these two infinite series are complementary, they each contribute a half of the final product. Each component series is therefore worth $P \approx P' \approx \sqrt{2n}$, and our improved asymptotic value is $\frac{4^n}{\sqrt{2n}}$.
 
