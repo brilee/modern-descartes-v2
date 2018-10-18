@@ -1,0 +1,28 @@
+Carbon dioxide and closed rooms
+2018/10/18
+
+Recently, Scott Alexander [posted about the possibility that $\textrm{CO}_2$ could accumulate in a closed room overnight](http://slatestarcodex.com/2018/08/23/carbon-dioxide-an-open-door-policy/), leading to decreased sleep quality. As with anything Scott posts, it made me really believe him for a while. And I certainly wasn't the only one - I visited the Bay Area this week and found some friends debating whether they should buy an air quality monitor to test their $\textrm{CO}_2$ levels.
+
+In this case, though, the chemistry just doesn't support this hypothesis. Scott mentions in his post: "I can’t figure out how to convert external ppm to internal likely level of carbon dioxide in the blood". Here's how to do that calculation.
+
+# A Primer on Partial Pressures
+
+You probably remember from high school physics that potential energy is a good way to figure out whether some configuration of objects is stable with respect to another. A ball on top of a hill will roll down because doing so will convert its gravitational potential energy into kinetic energy. And a spring will relax to its point of minimal potential energy. And so on.
+
+Pressure is a quantity that has units of energy per volume. It's the analagous quantity to potential energy, but for continuous media like liquids and gases. Gases and liquids will flow from areas of high pressure to areas of low pressure, with a driving force proportional to the gradient in pressure.
+
+Something that's interesting about pressures is that they are independent of each other. So if there is a partial pressure of 0.4 millibars of $\textrm{CO}_2$ in the air, its behavior is unaffected by the presence of other gases - whether it's 200 millibars of oxygen or 790 millibars of nitrogen. (This can change in ultra high-pressure regimes but we're not dealing with those conditions.) So although Scott's post and most other internet sources discuss $\textrm{CO}_2$ in units of "parts per million", this is the wrong unit, because it talks about $\textrm{CO}_2$ as a percentage of the total air. If there were 10 bars of nitrogen but the same 0.4 millibars of $\textrm{CO}_2$, the parts per million of $\textrm{CO}_2$ would drop precipitously but the chemistry would not change.
+
+Another relevant fact is that gases can dissolve in water. When dissolved, it's possible to express the quantity as a concentration (grams or moles per liter). As it turns out, equilibrium concentration is proportional to pressure ([Raoult's law](https://en.wikipedia.org/wiki/Raoult%27s_law)), and so for our purposes, we can express $\textrm{CO}_2$ concentration in units of pressure. This works because the lung contains enough surface area and [carbonic anhydrase](https://en.wikipedia.org/wiki/Carbonic_anhydrase) that equilibrium can be considered to be reached within a second. (I'm just going to assert proof by evolution.)
+
+# Carbon Dioxide and the Body
+
+Veinous blood entering the lungs arrives with a $\textrm{CO}_2$ partial pressure of about 45-60 millibars. (At sea level and standard atmospheric conditions, this is the equivalent of 45,000-60,000 "ppm" of $\textrm{CO}_2$.) On the other hand, the typical quantity of $\textrm{CO}_2$ in the air is about 0.4 millibars (400 ppm at standard conditions). The efficiency of $\textrm{CO}_2$ expulsion is then proportional to the difference between 45-60 millibars and 0.4 millibars. The highest indoor level of $\textrm{CO}_2$ mentioned in Scott's post is about 5 millibars.
+
+At 5 millibars, you would get a $\textrm{CO}_2$ expulsion efficiency of $\frac{50 - 5}{50 - 0.4} \approx$ 90% per breath. What would happen is that as $\textrm{CO}_2$ very slowly built up in the bloodstream, you would breathe 10% more rapidly to compensate. Given that standard human breathing varies significantly, I think it's safe to say that you wouldn't notice it. (Try it! I found it hard to maintain exactly 1 breath per 4 seconds, within a tolerance of 10% for each cycle.)
+
+# Conclusion
+
+At 5 millibars (5,000 ppm), you would start breathing at a 10% elevated rate, which you probably wouldn't notice. At 10 millibars (10,000 ppm), you would start breathing at a 25% elevated rate, which is probably noticeable. These computations are consistent with the findings in [this report](https://www.nap.edu/read/11170/chapter/5#49).
+
+People with indoor levels at 2000-3000 ppm shouldn't worry - this corresponds to a mere 5% elevated breathing rate.

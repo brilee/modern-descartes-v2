@@ -1,0 +1,104 @@
+An Adversarial Adversarial Paper Review Review
+2018/10/18
+
+This is a review of a review: ["Motivating the Rules of the Game for Adversarial Example Research"](https://arxiv.org/abs/1807.06732). (Disclaimer: I've tried to represent the conclusions of the original review as faithfully as possible but it's possible I've misunderstood the paper.)
+
+# Background
+
+As we bring deep neural networks into production use cases, attackers will naturally want to exploit such systems. There are many ways that such systems could be attacked, but one attack in particular seems to have captured the imagination of many researchers. You've probably seen [this example](https://arxiv.org/abs/1412.6572) somewhere.
+
+<img src="/static/adversarial_paper_review/panda_gibbon.png" title="Panda + noise = Gibbon" style="display: block; margin: 0 auto; width:100%;"/>
+The image that started it all.
+
+I remember thinking this example was cute, and figured it wasn't useful because it depended on exact pixel manipulation and access to the network's inner workings. [Variants have since been discovered](https://arxiv.org/abs/1607.02533) where adversarial examples can be printed out and photographed and retain their adversarial classification. [Other variants have been discovered](https://arxiv.org/abs/1707.08945) where stickers can trigger an adversarial classification.
+
+<img src="/static/adversarial_paper_review/stop_sign.jpg" title="Not a stop sign anymore" style="display: block; margin: 0 auto; width:100%;"/>
+Not a stop sign anymore
+
+Alongside papers discovering new variants of this attack, there has also been a rise in papers discussing attempted defenses against these attacks, both attempting to craft defenses and then finding new holes in these defenses.
+
+This review paper, "Motivating the Rules of the Game for Adversarial Example Research", surveys the cottage industry of adversarial example research and suggests that most of it is not useful.
+
+# What's wrong with the literature?
+
+The review suggests three flaws.
+
+The first flaw is that this entire line of research isn't particularly motivated by any real attack. An image that has been perturbed in a way that is imperceptible to the human eye makes for a flashy demo, but there is no attack that is enabled by this imperceptibility.
+
+The second flaw is that the quantitative measure of "human perceptibility" is simplified to an $l_p$ norm with some radius. This simplification is made because it's kind of hard to quantify human perceptibility. Unfortunately, this is a pretty meaningless result because human perception is so much more than just $l_p$ norms. It's a kind of [streetlight error](https://en.wikipedia.org/wiki/Streetlight_effect): researchers have spent a lot of effort thoroughly proving that the key is not under the streetlight. But as soon as you look a little bit outside of the lit region, you find the key. As a result, defense after defense has been defeated despite being "proven" to work.
+
+The third flaw is that most of the defenses proposed in the literature result in degraded performance on a non-adversarial test set. Thus, the defenses guard against a very specific set of attacks (which, because of flaws 1 and 2, are pointless to defend against), while increasing the success rate of the stupid attack (iterate through non-adversarial examples until you find something the model messes up).
+
+So let's go into each suggested flaw in detail
+
+# Lack of motivation
+
+The review describes many dimensions of attacks on ML systems. There's a lot of good discussion on targeted (attacker induces a specific mislabeling) vs untargeted attacks (attacker induces any mislabeling); whitebox vs blackbox attacks; various levels of constraint on the attacker (ranging from "attacker needs to perturb a specific example" to "attacker can provide any example"); physical vs digital attacks; and more.
+
+The key argument in this segment of the paper is that all of the proposed attacks that purport to be of the "indistinguishable perturbation" category are really of the weaker "functional content preservation", "content constraint", or "nonsuspicious content" categories.
+
+## Functional Content Constraint
+
+In this attack, the attacker must evade classification while preserving functional content. The function can vary broadly. 
+
+The paper gives examples like email spammers sending V14Gr4 spam, malware authors writing executables that evade antivirus scans, and trolls uploading NSFW content to SFW forums. Another example I thought of: Amazon probably needs to obfuscate their product pages from scrapers while retaining shopping functionality.
+
+## Content constraint
+
+This attack is similar to the functional content constraint, where "looking like the original" is the "function". This is not the same as imperceptibility: instead of being human-imperceptible from the original, attacks only need to be human-recognizable as the original.
+
+The paper gives examples like bypassing Youtube's [ContentID system](https://support.google.com/youtube/answer/6013276?hl=en) with a pirated video or uploading revenge porn to Facebook while evading their [content matching system](https://www.facebook.com/fbsafety/posts/1666174480087050). In each example, things like dramatically scaling / cropping / rotating / adding random boxes to the image are all fair game, as long as the content remains recognizable. 
+
+## Nonsuspicious constraint
+
+In the nonsuspicious constraint scenario, an attacker has to fool an ML system and simultaneously appear nonsuspicious to humans. 
+
+The paper gives the example of evading automated facial recognition against a database at an airport without making airport security suspicious. Another example I thought of would be posting selected images on the Internet to contaminate image search results (say, by getting [search results for "gorillas" to show black people](https://www.google.com/search?q=google+gorilla+black+people)).
+
+## No content constraint
+
+The paper gives examples like unlocking a stolen smartphone (i.e. bypassing biometric authentication) or designing a TV commercial to trigger undesired behavior in a Google Home / Amazon Echo product.
+
+## Indistinguishable Perturbations
+
+Just to be clear on what we're arguing against:
+
+> "Recent work has frequently taken an adversarial example to be a restricted (often small) perturbation of a correctly-handled example [...] the language in many suggests or implies that the degree of perceptibility of the perturbations is an important aspect of their security risk."
+
+Here are some of the attacks that have been proposed in the literature, and why they are actually instances of other categories.
+
+- "Fool a self-driving car by making it not recognize a stop sign" ([paper](https://arxiv.org/abs/1707.08945), [paper](https://arxiv.org/abs/1710.03337)): This is actually a nonsuspicious constraint. One could easily just dangle a fake tree branch in front of the stop sign to obscure it.
+- "Evade malware classification" ([paper](https://arxiv.org/abs/1802.04528), [paper](https://arxiv.org/abs/1606.04435)). This is already given as an example of functional content preservation. Yet this exact attack is quoted in a few adversarial perturbation papers.
+- "Avoid traffic cameras with perturbed license plates" ([blog post](https://blog.ycombinator.com/how-adversarial-attacks-work/)). This is an example of a nonsuspicious constraint; it would be far easier to spray a glare-generating coating on the license plate or strategically apply mud, than to adversarially perturb it.
+
+The authors have this to say:
+
+> "In contrast to the other attack action space cases, at the time of writing, we were unable to find a compelling example that required indistinguishability. In many examples, the attacker would benefit from an attack being less distinguishable, but indistinguishability was not a hard constraint. For example, the attacker may have better deniability, or be able to use the attack for a longer period of time before it is detected."
+
+# Human imperceptibility != $l_p$ norm
+
+As a reminder, an $l_p$ norm quantifies the difference between two vectors and is defined, for some power $p$ (commonly $p = 1, 2, \infty$),
+
+$$ ||x - y||^p = \Sigma_i |x_i - y_i|^p$$ 
+
+It doesn't take long to see that $l_p$ norms are a very bad way to measure perceptibleness. Translations are imperceptible to the human eye; yet they have huge $l_p$ norms because $l_p$ norms use a pixel-by-pixel comparison. The best way we have right now to robustly measure "imperceptibleness" is with GANs, and yet that just begs the question, because the discriminative network is itself a deep neural network.
+
+You may wonder - so what if $l_p$ norm is a bad match for human perception? Why not solve this toy problem for now and generalize later? The problem is that the standard mathematical phrasing of the adversarial defense problem is to minimize the maximal adversarial loss. Unfortunately, trying to bound the maximum adversarial loss is an exercise in futility, because the bound is approaching from the wrong direction. The result: "Difficulties in measuring robustness in the standard $l_p$ perturbation rules have led to numerous cycles of falsification... a combined 18 prior defense proposals are not as robust as originally reported."
+
+# Adversarial defense comes at a cost
+
+There are [many](https://arxiv.org/abs/1706.06083) [examples](https://arxiv.org/abs/1801.09344) [in](https://arxiv.org/abs/1705.09064) [the](https://arxiv.org/abs/1805.08006) [literature](https://arxiv.org/abs/1805.07816) [of](https://arxiv.org/abs/1412.5068) [adversarial](https://arxiv.org/abs/1703.09202) [defenses](https://arxiv.org/abs/1704.02654) that end up degrading the accuracy of the model on nonadversarial examples. This is problematic because the simplest possible attack is to just try things until you find something that gets misclassified. 
+
+As an example of how easy this is, [this paper](https://arxiv.org/abs/1712.02779) claims that "choosing the worst out of 10 random transformations [translation plus rotation] is sufficient to reduce the accuracy of these models by 26% on MNIST, 72% on CIFAR10, and 28% on ImageNet (Top 1)". I interpret this to mean that you only need to check about 10 nonadversarial examples before you find one the network misclassifies. This is a black-box attack that would work on basically any image classifier.
+
+In some ways, the existence of adversarial attacks is only surprising if you believe the hype that we can classify images perfectly now.
+
+# Conclusions and recommendations
+
+The authors make some concrete suggestions for people interested in adversarial defense as an area of research:
+
+- Consider an actual threat model within a particular domain, like "Attackers are misspelling their words to evade email spam filters".
+- Try to quantify the spectrum between "human imperceptible" changes and "content preserving" changes, acknowledging that defenses will want to target different points on this spectrum.
+- Enumerate a set of transformations known to be content-preserving (rotation, translation, scaling, adding a random black line to the image, etc.), and then hold out some subset of these transformations during training. At test time, test if your model is robust to the held-out transformations.
+
+My personal opinion is that if you want to safeguard your ML system, the first threat you should consider is that of "an army of internet trolls trying all sorts of stupid things to see what happens", rather than "a highly sophisticated adversary manipulating your neural network".
