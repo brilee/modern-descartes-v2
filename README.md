@@ -35,3 +35,18 @@ If you change anything about the compilation step, do a manual check over essays
     - hyperloglog (code blocks)
     - bitpacking compression (tables)
     - convnet edge detection (images)
+
+# BigQuery analytics
+```
+bq load --skip_leading_rows=1 --project_id=$PROJECT_ID --allow_quoted_newlines access_logs.usage gs://moderndescartes-accesslogs/www.moderndescartes.com_usage* cloud_storage_usage_schema_v0.json
+```
+
+```
+WITH temp AS (SELECT
+  EXTRACT(DATE FROM TIMESTAMP_MICROS(time_micros)) as date_,
+  REGEXP_EXTRACT(cs_uri, r'essays/([^/?]*)') as essay_shortname
+from `access_logs.usage`
+)
+SELECT * from temp
+WHERE essay_shortname is not null and essay_shortname not like 'rss.xml%'
+```
