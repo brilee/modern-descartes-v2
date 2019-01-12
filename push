@@ -1,1 +1,2 @@
+# gcloud config set account $EMAIL_ADDRESS
 gsutil -m rsync -r -d staging gs://www.moderndescartes.com
