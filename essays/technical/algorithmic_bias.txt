@@ -1,0 +1,91 @@
+Algorithmic Bias
+2018/11/25
+
+Algorithmic bias has been around forever. Recently, it's a very relevant issue as companies left and right promise to revolutionize industries with "machine learning" and "artificial intelligence", by which they typically mean good ol' algorithms and statistical techniques, but also sometimes deep learning. 
+
+The primary culprits in algorithmic bias are the same as they've always been: careless choice of objective function, fuzzy data provenance, and Goodhart's law. Deep neural networks have their own issues relating to interpretability and blackbox behavior in addition to all of the issues I'll discuss here. I won't go into any of those issues, since what I cover here is already quite extensive.
+
+I hope to convince you that algorithmic bias is very easy to create and that you can't just hope to dodge it by being lucky.
+
+# "Algorithms are less biased than people"
+
+I commonly run into the idea that because humans are often found to be biased, we should replace them with algorithms, which will be unbiased by virtue of not involving humans.
+
+For example, see [this testimonial about Amazon's new cashierless stores](https://www.cnet.com/news/amazon-go-avoid-discrimination-shopping-commentary/), or this [oft-cited finding that judges issue harsher sentences when hungry](http://www.pnas.org/content/108/17/6889).
+
+I don't doubt that humans can be biased. That being said, I also believe that algorithms reflect the choices made by their human creators. Those choices can be biased, either intentionally or not. With careful thought, an algorithm can be designed to be unbiased. But unless demonstrated otherwise, you should assume algorithms to be biased by default.
+
+## A koan
+
+Bias doesn't necessarily have to be intentional. Here's a koan I particularly like, from [the Jargon File](http://www.catb.org/jargon/html/koans.html).
+
+> Sussman attains enlightenment
+> In the days when Sussman was a novice, Minsky once came to him as he sat hacking at the PDP-6.
+> 
+> "What are you doing?", asked Minsky.
+> 
+> "I am training a randomly wired neural net to play Tic-Tac-Toe" Sussman replied.
+> 
+> "Why is the net wired randomly?", asked Minsky.
+> 
+> "I do not want it to have any preconceptions of how to play", Sussman said.
+> 
+> Minsky then shut his eyes.
+> 
+> "Why do you close your eyes?", Sussman asked his teacher.
+> 
+> "So that the room will be empty."
+> 
+> At that moment, Sussman was enlightened.
+
+There are many ideas in this koan, but one that I take in particular, is that all algorithms have their tendencies, whether or not you understand what they are yet. It is the job of the algorithm designers to understand what those tendencies are, and decide if they constitute biases that need correcting.
+
+The definitive example here is probably [gerrymandering](https://en.wikipedia.org/wiki/Gerrymandering) for which multiple proposed algoithmic solutions exist - all of them biased in different ways in favor of rural or urban voters. Algorithms have not solved the gerrymandering bias problem; they've merely shifted the debate to "which algorithm's biases are we okay with?"
+
+# What are you optimizing for?
+
+The easiest way for bias to slip into an algorithm is via the optimization target.
+
+One pernicious way in which bias sneaks into algorithms is via implicitly defined optimization targets. If we are optimizing "total X" for some X, then a good question is "how is X defined?". If X is the classification error over some dataset, then the demographic makeup of the dataset implicitly defines how important it is to optimize for one group over the other.
+
+For example, image classification algorithms are judged by their ability to correctly classify the images in ImageNet or OpenImages. Unfortunately, we are only now realizing that what we thought was a wide variety of images is actually heavily biased towards Western cultures, because we harvested images from the English-speaking subset of the Internet, and because we hired English-speaking human labelers to annotate the images, and because the categories we are classifying for make  the most sense in a Western context. The image classifiers trained on ImageNet and OpenImages are thus great at recognizing objects familiar to Westerners, but horrible at labeling images from other cultures. This [Kaggle challenge](https://www.kaggle.com/c/inclusive-images-challenge) asks teams to train a classifier that does well on images from cultures they haven't trained on.
+
+Another example is this contest to [algorithmically optimize bus schedules in Boston](https://www.bostonglobe.com/opinion/2017/12/22/don-blame-algorithm-for-doing-what-boston-school-officials-asked/lAsWv1Rfwqmq6Jfm5ypLmJ/story.html). The [original contest statement](/static/algorithmic_bias/bps_challenge_overview.pdf) asked teams to optimize for the fewest number of busses required to bus all students around. Even though the optimization target doesn't explicitly prioritize any one group of people over the other, I'd guess that patterns in housing and geography would result in systematic bias in the resulting bus routes. (This example is not so different from the gerrymandering example.)
+
+Finally, a classic paper in this field by [Hardt, Price, and Srebro](https://arxiv.org/abs/1610.02413) points out that there isn't an obvious way to define fairness for subgroups in a classification problem (e.g. loan applications or college admissions). You can require the score thresholds to be equal across subgroups. You can require that an equal percentage of qualified applicants be accepted from each subgroup. You can require that the demographic makeup of the accepted applicants match the demographic makeup of all applicants. (And you'll find people who think each of these choices is the 'obvious' way to do it.) Unfortunately, it's impossible to simultaneously optimize all of these criteria. You can see a very nice [interactive visualization of this phenomena](https://research.google.com/bigpicture/attacking-discrimination-in-ml/).
+
+# Where does your data come from?
+
+With so many industries being automated by computers, data about operations and human behavior are becoming more widely available - and with it, the temptation to just grab whatever data stream happens to be available. However, data streams come with many caveats which are often ignored.
+
+The most important caveat is that such data streams are often observational, not experimental. What this means is that there has been no particular care taken to create a control group; what you see is what you have. Observational data is often deeply confounded with spurious correlations - the famous "one glass of wine a day is good for you" study was confounded by the fact that wine drinkers form a different demographic than beer drinkers or liquor drinkers. So far, there is no systematic or automatic way to tease out correlation from causation. It's an active area of research.
+
+That being said, that doesn't mean that all results from observational data are useless. The correlations you find will often be good enough to form a basis for a predictive model. However, unless you dig into your model's results to figure out where that predictive power is coming from, it's highly likely that you have unintentional bias lurking in your model. Even if you don't have demographic categories as an input to your model, there are a million ways to accidentally introduce demographic information via a side channel - for example, zip codes.
+
+A third risk of data dependencies is that even if you do all the hard work of teasing out correlation from causation, and accounting for bias, you may find your model has developed some unintentional bias a year later, when the collection methodology of your data has shifted. Maybe the survey you were administering has changed its wording, or the survey website broke for (probably wealthier) Safari users only, or the designers changed the font to be low-contrast, discouraging older users and those hard of eyesight from taking your survey. This paper from [D Sculley et al](https://ai.google/research/pubs/pub43146) lays out the problems often faced when putting machine learning into production, and makes recommendations like proactively pruning input streams to minimize the risk of data shift.
+
+Related to the idea of shifting data dependencies, companies will typically develop models in isolation, looking narrowly at the data streams they have available. The problem here is that nobody has a full picture of the dependency chains of data and models, and bias can accumulate when algorithms consume other algorithms' input without careful consideration. For example, when a loan office looks at credit history to make a loan decision, each previous loan decision was probably also made by looking at credit history, leading to a positive feedback loop of bias. [Google's AI Principles](https://www.blog.google/technology/ai/ai-principles/) acknowledge that distinguishing fair and unfair bias is difficult, and that we should seek to avoid creating or reinforcing bias. By not reinforcing bias, you can avoid contributing to the problem, no matter what everyone else is doing.
+
+# Are you keeping your model up-to-date?
+
+Goodhart's law says:
+
+> When a measure becomes a target, it ceases to be a good measure.
+
+What we'd like from our algorithms is a nuanced truth. But it's much easier to fake it with something that happens to work. The problems mentioned above (imprecise objective function, shifting data distributions) are often where algorithms can be exploited by adversaries.
+
+For example, Google's search has to deal with search engine optimizers trying to exploit [PageRank](https://en.wikipedia.org/wiki/PageRank). 10-15 years ago, link farms were pretty common and people would try to find ways to sneak links to their websites onto other peoples' websites (often via user-submitted content), which is how [rel=nofollow](https://en.wikipedia.org/wiki/Nofollow) came about. Ultimately this happened because PageRank was an imprecise approximation of 'quality'.
+
+Another more recent example is [Tay](https://en.wikipedia.org/wiki/Tay_(bot)) going off the rails when users tweeted hateful messages at it. This one is due to optimizing to predict human tweets (an optimization target that was implicitly weighted by the set of tweets in its training data). The vulnerability here is pretty obvious: submit enough messages, and you can overwhelm the training data with your own.
+
+There's way too many examples to list here. Chances are, if there's any nontrivial incentive to game an algorithm, it can and will be gamed.
+
+# There is no silver bullet
+
+This is an essay that could easily have been written 20 years ago with different examples. None of what I've mentioned so far is particularly new. What's new is that people seem to think that machine learning magically solves these problems. A classic quip comes to mind: "There are two ways of constructing a software design: One way is to make it so simple that there are obviously no deficiencies, and the other way is to make it so complicated that there are no obvious deficiencies. The first method is far more difficult."
+
+We can do better.
+
+The advent of ML means that we have to be more, not less careful about bias issues. The increased burden of proof means that for most applications, we should probably stick with the same old models we've been using for the last few decades: logistic regression, random forests, etc.. I think that ML should be used sparingly and to enable technologies that were previously completely intractable: for example, anything involving images or audio/text understanding was previously impossible but is now within our reach.
+
+There is still a lot of good we can do with simpler methods that we understand.
