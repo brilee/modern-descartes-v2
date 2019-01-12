@@ -1,0 +1,137 @@
+Forays into 3D geometry
+2019/1/10
+
+I've been trying to understand [this paper](https://arxiv.org/abs/1802.08219) and as part of this process, realized that I should learn more geometry, algebra, and group theory. So I spent a week digging into the math of 3D geometry and here's what I've learned so far.
+
+I stumbled on these concepts in a highly nonlinear fashion, so my notes are going to be a bit scattered. I don't know how useful they'll be to other people - probably, they won't be? This is more for my future self.
+
+# Mappings
+
+A mapping is a correspondence between two domains. For example, the exponential function maps real numbers to positive real numbers. Furthermore, the group operation of multiplication is transformed into addition.
+
+$$ x + y = z \Leftrightarrow e^xe^y = e^{x+y} = e^z $$
+
+This is a useful transformation to make because addition is easier to think about than multiplication. In this case, the mapping is also bijective, meaning that one can losslessly convert back and forth between the two domains.
+
+One common pattern is that you can transform your numbers into the domain that's easier to reason about, do your computation there, and then convert back afterwards. Eventually, you get annoyed with converting back and forth, and you start reasoning entirely in the transformed domain. This happens, for example, in converting between time/frequency domains for sound using the Fourier transform - everyone thinks in the frequency domain even though the raw data always comes in the time domain.
+
+# The circle group
+
+The [circle group](https://en.wikipedia.org/wiki/Circle_group) consists of the set of all complex numbers with modulus 1 - in other words, the unit circle on the complex plane. It's a pretty simple group to understand, but it shows how we're going to try and attack 3D rotations. There are multiple ways to look at this.
+
+- You can represent this group using rotation $\theta$ from the x-axis (i.e. polar coordinates), using addition.
+- You can represent this group using complex numbers, under multiplication.
+- You can work with the matrices of the following form, under multiplication. (This form is convenient because multiplication by this matrix is equivalent to rotating a vector by $\theta$.)
+
+\begin{bmatrix}
+\cos \theta & -\sin \theta \\
+\sin \theta & \cos \theta \\
+\end{bmatrix}
+
+All of these representations are tied together by [Euler's formula](https://en.wikipedia.org/wiki/Euler%27s_formula), which states that $e^{i\theta} = \cos \theta + i\sin \theta$.
+
+Somewhat surprisingly, Euler's formula also works if you consider the exponentation to be a [matrix exponentiation](https://en.wikipedia.org/wiki/Matrix_exponential), and you use the [matrix representation](https://en.wikipedia.org/wiki/Complex_number#Matrix_representation_of_complex_numbers) of complex numbers.
+
+\begin{gather}
+\exp\left(
+\begin{bmatrix}
+0 & -\theta \\
+\theta & 0 \\
+\end{bmatrix}\right)
+= 
+\begin{bmatrix}
+\cos \theta & -\sin \theta \\
+\sin \theta & \cos \theta \\
+\end{bmatrix}
+\end{gather}
+
+# Matrix exponentiation
+
+It turns out that subbing in matrix exponentiation for regular exponentiation basically works most of the time, and additionally has some other surprising properties.
+
+- The determinant of a real matrix's exponentiation is strictly positive and the result is therefore invertible. (This is analogous to $e^x > 0$ for real $x$).
+- It commutes with transposition, so that $e^{\left(M^T\right)} = \left(e^M\right)^T$
+
+There are a few things that don't carry over seamlessly, related to the fact that matrix multiplication isn't commutative.
+
+- _If_ $X$ and $Y$ commute ($XY = YX$), then $e^{X + Y} = e^Xe^Y$.
+
+Answering the question of what happens to $e^{X+Y}$ when $X$ and $Y$ don't commute leads to a rabbit hole of gnarly algebra.
+
+## Skew-symmetric matrices
+
+A skew-symmetric matrix is a matrix whose transpose is equal to its negation: $A^T = -A$. It turns out that all matrices can be broken down into a symmetric matrix plus a skew-symmetric matrix, by defining $B = \frac{1}{2}(A + A^T)$ to be the symmetrical part of $A$, and then realizing that what's left over, $A - B$, is skew-symmetric. 
+
+Symmetric matrices over real numbers, by the [spectral theorem](https://en.wikipedia.org/wiki/Spectral_theorem), can be represented as a diagonal matrix in some basis. In plain English, this means that symmetric matrices correspond to transformations that are purely "rescaling" along some set of axes, with no rotations.
+
+So that means that the skew-symmetric remainder of a matrix probably corresponds to the rotational part of the transformation. This seems to be related to the fact that a skew-symmetric matrix's eigenvalues are all purely imaginary, but I don't really fully understand the connection here.
+
+The more literal connection might be that when you exponentiate a skew symmetric matrix, you get an orthogonal matrix (a matrix for which $MM^T = I$. The proof is pretty simple:
+
+$$e^A\left(e^A\right)^T = e^Ae^{A^T} = e^{A + A^T} = e^{A - A} = e^0 = I$$
+
+## Orthogonal matrices
+
+You may remember orthogonal matrices as those transformations that preserve distances - aka rotations and inversions ("improper" rotations). SO(3) consists of the orthogonal matrices of determinant +1, thus excluding inversions. The exponential map is surjective - for every element of SO(3), there exists a skew-symmetric matrix that exponentiates to it. (It's not a bijection as far as I can tell, unlike in the 2-D case.)
+
+# Mapping between SO(3) and skew-symmetric matrices
+
+Earlier, we looked at the circle group, which was a toy example showing that we could map 2-D rotations between {multiplication of 2-D matrices} and {addition over plain angles}. Now, to understand 3-D rotations, we'll try to map between {multiplication of 3-D matrices} and {addition of skew-symmetric matrices}.
+
+It turns out that actually this doesn't work with finite rotation matrices. So we'll just brush the problem under the rug by invoking a "tangent space" around the identity, which means the space of infinitesimal rotations. This space is represented by lowercase so(3) and has an orthogonal basis set which I'll call $\{s_1, s_2, s_3\}$ with concrete representations of 
+
+\begin{gather}
+s_1 = 
+\begin{bmatrix}
+0 & 0 & 0 \\
+0 & 0 & \alpha \\
+0 & -\alpha & 0 \\
+\end{bmatrix}
+\quad
+s_2 = 
+\begin{bmatrix}
+0 & 0 & \alpha \\
+0 & 0 & 0 \\
+-\alpha & 0 & 0 \\
+\end{bmatrix}
+\quad
+s_3 = 
+\begin{bmatrix}
+0 & \alpha & 0 \\
+-\alpha & 0 & 0 \\
+0 & 0 & 0 \\
+\end{bmatrix}
+
+\end{gather}
+
+These skew-symmetric matrices are not themselves rotations; they're derivatives. To make them rotations, you have to exponentiate them, which turns out to be equivalent to adding them to the identity matrix: $e^{s_i} = I + s_i$. This is analogous to the real numbers, where $e^x = 1 + x$ for $x \approx 0$. 
+
+Since $\alpha$ is considered to be an infinitesimal, raising $(I + s_i)^k$ to a power $k$ just results in the matrix $(I + ks_i)$ because all second order terms disappear. Also, addition within so(3) corresponds to multiplication in the exponential map. $m_i + m_j = m_k \Leftrightarrow e^{m_i}e^{m_j} = e^{m_i + m_j} = e^{m_k}$ for arbitrary $m \in so(3)$. So this is nice; we've got something resembling the circle group for 3 dimensions. Unfortunately, this only works for infinitesimal rotations and completely falls apart for finite rotations.
+
+I then stumbled across this [monstrosity of a formula](https://en.wikipedia.org/wiki/Baker%E2%80%93Campbell%E2%80%93Hausdorff_formula), which takes these infinitesimal rotations of so(3) and shows how to map them back to the normal rotations of SO(3). It also answers the question of what happens to $e^{X+Y}$ if $X$ and $Y$ don't commute.
+
+If you squint hard enough, it looks like a Taylor series expansion, in the sense that a Taylor series shows how to take the local derivative information (aka this tangent space business), and use that to extrapolate to the entire function. I can't imagine anyone actually using this formula in practice, but a quantum information friend of mine says he uses this all the time.
+
+# SU(2) and Quaternions
+
+At this point, I was trying to find a more computationally insightful or useful way to approach finite rotations. As it turns out, SO(3) is very closely related to SU(2), the set of unitary 2x2 matrices, as well as to the quaternions.
+
+The best intuition I had was the Wikipedia segment describing the [topology of SO(3)](https://en.wikipedia.org/wiki/3D_rotation_group#Topology). If that's the topology of SO(3), then SU(2) can be thought of as not just the unit sphere, but the entire space, using a projective geometry as described in these [3blue1brown videos](https://eater.net/quaternions). Since the unit sphere representing SO(3) is only half of the space and has funny connectivity, that explains all of this "twice covering" and "you have to spin 720 to get back to where you started" business.
+
+Computationally speaking, I found the 3blue1brown videos very enlightening. In short: the $(i,j,k)$ component determines the axis of rotation, and the balance between the real component and the imaginary components determines the degree of rotation. This ends up being basically the topological description of SO(3) given by Wikipedia, with the additional restriction that the real component should remain positive to stay in SO(3).
+
+## Side note: Lie groups and algebras
+
+Lie groups are groups that have a continuous transformation (i.e. the rotation stuff we've been talking about). SO(3), SU(2), and quaternions of unit norm can be considered different Lie _groups_ but they all have the same local structure when you zoom in on their tangent space at the origin (their Lie _algebra_). ([More here](https://en.wikipedia.org/wiki/Lie_algebra#Relation_to_Lie_groups)). Mathematicians like to categorize things, so they don't particularly care about computing rotations; they just want to be able to show that two algebras must be the same. There's some topological connection; since SU(2) is simply connected (aka none of this 'identify opposite points on the sphere' business), this somehow implies that it must be a universal cover of all Lie groups with the same Lie algebra.
+
+# Geometric algebras
+
+Ultimately, I found that the physicists' and mathematicians' account of 3D rotations basically talked past each other and I didn't walk away with much insight on algebraic structure. I think the quaternions came closest; since the application of quaternions is done as $qxq^{-1}$, it implies that simply multiplying quaternions is enough to get the composed rotation.
+
+I happened to stumble upon [Geometric Algebras](https://en.wikipedia.org/wiki/Geometric_algebra), whose introductory tome can be found [in this lecture by Hestenes in 2002](http://geocalc.clas.asu.edu/pdf/OerstedMedalLecture.pdf). So far it looks like it will deliver on its ambitious goal, claiming that "conventional treatments employ an awkward mixture of vector, matrix and spinor or quaternion methods... GA provides a unified, coordinate-free treatment of rotations and reflections".
+
+I can't really explain this stuff any better than it's been presented in Hestenes's lecture, so you should go look at that. I found that understanding GA was made much simpler by knowing all of this other stuff.
+
+So that's roughly where I ended up. And my Christmas break is over, so I guess I'll pick this up some other day.
+
+Thanks to the many people I bugged about this stuff over the past week or two.
