@@ -1,0 +1,50 @@
+Why study algorithms?
+2019/4/2
+
+A common sentiment is that algorithms and data structures are useless to know, other than to pass the interview process at most software companies, and that one should just learn enough to get by those interviews. I strongly disagree with this notion, and I'll try to explain why I think it's valuable to study algorithms and data structures in depth.
+
+# Human algorithms
+
+Let's say you have a used deck of cards, and you suspect you've lost a card. You'd like to know which card is missing, if any. As a human, how would you go about doing this? There's many possible solutions, but here's the one I would probably use: sort the cards by rank and suit, using an insertion sort, and then scan through the sorted cards to see if any cards are missing. The insertion sort would involve holding a stack of sorted cards, picking up the next card, and then inserting cards one by one.
+
+Breaking this down, there are a few assumptions that play into my choice of algorithm.
+
+First, human working memory can only contain about 7-10 items. If the task were instead to name a missing color of the rainbow, then you would not bother sorting the list of given colors - you would just scan the list and name the missing color. But you could not do this with a full deck of cards. So the sorting step is necessary for humans.
+
+Second, the human visual system is relatively fast at scanning through a fanned-out stack of cards, and figuring out where the next card should be inserted. This happens much faster than the physical act of picking up and manipulating a card, so it's effectively free.
+
+Third, the real world allows one to inject a card into an existing stack of cards with approximately constant cost. Thus, an insertion sort is $O(N)$ in real life, whereas on computers it is typically $O(N^2)$.
+
+Combining all of these aspects of the problem at hand, we conclude that sorting the deck via insertion sort, then scanning the sorted deck, is the most efficient way to verify a complete deck.
+
+# Computer algorithms
+
+Faced with the same task, a computer would handle this a bit differently. One possible solution: First, allocate an array of 52 bits. Then, for each card, you would flip the appropriate bit from 0 to 1 to mark it seen. Finally, scanning through the array, you'd look for any unflipped bits.
+
+Another possible solution: keep a running sum of all cards seen (A of diamonds = 1, 2 of diamonds = 2, ...), and then check whether the sum matched the expected sum $1 + 2 + \ldots + 52$. (This solution only works if at most 1 card is missing; otherwise it cannot distinguish which cards are missing.)
+
+Already, we can see that what is "easy" for humans is not necessarily easy for computers, and vice versa. Human working memory is small, but we can do pattern recognition over our visual field very quickly. Computers can memorize a large amount of arbitrary data and do arithmetic with ease, but to process an image would require a deep convolutional neural network of many millions of operations.
+
+# Rules of the game
+
+Given that humans and computers have different constraints on their operation, they naturally end up with different algorithms for the same task. This also means that normal human intuition for what the "obvious" way to do something isn't necessarily aligned with what a computer is good at doing. So one reason to study algorithms is to learn the rules of the game for computers and hone your intuition about efficient ways to do things on a computer.
+
+In a broader sense, algorithms is about understanding the consequences of a particular set of rules. As it turns out, the rules of the game have actually been slowly changing over the last half-century, and the algorithms that have been published in textbooks aren't necessarily the right ones for today's computers.
+
+Take, for example, memory access. It used to be true decades ago that memory access was about the same cost as arithmetic. But today, that's not true anymore: [Latency numbers every programmer should know](http://norvig.com/21-days.html#answers) tells us that main memory access is actually ridiculously slow. Modern processors have a hierarchy of caches which get progressively larger and slower, and textbook algorithms run best when they fit entirely on the fastest caching levels, where their decades-old assumptions hold true.
+
+So of the two algorithms given above for detecting missing cards, the running sum algorithm ends up a few times faster than the bit-flipping algorithm. While both algorithms have $O(N)$ runtime, one solution requires going back to memory to overwrite a 1, whereas the other one updates a number in-place.
+
+Another example is the dramatic rise in hard drive capacity over the last few decades. Hard drives have gone from gigabytes in capacity to terabytes of capacity over the course of a decade. And yet, the speed of disk reading has been fundamentally limited by the physical constraints of spinning a platter at ~7200 RPM, and thus the ratio of hard drive capacity to read/write speed has dramatically shifted. As a result, storage space is relatively cheap, compared to the cost of actually reading that storage space. I remember when [Amazon Glacier](https://aws.amazon.com/glacier/) was first announced, there was a lot of speculation as to what secret storage medium Amazon had invented that resulted in such a peculiar pricing structure (nearly free to store data, but expensive to actually read that data). There is no speculation needed if you understand hard drive trends. And nowadays, SSDs change that equation again - Facebook has published a [few](https://research.fb.com/publications/reducing-dram-footprint-with-nvm-in-facebook/) [recent](https://research.fb.com/publications/bandana-using-non-volatile-memory-for-storing-deep-learning-models/) papers describing how SSDs (also referred to as NVM, non-volatile memory) can be directly be used as slower caching layer for various serviing systems.
+
+Yet another example: in machine learning, where teams are investigating the use of customized hardware to execute giant neural networks, it turns out that different scaling limits are reached - like the bandwidth of connections between chips. So here, an entirely new set of algorithms is needed that works around these constraints. For example, when doing a `reduce_sum` over computational results from N chips, you need $2N$ cycles and $2N$ overall bandwidth to aggregate all those numbers in one central chip and relay those results back. However, if you wire up the chips in a big circle, then you can double the speed to $N$ cycles, at the cost of increasing overall bandwidth to $N^2$. And if you wire up the chips in a 2-D toroidal configuration, then you actually just need $2\sqrt{N}$ bandwidth cycles and overall bandwidth of $2N$ to aggregate the numbers, by first adding in the horizontal direction, and then in the vertical direction. (See the [TPU v3 paper](https://arxiv.org/abs/1811.06992) for more.)
+
+# Conclusion
+
+All of these examples seem pretty esoteric. Do you need to know algorithms if you're not working on new hardware?
+
+I think it depends on where in the technology life cycle you want to be at. On the leading end of this cycle, you had better understand your algorithms. On the tail end of this cycle, you probably don't need to know algorithms as much.
+
+At the leading edge, innovation ends up changing the rules of the game, and if you're working there, then you had better have a solid grasp on algorithms. Then, as the hardest problems are worked out, services and libraries are created for the rest of us. Still, you cannot effectively use those services/libraries unless you understand the underlying technology. I've heard many stories about projects that were killed because their database technology choices were fundamentally wrong. And eventually, the technology matures enough that a community grows around each correct pairing of technology and applications, and then you won't have to know algorithms to make a good choice - e.g. PHP/Wordpress has turned into a pretty solid development platform for DIY-websites.
+
+
