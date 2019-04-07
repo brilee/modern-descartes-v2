@@ -65,7 +65,9 @@ def compile_essays():
             continue
         for essay in os.listdir(category_dir):
             (essay_shortname, extension) = os.path.splitext(essay)
-            if not extension in ALLOWED_EXTENSIONS:
+            if extension not in ALLOWED_EXTENSIONS:
+                continue
+            if essay_shortname[0] == '_':
                 continue
 
             with open(os.path.join(category_dir, essay), 'r') as f:
