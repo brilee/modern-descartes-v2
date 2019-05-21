@@ -1,0 +1,8 @@
+TensorFlow 2 Documentation
+2019/5/12
+
+I've been putting my technical blogging experience to good use.
+
+For the past 9 months or so, I've been working on AutoGraph, one of the marquee features of TensorFlow 2. TF2 is a drastically different system and much of my time has been spent thinking through the best ways to use TF2 as a whole. I wrote up my experiences as an internal doc that became pretty popular. That doc is now public documentation as [Effective TensorFlow 2.0](https://www.tensorflow.org/alpha/guide/effective_tf2). I've also written the majority of the official documentation on tf.function and AutoGraph, which includes the [quick start](https://www.tensorflow.org/alpha/guide/autograph) and the [deep dive](https://www.tensorflow.org/alpha/tutorials/eager/tf_function).
+
+I hope you find these docs useful!
