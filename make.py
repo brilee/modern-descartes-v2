@@ -55,6 +55,24 @@ def compile_html(template_name, output_file, **context):
     with open(output_path, 'w') as f:
         f.write(compiled)
 
+def process_essay(category, category_dir, essay_path, essay_shortname):
+    with open(os.path.join(category_dir, essay_path), 'r') as f:
+        essay_longname = f.readline().rstrip('\n')
+        year, month, day = f.readline().rstrip('\n').split('/')
+        essay_date = datetime.date(year=int(year), month=int(month),
+            day=int(day))
+        essay_content = f.read()
+    result = subprocess.run(
+        "pandoc -f markdown -t html --mathjax",
+        stdout=subprocess.PIPE,
+        input=essay_content.encode('utf8'),
+        shell=True)
+    essay_content = result.stdout.decode('utf8')
+
+    return Essay(slug=essay_shortname, title=essay_longname,
+                 date=essay_date, content=essay_content, category=category)
+
+
 def compile_essays():
     print("Processing essays...")
     all_essays = []
@@ -63,32 +81,22 @@ def compile_essays():
         category_dir = os.path.join(ESSAY_DIR, category)
         if not os.path.isdir(category_dir):
             continue
-        for essay in os.listdir(category_dir):
-            (essay_shortname, extension) = os.path.splitext(essay)
+        for essay_path in os.listdir(category_dir):
+            (essay_shortname, extension) = os.path.splitext(essay_path)
             if extension not in ALLOWED_EXTENSIONS:
                 continue
             if essay_shortname[0] == '_':
                 continue
+            try:
+                essay = process_essay(category, category_dir, essay_path, essay_shortname)
+                all_essays.append(essay)
+                compile_html('essay_detailed.html',
+                    'essays/{}/index.html'.format(essay.slug), essay=essay)
+            except Exception as e:
+                print('Failed to process {}'.format(essay_path))
+                print(type(e), e)
 
-            with open(os.path.join(category_dir, essay), 'r') as f:
-                essay_longname = f.readline().rstrip('\n')
-                year, month, day = f.readline().rstrip('\n').split('/')
-                essay_date = datetime.date(year=int(year), month=int(month),
-                    day=int(day))
-                essay_content = f.read()
-            result = subprocess.run(
-                "pandoc -f markdown -t html --mathjax",
-                stdout=subprocess.PIPE,
-                input=essay_content.encode('utf8'),
-                shell=True)
-            essay_content = result.stdout.decode('utf8')
 
-            essay = Essay(slug=essay_shortname, title=essay_longname,
-                date=essay_date, content=essay_content, category=category)
-            all_essays.append(essay)
-
-            compile_html('essay_detailed.html',
-                'essays/{}/index.html'.format(essay.slug), essay=essay)
     print("Compiled {} essays".format(len(all_essays)))
     return all_essays
 
