@@ -3,10 +3,8 @@ Hello World
 
 1. Purpose: This blog will contain my thoughts, discoveries, and analysis of life, the universe, and everything.
 
-2. Name: The name of this blog derives from my ongoing (*now resolved*) identity crisis. Who am I and who will/should I become? In an attempt to answer these questions, I have been forced, as Descartes was, to distrust the validity of the circumstances of birth [e.g. nationality, gender, g-factor], my upbringing, my experiences, and others' opinions. Instead, I must start from the observation that I am evidently the kind of person who seeks the absolute "truth". I seek, therefore I am.
+2. Name: The name of this blog derives from my ongoing identity crisis [(update here)](/essays/identity_crisis). Who am I and who will/should I become? In an attempt to answer these questions, I have been forced, as Descartes was, to distrust the validity of the circumstances of birth [e.g. nationality, gender, g-factor], my upbringing, my experiences, and others' opinions. Instead, I must start from the observation that I am evidently the kind of person who seeks the absolute "truth". I seek, therefore I am.
 
 3. Original Content: I will occasionally repost material if it has been circulating the internet and is sufficiently interesting. However, the majority of my posts will be "original content".
 
 4. Frequency: Once a week? I know many new blogs fall prey to the "three posts, and was never heard from again" syndrome. I'll try to avoid this.
-
-(Historical note: I hilariously broke (4) after publishing [Identity Crisis](/essays/identity_crisis). It seems like I had resolved my personal issues. Now my website is just a compilation of essays.)
