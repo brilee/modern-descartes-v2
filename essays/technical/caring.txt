@@ -11,7 +11,7 @@ Today, the Internet has become a ridiculously cheap platform for spreading messa
 
 Imagine a country boy visiting a city for the first time. He's overwhelmed by the aggressive panhandling, and gives out his money to everybody who asks. Our country boy starts realizing that there's no end to the demands for his money, and learns to avoid the panhandlers. Eventually, he doesn't even need to think about it - as soon as anybody in shoddy clothes starts approaching him, the words "No, sorry" are already coming out of his mouth. And so it is with the Internet.
 
-![care factory out of stock](/static/carefactory.jpg I wrote this essay just so that I could use this image)
+![care factory out of stock](/static/carefactory.jpg)
 
 The dilemna now faced by demanders of care is identical to the dilemna that advertisers now face. After all, advertisers are also trying to get you to care about something - their product.
 
