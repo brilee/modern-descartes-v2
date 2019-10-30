@@ -1,4 +1,4 @@
-Understanding the AUC metric
+Understanding the AUROC metric
 2019/10/29
 
 In this essay I'll dig into the difficulties of comparing two binary classifiers.
