@@ -1,0 +1,38 @@
+Estimating vapor pressure from boiling point
+2019/10/30
+
+Did you know that you can estimate the volatility of a substance at room temperature if you know its boiling point? This can be a useful calculation if you'd like to estimate, e.g. ppm of some volatile organic compound in the air.
+
+## The equations
+
+The [Clausius Clapyeron equation](https://en.wikipedia.org/wiki/Clausius%E2%80%93Clapeyron_relation) relates several quantities: two temperatures $T_1$ and $T_2$, the vapor pressures $P_1$ and $P_2$ at those temperatures, the ideal gas constant $R$, and the [enthalpy of vaporization](https://en.wikipedia.org/wiki/Enthalpy_of_vaporization).
+
+$$ \ln{\frac{P_2}{P_1}} = \frac{\Delta H_{vap}}{R}\left(\frac{1}{T_1} - \frac{1}{T_2}\right)$$
+
+We know most of these quantities. $T_1$, $P_1$ are (boiling point, 1 bar), by definition of the boiling point. $T_2$ is room temperature. $P_2$ is the quantity we want to compute. $R$, the ideal gas constant, is known.
+
+The only missing quantity is $\Delta H_{vap}$, the enthalpy of vaporization. This is an empirically measured value which is more difficult to measure, and therefore less commonly measured than boiling point. However, [Trouton's Rule](https://en.wikipedia.org/wiki/Trouton%27s_rule) is an observation that empirically, almost all organic molecules have near-identical _entropy_ of vaporization $\Delta S_{vap}$ = 85 J/K, or about 10.5 times $R$. (Note that entropy != enthalpy). If we could link entropy back to enthalpy somehow, we'd have all the quantities we'd need to estimate volatility at room temperature.
+
+Luckily, the [Gibbs equation](https://en.wikipedia.org/wiki/Gibbs_free_energy) says that at the boiling point, we have an equilibrium between vapor and liquid phases given as
+
+$$ \Delta G = 0 = \Delta H - T\Delta S $$
+
+i.e. $\Delta H_{vap} = T_{BP}\Delta S_{vap} = 10.5T_{BP}R$.
+
+All together, this yields the following equation for estimating vapor pressure at room temperature of a substance:
+
+$$ \ln{\frac{P_2}{\textrm{[1 bar]}}} = \frac{10.5T_{BP}R}{R}\left(\frac{1}{T_{BP}} - \frac{1}{T_2}\right) $$
+
+$$ P_2 = \textrm{[1 bar]} \cdot e^{10.5 \left(1 - \frac{T_{BP}}{T_2} \right)} $$
+
+## Sanity check
+
+When $T_2 = T_{BP}$, the exponential turns into a factor of 1, as desired. At a temperature that's half of the boiling point, we have vapor pressure is $e^{-10.5}$ bars. At a temperature that's twice the boiling point, we have vapor pressure = $e^{10.5}$ bars. At a temperature that's 80% the boiling point (i.e. water boils at 373 K, room temperature is 300 K), we have vapor pressure of $e^{-10.5 \cdot 0.25}$ = 0.07 bar. Water at room temperature has a saturation of about 4%, or 0.04 bar, so this is about right.
+
+## A fun calculation
+
+When you take a sniff of an essential oil, how many grams of material did you just inhale?
+
+Let's assume the essential oil has a boiling point of 200C, or 470K. Room temperature is 300K. Plugging these numbers into our equation yields a vapor pressure of 0.003 bar. A sniff is maybe 100 mL of air. Using the ideal gas law, we end up with $10^{-5}$ moles of material in that whiff. Assuming that our essential oil has a molecular weight of about 200 daltons, this yields 2 milligrams of material. If the oil is diluted to 10% in some carrier medium, then the vapor pressure drops accordingly and we'd have inhaled 0.2 milligrams of material.
+
+
