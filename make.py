@@ -8,7 +8,7 @@ import feedgenerator
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 
-WEBSITE_URL = 'http://www.moderndescartes.com'
+WEBSITE_URL = 'https://www.moderndescartes.com'
 # Where to look for various files
 ESSAY_DIR = "essays"
 STATIC_DIR = "static"

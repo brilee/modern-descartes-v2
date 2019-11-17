@@ -50,3 +50,7 @@ There was an unfruitful detour into gzip-land; `gsutil cp -z` would apparently g
 Writing my own static site compiler has been remarkably easy to do. In between jinja2 templating and Pandoc for correctly compiling MarkDown/LaTeX files, I've ended up with 100 lines of Python that replace the entire Django installation I used to have. The initial prototype took me 3 hours on a plane to write; cleaning up the push/deploy process took another few hours of futzing around with gsutil doc pages.
 
 To take a peek at the code supporting this static site, [check out the Git repo](https://github.com/brilee/modern-descartes-v2).
+
+# Update 11/17/2019
+
+I moved over to Firebase hosting, because it supports SSL, and the GCS static site hosting did not. Firebase hosting has been quite simple and I haven't run into any of the hiccups I previously encountered.
