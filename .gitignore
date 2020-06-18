@@ -5,3 +5,6 @@ bin/*
 lib/*
 include/*
 staging/*
+.firebase/*
+node_modules/*
+package-lock.json

@@ -36,7 +36,7 @@ Solving this equation for $N$, we end up with our extrapolation relationship:
 
 $$N = \frac{\log p_N}{\log (1 - 1/B)} \approx -B\log p_N$$
 
-where the second approximation comes from the first term of the Taylor expansion $\log(1 + x) = x - x^2 / 2 + x^3 / 3 - x^4 / 4 \ldots $.
+where the second approximation comes from the first term of the Taylor expansion $\log(1 + x) = x - x^2 / 2 + x^3 / 3 - x^4 / 4 \ldots$.
 
 This is a very simple algorithm. The biggest problem with this approach is that you need to know roughly how big $N$ is ahead of time so that you can allocate an appropriately sized hash table. The size of the hash table is typically chosen such that the load factor, $N/B$ is between 2 to 10.
 
