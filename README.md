@@ -14,8 +14,13 @@ pip install -r requirements.txt
 # How to compile/deploy
 ```
 python3 make.py
+firebase logout && firebase login
 firebase deploy
 ```
+
+# Analytics
+
+[goatcounter](https://moderndescartes.goatcounter.com/)
 
 If you change anything about the compilation step, do a manual check over essays exercising various features - in particular:
     - fractal plants (javascript embedded snippets)
