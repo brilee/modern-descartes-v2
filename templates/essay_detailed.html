@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
 {% block scripts %}
+<!-- Allow for LaTeX rendering -->
 <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML'></script>
+<!-- Allow for code syntax highlighting -->
 <link rel="stylesheet" href="/static/github.css">
 <script src="/static/highlight.pack.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
@@ -12,6 +14,7 @@
 {% block maintext %}
 <h1>{{essay.title}} </h1>
 <p> Originally posted {{essay.date}}</p>
+<p> <em>Obligatory disclaimer: all opinions are mine and not of my employer </em></p>
 <hr />
 
 {{essay.content|safe}}
