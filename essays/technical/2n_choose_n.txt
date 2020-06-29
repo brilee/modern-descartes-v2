@@ -1,5 +1,6 @@
 The asymptotic value of 2n choose n
 2017/4/29
+math
 
 What is the asymptotic value of ${2n \choose n}$ as $n$ goes to infinity?
 

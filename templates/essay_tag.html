@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Essays by Brian Lee{% endblock %}
+
+{% block maintext %}
+
+<h2> Essays tagged {{tag}} </h2>
+
+<hr />
+<ul>
+{% for essay in essays_with_tag %}
+    <li>{{essay.date}}&nbsp;|&nbsp; <a href="/{{ESSAY_WEBDIR}}/{{essay.slug}}/">{{essay.title}}</a></li>
+{% endfor %}
+</ul>
+
+{% endblock maintext %}

@@ -1,5 +1,6 @@
 Hello World
 2011/5/15
+personal
 
 1. Purpose: This blog will contain my thoughts, discoveries, and analysis of life, the universe, and everything.
 

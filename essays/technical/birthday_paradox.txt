@@ -1,5 +1,6 @@
 Estimating the Birthday Paradox Cutoff
 2016/11/6
+math,statistics
 
 Introduction
 ------------

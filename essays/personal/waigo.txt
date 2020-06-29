@@ -1,5 +1,6 @@
 Trip Report: World AI Go Open
 2017/9/16
+personal,alphago
 
 From Aug 14-Aug 18, I was in Ordos City, China, to compete in the first World AI Go Open, with [MuGo](https://github.com/brilee/MuGo), toy go AI that I'd built for fun. Despite coming in 11th place out of 12 contestants, I had a blast there and I'm happy to have met so many other Go AI developers. Much thanks to the WAIGO organizers for organizing this event and sponsoring many teams, including myself, to come to China.
 

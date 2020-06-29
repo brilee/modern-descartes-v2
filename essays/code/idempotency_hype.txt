@@ -1,5 +1,6 @@
 Why Idempotency Matters
 2014/8/23
+computer_science
 
 I finally understood why idempotency is such a big deal in computer science. The key realization came when I was reading about task queues and the need for request IDs with each task submitted.
 

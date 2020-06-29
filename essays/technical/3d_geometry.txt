@@ -1,5 +1,6 @@
 Forays into 3D geometry
 2019/1/10
+math
 
 I've been trying to understand [this paper](https://arxiv.org/abs/1802.08219) and as part of this process, realized that I should learn more geometry, algebra, and group theory. So I spent a week digging into the math of 3D geometry and here's what I've learned so far.
 

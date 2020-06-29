@@ -1,5 +1,6 @@
 My Path to Machine Learning
 2017/3/14
+personal,computer_science,machine_learning,alphago
 
 3 years ago, I dropped out of graduate school and started working at HubSpot as a backend software engineer. After 2 years at HubSpot, I left to focus on machine learning, and now I'm employed as an engineer working on ML at Verily. This is the story of how I made my transition.
 

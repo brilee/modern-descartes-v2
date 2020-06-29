@@ -1,5 +1,6 @@
 Estimating vapor pressure from boiling point
 2019/10/30
+chemistry
 
 Did you know that you can estimate the volatility of a substance at room temperature if you know its boiling point? This can be a useful calculation if you'd like to estimate, e.g. ppm of some volatile organic compound in the air.
 

@@ -1,5 +1,6 @@
 Metabolic networks as computation
 2016/6/05
+computer_science,chemistry
 
 _Warning_: half-baked ideas ahead.
 

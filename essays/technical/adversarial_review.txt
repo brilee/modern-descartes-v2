@@ -1,5 +1,6 @@
 An Adversarial Adversarial Paper Review Review
 2018/10/18
+computer_science,machine_learning
 
 This is a review of a review: ["Motivating the Rules of the Game for Adversarial Example Research"](https://arxiv.org/abs/1807.06732). (Disclaimer: I've tried to represent the conclusions of the original review as faithfully as possible but it's possible I've misunderstood the paper.)
 

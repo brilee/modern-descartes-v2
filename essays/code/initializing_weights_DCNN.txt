@@ -1,5 +1,6 @@
 Proper Initialization of Weights for DCNNs
 2016/9/2
+computer_science,machine_learning,math,alphago
 
 Lately, I've been working on a neural network, based on AlphaGo's policy network. To test it, I've been using smaller parameters (width of each layer, as well as number of layers), for faster execution times. All was fine, and I was getting decent accuracy results, even with the smaller test networks. But when it came time to scale the network up to the full size, I started running into all sorts of NaN errors. I experimented with scaling up in increments until I started running into NaN errors; they seemed to be triggered both by increasing the number of neurons in a layer, as well as number of layers. I was stuck for a long time, until I happened to notice my activations in TensorBoard.
 

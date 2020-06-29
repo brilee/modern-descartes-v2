@@ -1,5 +1,6 @@
 A Pythonista's Initial Thoughts on Java
 2015/3/16
+computer_science
 
 Over the last two months, I've been working with Java for the first time in my coding career. It's been... an interesting experience, to say the least. Given my coding style and preferences, I wouldn't have imagined that I'd like Java at all, but I've found myself surprised at how reasonable it can be. One major caveat - since Java is such a massive landscape, my experience is heavily a function of Hubspot's Java development environment. With that in mind, here are some observations.
 

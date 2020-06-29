@@ -1,7 +1,6 @@
 Implementing the Game of Go (Part 1)
 2016/8/23
-
-(Edited on 9/28 to clean up some of the exposition and fix a major inefficiency in `find_reached`.)
+computer_science,optimization,alphago
 
 In this essay, I'll talk about implementing the rules of Go in Python, starting with a naive implementation (Part 1), and then optimizing it to make play execution faster (Part 2).
 
@@ -168,5 +167,3 @@ Finally, let's score our board. We'll assume the Chinese scoring system, which a
 Benchmarking this code, it appears that each move takes about 50 microseconds, on average, giving us 20,000 moves/sec. Given that the average full game is about 250 moves long, this naive implementation yields 80 games played per second. Some of the popular Go engines written in C are capable of ~10,000 games played per second - so clearly we have a long way to go! Not only that, our implementation makes it difficult to extract metadata like liberty counts that might be useful to help decide what moves an AI should play.
 
 [Download the code here](https://github.com/brilee/go_implementation/blob/master/go_naive.py)
-
-[Download the code here](/static/downloads/implementing_go_naive.py)

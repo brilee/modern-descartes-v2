@@ -1,5 +1,6 @@
 Carbon dioxide and closed rooms
 2018/10/18
+chemistry
 
 Recently, Scott Alexander [posted about the possibility that $\textrm{CO}_2$ could accumulate in a closed room overnight](http://slatestarcodex.com/2018/08/23/carbon-dioxide-an-open-door-policy/), leading to decreased sleep quality. As with anything Scott posts, it made me really believe him for a while. And I certainly wasn't the only one - I visited the Bay Area this week and found some friends debating whether they should buy an air quality monitor to test their $\textrm{CO}_2$ levels.
 

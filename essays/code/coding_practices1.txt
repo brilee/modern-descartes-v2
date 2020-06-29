@@ -1,5 +1,6 @@
 Coding practices, part 1 of ?
 2014/10/13
+computer_science,python
 
 Since starting to work professionally with Python, I've picked up a few things here and there that I feel have improved my appreciation for good code. Here are some of my discoveries.
 

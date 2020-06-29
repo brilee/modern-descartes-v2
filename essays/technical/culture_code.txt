@@ -1,5 +1,6 @@
 It's not about the culture code!
 2014/11/29
+miscellaneous
 
 The trendy tech companies nowadays all seem to have a culture code. Hubspot, the company I currently work at, has an [entire slide deck on its culture code](http://www.slideshare.net/HubSpot/the-hubspot-culture-code-creating-a-company-we-love) which has been viewed over a million times. These companies say that the reason for their success, as well as a reason that you should work there, is that they have culture.
 

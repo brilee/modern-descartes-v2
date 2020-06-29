@@ -1,5 +1,6 @@
 Unsolved Problems in Chemistry
 2011/10/23
+chemistry
 
 _(Update from 2019: This list has been cleaned up a bit and extra links added, but nothing has fundamentally changed about the list. One emerging area I'm very excited about in 2019 is neural network approximations to predicting chemical properties.)_
 

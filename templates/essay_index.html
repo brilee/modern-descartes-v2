@@ -1,10 +1,17 @@
 {% extends 'base.html' %}
+{% import 'macros.html' as macros %}
 
 {% block title %}Essays by Brian Lee{% endblock %}
 
 {% block maintext %}
 
 <h2> Essays</h2>
+
+<p><a href="/{{ESSAY_WEBDIR}}/rss.xml">Atom (RSS) feed</a></p>
+
+<hr />
+<h3>...by tag: </h3>
+<p>{{macros.tag_link_list(ESSAY_WEBDIR, tags)}}</p>
 
 <hr />
 <h3>...by date</h3>
@@ -13,19 +20,6 @@
     <li>{{essay.date}}&nbsp;|&nbsp; <a href="/{{ESSAY_WEBDIR}}/{{essay.slug}}/">{{essay.title}}</a></li>
 {% endfor %}
 </ul>
-
-<hr />
-<h3>...by category</h3>
-{% for category, essays in essays_by_category.items() %}
-<h4>{{category}}</h4>
-	<ul>
-		{% for essay in essays %}
-		<li>{{essay.date}}&nbsp;|&nbsp; <a href="/{{ESSAY_WEBDIR}}/{{essay.slug}}/">{{essay.title}}</a></li>
-		{% endfor %}
-	</ul>
-{% endfor %}
-
-<p><a href="/{{ESSAY_WEBDIR}}/rss.xml">Atom</a></p>
 
 {% endblock maintext %}
 {# remove rc scout header from front page #}

@@ -1,5 +1,6 @@
 Dropping Out of Grad School
 2013/9/9
+personal
 
 I have some big news for everyone: I'm dropping out. I will be searching for software jobs in the Boston area over the next few months. If you or a friend are looking to hire a mathy kind of person with some formal CS background and some practical experience (mostly in python/django, scientific computing), send me a note.
 
