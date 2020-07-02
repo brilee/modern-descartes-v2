@@ -35,7 +35,7 @@ Ranking      | Mistakes | Score
 (D, D, H, H) |  4 / 4   |  0
 ```
 
-## Implementation
+# Implementation
 
 ```
 def fraction_correct(rearrangement):
@@ -76,7 +76,7 @@ As mentioned earlier, it turns out that this function yields identical results a
 (1, 1, 0, 0, 0) 0.000 0.000
 ```
 
-## Why does this work?
+# Why does this work?
 
 I think it's pretty surprising that these two scores turn out to measure the same thing. One is a statement about discrete probabilities - "what's the chance that a random pairwise comparison is correctly ordered?". The other is a statement about continuous curves - "the area under the curve plotting true positive rate vs. false positive rate". 
 

@@ -65,7 +65,7 @@ def parse_essay(essay_path):
             day=int(day))
         essay_content = f.read()
     result = subprocess.run(
-        "pandoc -f markdown -t html --mathjax",
+        "pandoc -f markdown -t html --mathjax --shift-heading-level-by=1",
         stdout=subprocess.PIPE,
         input=essay_content.encode('utf8'),
         shell=True)
