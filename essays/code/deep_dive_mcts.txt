@@ -127,7 +127,7 @@ Unfortunately, the basic implementation performs rather poorly. When executed wi
 
 What went wrong? Do we just blame Python for being slow?
 
-Well, kind of. The problem with the basic implementation is that we instantiate hundreds of UCTNode objects, solely for the purpose of iterating over them and doing some arithmetic on each node to calculate Q and U. Each individual operation is fast, but when we are executing thousands of Python operations (attribute access, addition, multiplication, comparisons) to select a variation, the whole thing inevitably becomes slow. 
+Well, kind of. The problem with the basic implementation is that we instantiate hundreds of UCTNode objects, solely for the purpose of iterating over them and doing some arithmetic on each node to calculate Q and U. Each individual operation is fast, but when we execute thousands of Python operations (attribute access, addition, multiplication, comparisons) to complete just one child node selection, the whole thing inevitably becomes slow. 
 
 # Optimizing for performance using NumPy
 

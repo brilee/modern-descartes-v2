@@ -1,6 +1,6 @@
 How to shuffle in TensorFlow
 2018/4/4
-computer_science,machine_learning,tensorflow
+computer_science,machine_learning
 
 # Introduction
 
