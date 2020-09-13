@@ -26,10 +26,10 @@ The canonical solution to this problem is to use Upper Confidence Bounds.
 
 <figure>
 <img src="/static/deep_dive_mcts/hn_screenshot_annotated.png" title="HN ranking = quality + upper confidence bound" style="display: block; margin: 0 auto; width: 80%;"/>
-<figcaption style="text-align: center; font-size: larger"> Ranking = Quality + Upper confidence bound </figcaption>
+<figcaption style="text-align: center; font-size: larger"> Ranking = Quality + Uncertainty (Q + U)</figcaption>
 </figure>
 
-The idea is simple. Instead of ranking according to estimated rating, you add a bonus based on how uncertain you are about the rating. In this example, the top submission on HN has fewer upvotes than the second rank submission, but it's also newer. So it gets a bigger uncertainty bonus. The uncertainty bonus fades over time, and that submission will fall in ranking unless it can prove its worth with more upvotes.
+The idea is simple. Instead of ranking according to estimated rating, you add a bonus based on how uncertain you are about the rating to yield an upper confidence bound. In this example, the top submission on HN has fewer upvotes than the second rank submission, but it's also newer. So it gets a bigger uncertainty bonus. The uncertainty bonus fades over time, and that submission will fall in ranking unless it can prove its worth with more upvotes.
 
 This is an instance of the [Multi Armed Bandit](https://en.wikipedia.org/wiki/Multi-armed_bandit) problem and has a pretty extensive literature if you want to learn more.
 
@@ -45,7 +45,7 @@ This figure from the AlphaGoZero paper lays out the steps.
 
 1. Next, we pass the variation to a neural network for evaluation. We get back two things: an array of probabilities, indicating the net's preference for each followup move, and a position evaluation.
 
-    Normally, with a UCB algorithm, all of the options have equal uncertainty. But in this case, the neural network gives us an array of probabilities indicating which followup moves are plausible. Those moves get higher upper confidence bounds, ensuring that our tree search looks at those moves first.
+    Normally, with a UCB algorithm, all of the options have equal uncertainty. But in this case, the neural network gives us an array of probabilities indicating which followup moves are plausible. Those moves get higher uncertainty bonuses, ensuring that our tree search looks at those moves first.
 
     The position evaluation can be returned in one of two ways: in an absolute sense, where 1 = black wins, -1 = white wins, or in a relative sense, where 1 = player to play is winning; -1 player to play is losing. Either way, we'll have to be careful about what we mean by "maximum Q score"; we want to reorient Q so that we're always picking the best move for Black or White when it's their turn. The Python implementation I show will use the absolute sense.
 
@@ -83,18 +83,18 @@ The node class is also pretty straightforward: it has references to the game sta
 
 Step 1 (selection) occurs by repeatedly selecting the child node with the largest Q + U score. Q is calculated as the average of all evaluations. U is a bit more complex; the important part of the U formula is that it has the number of visits in the denominator, ensuring that as a node is repeatedly visited, its uncertainty bonus shrinks inversely proportional to the number of visits.
 
-    def Q(self):  # returns float
+    def Q(self) -> float:
         return self.total_value / (1 + self.number_visits)
 
-    def U(self):  # returns float
+    def U(self) -> float:
         return (math.sqrt(self.parent.number_visits)
             * self.prior / (1 + self.number_visits))
 
-    def best_child(self):
+    def best_child(self) -> UCTNode:
         return max(self.children.values(),
                    key=lambda node: node.Q() + node.U())
 
-    def select_leaf(self):
+    def select_leaf(self) -> UCTNode:
         current = self
         while current.is_expanded:
             current = current.best_child()
