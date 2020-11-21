@@ -98,9 +98,9 @@ def compile_essays():
     print("Compiled {} essays".format(len(all_essays)))
     return all_essays
 
-def compile_all(local=False):
+def compile_all():
     assert STAGING_DIR not in ('/', '.', '..', '')
-    subprocess.check_call('rm -r {}'.format(STAGING_DIR), shell=True)
+    subprocess.run('[ -d {} ] && rm -r {}'.format(STAGING_DIR, STAGING_DIR), shell=True, stderr=subprocess.STDOUT)
     compile_html('404.html', '404.html')
     compile_html('index.html', 'index.html')
     all_essays = compile_essays()
@@ -115,21 +115,13 @@ def compile_all(local=False):
         compile_html('essay_tag.html', 'essays/tags/{}/index.html'.format(tag),
             tag=tag, essays_with_tag=essays_with_tag)
     make_rss(essays_sorted)
-    subprocess.check_call('cp -r -p {static} {staging}/{static}'.format(
+    subprocess.run('cp -r -p {static} {staging}/{static}'.format(
         static=STATIC_DIR, staging=STAGING_DIR), shell=True)
-    if local:
-        abs_dir = os.path.join(os.path.abspath('.'), STAGING_DIR)
-        subprocess.check_call(['find', abs_dir,
-            '-type', 'f', '-name', '*.html', '-exec',
-            'sed', '-i', '', 's|href="/|href="{}/|g'.format(abs_dir), '{}', '+'])
-        subprocess.check_call(['find', abs_dir,
-            '-type', 'f', '-name', '*.html', '-exec',
-            'sed', '-i', '', 's|src="/|src="{}/|g'.format(abs_dir), '{}', '+'])
 
 if __name__ == '__main__':
     if len(sys.argv) == 2 and sys.argv[1] == 'local':
-        compile_all(local=True)
-        subprocess.call(['open', 'staging/index.html'])
+        compile_all()
+        subprocess.call(['python', '-m', 'http.server', '8888', '-d', 'staging'])
     elif len(sys.argv) == 1:
         compile_all()
     else:
