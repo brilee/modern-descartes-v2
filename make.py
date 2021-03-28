@@ -119,10 +119,5 @@ def compile_all():
         static=STATIC_DIR, staging=STAGING_DIR), shell=True)
 
 if __name__ == '__main__':
-    if len(sys.argv) == 2 and sys.argv[1] == 'local':
-        compile_all()
-        subprocess.call(['python', '-m', 'http.server', '8888', '-d', 'staging'])
-    elif len(sys.argv) == 1:
-        compile_all()
-    else:
-        print("Usage: python {} [local]".format(sys.argv[0]))
+    compile_all()
+    subprocess.call(['python', '-m', 'http.server', '8888', '-d', 'staging'])
