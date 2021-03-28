@@ -1,0 +1,53 @@
+Homeostasis and Volatility
+2021/3/28
+miscellaneous
+
+Nature is remarkably resilient to a wide range of environmental conditions. One of the key strategies involved is _homeostasis_: the use of [negative feedback loops](https://en.wikipedia.org/wiki/Negative_feedback) to respond to fluctuations in the environment.
+
+Homeostasis is a strategy that works well as long as the variation doesn't exceed the system's capacity. This capacity is typically designed or evolved (in Nature) in response to some historical range of experience. Levees might be designed to withstand a hundred year flood; supply chains develop enough of a buffer to smooth over monthly fluctuations in supply and demand. However, homeostasis has its limits.
+
+In this essay, I'll talk about some of Nature's homeostatic systems and the parallels in humanity's response to COVID-19.
+
+# Trees and Climatological Homeostasis
+
+Trees are not the first thing that comes to mind when homeostasis is mentioned. We typically see trees as passive endurers of the environment. In reality, trees are active participants in their environment.
+
+In areas with frequent and light rains, tree roots grow shallow and wide, whereas in areas with infrequent and heavy rains, tree roots grow deep and narrow. This is ideal because light rain won't go deep into the ground before evaporating, but heavy rains will penetrate more deeply into the ground.
+
+In gusty areas, tree branches tend to grow thick, but in calmer areas, trees branches grow long and thin, an effect that all greenhouse owners are aware of. Thicker branches are less likely to break in high winds, but longer branches grant increased access to sunlight.
+
+While it's interesting that trees have figured this all out, even more interesting is how trees execute this optimal algorithm. One simple guess is evolution: species with shallow roots are favored in areas with light rain, and species with deep roots are favored in areas with heavy rain. While true, it's not the dominant mechanism.
+
+The actual algorithms are quite simple and fiendishly clever. Root growth is [favored in locations where the soil is more damp](https://pubmed.ncbi.nlm.nih.gov/15642523/). As rainwater flows over the landscape and percolates through the soil, trees will grow roots exactly where the water is. Similarly, branch growth is [favored in areas of high mechanical stress](https://en.wikipedia.org/wiki/Reaction_wood). As trees flex in response to winds and to their own weight under gravity, they grow additional wood in exactly the areas that need reinforcement.
+
+These decentralized homeostatic algorithms are incredibly powerful. The economic forces of supply and demand are decentralized homeostatic algorithms that enable modern supply chains and economies to exist.
+
+# Environmental drift and extinction events
+
+Trees' adaptive strategies help them tailor their growth to their environment. However, these strategies fail in extreme events, like hurricane-strength winds or severe drought.
+
+Why doesn't Nature do more to prepare for extreme events? To state the obvious, predicting the future is hard, and resources are always scarce in the rat race of evolution. As long as extreme events occur predictably infrequently, evolution will discover the optimal level of gambling on success. Think of it as Nature's [Kelly criterion](https://en.wikipedia.org/wiki/Kelly_criterion).
+
+What if the environment drifts, causing extreme events to happen more frequently? For example, as sea levels rise, what used to be a 100-year flooding event may become a 10-year or annual flooding pattern. When change is rapid enough, Nature is doomed to suffer setbacks. The earth's history is full of extinction events, where entire species disappear because not a single individual of that species could cope. Still, life as a whole keeps on chugging along, because among the diversity of species on Earth, some will survive.
+
+Yet, we would be foolish to ascribe any planning motivation to Nature. Nature did not diversify its species because it was trying to anticipate or prepare for extinction events. Nature diversified its species as a side effect of each species optimizing for its own niche. Millions of microclimates and predator-prey relationships lead to as many species.
+
+To draw an analogy to human systems, what this implies is that diversity cannot or should not be _planned_ as it is not a evolutionarily stable equilibrium. Instead, diversity should arise as the natural solution to a diversity of ecological niches. With many companies, many cultures, many governments, many ecosystems, a humanity-wide robustness to adversity arises.
+
+A contemporary example of this is the contrast between Western and Asian responses to COVID-19. Asian countries, thanks to their recent experiences with [SARS](https://en.wikipedia.org/wiki/Severe_acute_respiratory_syndrome) and [MERS](https://en.wikipedia.org/wiki/Middle_East_respiratory_syndrome), have had a strong cultural immune response to COVID. As a result, they had broad community support and cooperation in contact tracing, mask wearing, and lockdown as necessary. Western countries, on the other hand, have suffered from an [epidemic yo-yo](https://marginalrevolution.com/marginalrevolution/2020/03/herd-immunity-time-consistency-and-the-epidemic-yoyo.html), failing to convince their citizens of the steps they need to take to curtail the pandemic's effects. The situation is akin to the European colonizer's introduction of infectious diseases to North America.
+
+# Stress-induced mutagenesis
+
+So far, I've characterized Nature as a diversity of species, some of which roll over and die every so often in response to environmental drift. This is, of course, a simplification. Actually, evolution has figured out some very clever ways to respond to environmental drift.
+
+Bacteria are capable of _stress induced mutation_, in which environmental stress triggers a higher mutation rate. Mutation is normally harmful, in that the vast majority of genetic change is detrimental. However, it allows for the discovery of new mutations that may allow some of the bacteria's descendants to survive future environmental changes.
+
+This is somewhat of an evolutionary magic trick. How does evolution favor the preservation of a mutagenesis gene whose sole purpose is to shoot its own foot (on average) when the going gets rough?
+
+The answer is robustness to environmental volatility. Imagine a population of bacteria, some individuals with a working mutagenesis gene, some without. When environmental shifts occur, a large fraction of individuals begin to die out - both those with and without the gene. If the environmental shift persists long enough, the individuals without a mutagenesis gene die out completely, but the individuals with a working mutagenesis gene will have adapted, surviving to reestablish the population.
+
+The U.K. and U.S. responses to COVID-19 are a demonstration of cultural mutagenesis (or lack thereof). The U.K. has demonstrated itself capable of rapidly adopting strategies like [first doses first](https://www.technologyreview.com/2021/03/02/1020169/should-the-us-start-prioritizing-first-vaccine-doses-to-beat-the-variants/), whereas the U.S. sticks with the boring but suboptimal two-dose strategy. Of course, mutagenesis can also generate suboptimal strategies, like the U.K.'s initial embrace of the "cocoon strategy", in which the elderly and vulnerable were encouraged to cocoon while the rest of society was encouraged to carry on in their path to herd immunity. Still, I think the U.K.'s ability to try unconventional strategies bodes well for its future success as a country.
+
+# A plea for cultural acceptance
+
+It is rarely the case that one culture is strictly superior to another. Yet, that's what our red-blue political leaders would like us to believe. Cultural diversity is a source of resilience and new ideas to problems, and we should embrace it. It is not difficult to find something to admire in each different culture, and to bring a part of it back to your own life.
