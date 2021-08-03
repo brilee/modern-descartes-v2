@@ -1,0 +1,83 @@
+Carbon Neutral Concrete - the numbers
+2021/8/2
+chemistry
+
+I recently saw a [post from Heimdal](https://news.ycombinator.com/item?id=28036927), a startup claiming to do carbon-neutral concrete production. In this essay, I'll explain why this is a problem worth working on, and take a rough stab at calculating whether the hard reality of chemistry and economics supports their business model.
+
+# Cement and carbon dioxide
+
+Cement is an aggregate of lime a.k.a. calcium oxide ($\textrm{CaO}$), silica ($\textrm{SiO_2}$), aluminum oxide ($\textrm{Al}_2\textrm{O}_3$), and other stuff. Concrete is about 50-60% lime by mass, making it the majority component.
+
+Unfortunately for the environment, calcium oxide is produced by mining and heating limestone, $\textrm{CaCO}_3$ at ~900 degrees Celsius until it decomposes to form calcium oxide and carbon dioxide. The net result is that concrete production is carbon-intensive. Heimdal proposes to fix this (and make money while doing so) by directly creating calcium oxide from seawater.
+
+Actually, the majority consumer of lime isn't even the concrete business. It turns out that the iron smelting industry consumes the most lime. [(Source)](https://www.eula.eu/wp-content/uploads/2019/02/A-Competitive-and-Efficient-Lime-Industry-Technical-report-by-Ecofys_0.pdf). Anyway, this just bolsters the idea that carbon-free lime manufacture is a worthy goal. Heimdal's sales pitch is a bit roundabout. They make some pitch about "carbon fixation" followed by "profit by selling the resulting limestone to the concrete industry". But since the concrete industry is just going to burn the carbon dioxide off again, let's just pretend the business is lime production. 
+
+# The hard chemical reality
+
+In this section, I compute the absolute theoretical minimum cost, based on the thermodynamics and chemistry of what Heimdal is proposing. This ignores a variety of other costs like anti-fouling membranes to purify the seawater, the cost of the alkaline sorbent, the cost of the overvoltage required to make the reaction proceed at a reasonable rate, capital costs for the plant itself, the cost to transport the very bulky products to where they are needed (quarries are local for a reason!), etc. etc. etc..
+
+With all those caveats in mind, let's see what reality has to say about Heimdal's business idea.
+
+Heimdal talks about an alkaline sorbent (which is probably an [amine scrubbing system](https://en.wikipedia.org/wiki/Amine_gas_treating)). This alkaline sorbent is catalytic, so we can completely ignore it for now.
+
+The first reaction is the removal of calcium from seawater:
+
+\begin{equation}
+\textrm{Ca}^{2+} + 2\textrm{OH}^- \rightarrow \textrm{Ca(OH)}_2
+\end{equation}
+
+with a solubility product $\textrm{K}_{sp}$ of 6e-6, or $\Delta G = -30$kJ/mol. (This number is negative, indicating an energetic downhill.)
+
+This reaction consumes hydroxide, and so we need a net source of hydroxide. Otherwise, the result is net ocean acidification, which would cause a net outgassing of carbon dioxide from the ocean into the atmosphere. That source of hydroxide is electrolysis, as hinted by their sales pitch mentioning the sale of hydrogen gas.
+
+\begin{equation}
+2\textrm{e}^- + 2\textrm{H}_2\textrm{O} \rightarrow 2\textrm{OH}^- + \textrm{H}_2
+\end{equation}
+
+Well, we've found our hydroxide, but now we're short some electrons. We need an electron source. The two biggest electron sources used in electrolysis at a commercial scale are graphite (in [aluminum production](https://en.wikipedia.org/wiki/Hall%E2%80%93H%C3%A9roult_process)) and chloride anions (in [chlorine production](https://en.wikipedia.org/wiki/Chloralkali_process)). The graphite is cheaper and more effective but it's consumed to form carbon dioxide, so that's a nonstarter. Let's assume chloride as a source of electrons.
+
+\begin{equation}
+2\textrm{Cl}^- \rightarrow 2\textrm{e}^- + \textrm{Cl}_2
+\end{equation}
+
+The last two half-reactions come together to create a redox reaction with an electric potential of 1.36V, or $\Delta G = 262$kJ/mol. This number is positive, indicating a big energetic uphill which will be overcome by an electricity input.
+
+\begin{equation}
+2\textrm{H}^+ + 2\textrm{Cl}^- \rightarrow \textrm{H}_2 + \textrm{Cl}_2
+\end{equation}
+
+Adding all of these reactions together we have so far:
+
+\begin{equation}
+2\textrm{H}^+ + 2\textrm{Cl}^- + \textrm{Ca}^{2+} + 2\textrm{OH}^- \rightarrow \textrm{H}_2 + \textrm{Cl}_2 + \textrm{Ca(OH)}_2
+\end{equation}
+
+For some bookkeeping, we add 2x water autodissociation reactions (each one having $K_{w}$ of 1e-14, $\Delta G = -80$kJ/mol) and the quicklime hydration reaction with $\Delta G = 20$kJ/mol. The final net reaction is:
+
+\begin{equation}
+2\textrm{Cl}^- + \textrm{Ca}^{2+} + \textrm{H}_2\textrm{O} \rightarrow \textrm{H}_2 + \textrm{Cl}_2 + \textrm{CaO}
+\end{equation}
+
+This reaction has an unadjusted cost of -30 + 262 + 2*-80 + 20 = 92 kJ/mol. In seawater, chloride ions have a concentration of ~0.5M, and calcium is about 0.01M. After compensating for the unfavorable concentration gradients, we have a net energetic cost of __107 kJ/mol__.
+
+# Market prices
+
+Since we're using electrolysis, let's assume a market rate of 13 cents per kWh.
+
+$$\frac{\textrm{107 kJ}}{\textrm{1 mol}} \cdot \frac{\textrm{1 mol}}{\textrm{56 g}} \cdot \frac{\textrm{1e6 g}}{\textrm{1 metric ton}} \cdot \frac{\textrm{1 kWh}}{\textrm{3600 kJ}} \cdot \frac{\textrm{13 cents}}{\textrm{1 kWh}} = \$70 / \textrm{metric ton CaO}$$
+
+As a reminder, this is the theoretical minimum price, not taking into account any overhead or inefficiencies. In exchange for $70 of electricity, we get 1 metric ton of CaO, 36 kg of hydrogen gas, and 1.2 metric tons of chlorine gas.
+
+How much money could we make this way? The market price of lime is $100/mton; hydrogen gas is $2/kg and chlorine gas is $250/mton. The market for lime is perhaps 100 times the size of the markets for hydrogen and chlorine gases, so at scale we'll have market-distorting problems, but for now, let's take the book price as given. In total, we can expect to make ~$475.
+
+The physics says $70 in, $475 out. The big question now is, "What is the reality factor?" meaning the additional cost of all the overhead/inefficiencies. If we have a reality factor of greater than 7x, this would be a commercially unviable proposition.
+
+# Estimating the reality factor
+
+Can we get an estimate for the reality factor?
+
+I repeated this exact same analysis for the [Chloralkali process](https://en.wikipedia.org/wiki/Chloralkali_process), a 100-year old industrial process that is used on the scale of tens of millions of tons annually. The result is that it costs a theoretical minimum of $235 in electricity to generate $250 of chlorine gas, $60 of hydrogen gas, and $140 of sodium hydroxide, for total profits of $450. This suggests that a _commercially mature_ process operating at tens of millions of tons has about a 2x reality factor.
+
+So I think there's space for this idea to be profitable. (From me, that's a ringing endorsement!)
+
+More than just profitability, can they make a dent in our carbon problem? The scale of our carbon problem is on the order of 30 billion tons of CO2, of which maybe 1 billion tons are due to lime production. Heimdal is currently at the scale of 1 ton per year - __nine orders of magnitude__ away from making a difference. Assuming continuous Silicon Valley ridiculous growth rates of 50% year over year, they will take 50 years to grow to a point where they are actually making a dent in our carbon problem. I wish them good luck.
