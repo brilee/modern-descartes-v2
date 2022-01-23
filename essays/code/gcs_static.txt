@@ -1,6 +1,6 @@
 Rewriting moderndescartes.com as a static site
 2018/3/10
-computer_science,
+software_engineering
 
 (This was originally a talk given at [Hack && Tell Boston](https://www.meetup.com/Hack-Tell-Boston/).)
 

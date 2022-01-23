@@ -1,6 +1,6 @@
 Making "Real" Programs
 2014/3/14
-computer_science
+software_engineering
 
 I got my programming start by writing solutions to Project Euler problems. My programs would be short scripts that ran some computation, printed out the result, and then exited.
 

@@ -1,6 +1,6 @@
 Profiling with Flame graphs
 2016/10/6
-computer_science,python,optimization,alphago
+software_engineering,alphago
 
 I recently learned about flame graphs, a technique to quickly understand the performance of your program. Although I've used profilers in the past, I've always found it difficult to glean actionable insight from their output. Instead, visualizing profiler output as a flame graph makes the big picture more obvious and makes it easier to figure out which part of your code you should be optimizing.
 

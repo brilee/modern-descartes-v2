@@ -58,7 +58,7 @@ For some bookkeeping, we add 2x water autodissociation reactions (each one havin
 2\textrm{Cl}^- + \textrm{Ca}^{2+} + \textrm{H}_2\textrm{O} \rightarrow \textrm{H}_2 + \textrm{Cl}_2 + \textrm{CaO}
 \end{equation}
 
-This reaction has an unadjusted cost of -30 + 262 + 2*-80 + 20 = 92 kJ/mol. In seawater, chloride ions have a concentration of ~0.5M, and calcium is about 0.01M. After compensating for the unfavorable concentration gradients, we have a net energetic cost of __107 kJ/mol__.
+This reaction has an unadjusted cost of -30 + 262 + 2*-80 + 20 = 92 kJ/mol. In seawater, chloride ions have a concentration of ~0.5M, and calcium is about 0.01M. After adjusting for the unfavorable concentration gradients, we have a net energetic cost of __107 kJ/mol__.
 
 # Market prices
 
@@ -76,7 +76,7 @@ The physics says $70 in, $475 out. The big question now is, "What is the reality
 
 Can we get an estimate for the reality factor?
 
-I repeated this exact same analysis for the [Chloralkali process](https://en.wikipedia.org/wiki/Chloralkali_process), a 100-year old industrial process that is used on the scale of tens of millions of tons annually. The result is that it costs a theoretical minimum of $235 in electricity to generate $250 of chlorine gas, $60 of hydrogen gas, and $140 of sodium hydroxide, for total profits of $450. This suggests that a _commercially mature_ process operating at tens of millions of tons has about a 2x reality factor.
+I repeated this exact same analysis for the [Chloralkali process](https://en.wikipedia.org/wiki/Chloralkali_process), a 100-year old industrial process that is used on the scale of tens of millions of tons annually. The result is that it costs a theoretical minimum of $235 in electricity to generate $250 of chlorine gas, $60 of hydrogen gas, and $140 of sodium hydroxide, for total revenue of $450. This suggests that a _commercially mature_ process operating at tens of millions of tons has about a 2x reality factor.
 
 So I think there's space for this idea to be profitable. (From me, that's a ringing endorsement!)
 

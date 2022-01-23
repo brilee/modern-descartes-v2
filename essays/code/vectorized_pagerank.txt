@@ -1,6 +1,6 @@
 Vectorizing Graph Algorithms
 2020/9/13
-optimization,computer_science,python
+software_engineering,computer_science,python
 
 Graph convolutional neural networks (GNNs) have become [increasingly popular](https://trends.google.com/trends/explore?date=2010-07-22%202020-08-22&q=graph%20convolutional%20networks,graph%20neural%20networks) over the last few years. Deep neural networks have reinvented multiple fields (image recognition, language translation, audio recognition/generation), so the appeal of GNNs for graph data is self-evident.
 

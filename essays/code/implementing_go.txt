@@ -1,6 +1,6 @@
 Implementing the Game of Go (Part 1)
 2016/8/23
-computer_science,optimization,alphago
+software_engineering,alphago
 
 In this essay, I'll talk about implementing the rules of Go in Python, starting with a naive implementation (Part 1), and then optimizing it to make play execution faster (Part 2).
 
