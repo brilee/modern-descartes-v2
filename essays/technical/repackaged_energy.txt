@@ -1,0 +1,39 @@
+Unexpected Shunts in the Supply Chain
+2022/2/27
+chemistry,sustainability
+
+One of the many repercussions of Russia's invasion of Ukraine and the resulting shutoff of Russia's natural gas pipelines is that crude oil prices around the world are rising. This is, if you think about it, somewhat strange. One of these is a gas, typically used in heating/cooking systems. The other is a viscous liquid, from which gasoline, diesel, asphalt, and other petrochemicals are derived.
+
+One reason for interlinked prices is of course that some feedstocks are substitutable. Is oil expensive relative to natural gas? Then you can burn natural gas instead of oil to supply electricity, or to [heat homes](https://www.scientificamerican.com/article/oil-versus-natural-gas-home-heating/).
+
+The other reason that oil and gas prices are interlinked is through [cracking](https://en.wikipedia.org/wiki/Cracking_(chemistry)), a process by which heavier hydrocarbons like those from crude oil are directly turned into lighter ones like those in natural gas. Processes also exist to convert natural gas back into heavier alkanes. So in a very material sense, these two feedstocks are interconvertible with each other.
+
+What other unexpected shunts exist in the supply chain today?
+
+## Food
+
+The calories we consume are typically some mix of animal and plant calories. Animal calories are derived from plant calories, since animals eat plants to grow. The [feed conversion ratio](https://en.wikipedia.org/wiki/Feed_conversion_ratio) of plant to animal calories is carefully tracked and optimized, since it determines profitability of farming. The feed conversion ratio is about 2 for chickens, 4 for pigs, and 10 for cows, which is why chicken < pork < beef in terms of per-pound cost.
+
+But where do plant calories come from? They're free, since the energy eventually comes from the Sun, right? Only somewhat. Modern farming requires heavy fertilizer usage, which means artificially fixed nitrogen. [Nitrogen fixation](https://en.wikipedia.org/wiki/Haber_process) requires hydrogen gas, which in turn is produced from... well, mostly [natural gas](https://en.wikipedia.org/wiki/Steam_reforming). So the price of food is dependent on the price of natural gas via the cost of fertilizer. In a very indirect way, you are consuming the natural gas we extract from the ground.
+
+Transportation of food from farms to table is another way in which the price of petrochemicals is linked to the final cost of the food, and is significant here simply because food is not very price-dense relative to other transported goods.
+
+## Plastics
+
+Look around you. The materials in our life are likely made from either wood, metal, or plastic. Even the clothes we wear are often made of spun plastic (synthetic fabrics). Plastics are formed from the polymerization of various monomers, which themselves are typically made from refined petroleum products. For example, ethylene, styrene, propylene, and vinyl chloride all come from oil refining and cracking processes. Each kilogram of plastic produced is directly linked to the price of fuel through opportunity costs, because each kilogram of plastic is one fewer kilogram of fuel.
+
+## Metals
+
+Metals don't come out of the ground ready-to-use, except for [native metals](https://en.wikipedia.org/wiki/Native_metal) like gold and copper. The vast majority of metals in your life must be processed from their ores, which are often metal sulfides or oxides. Sulfides are converted to oxides by burning them in oxygen, and then the oxygen must be stripped somehow, typically through either [direct reaction with carbon](https://en.wikipedia.org/wiki/Pyrometallurgy#Smelting) or [electrochemical reaction with carbon](https://en.wikipedia.org/wiki/Hall%E2%80%93H%C3%A9roult_process), to produce carbon dioxide. So, the price of refining metals is directly linked to the price of electricity and of coal. Bret Devereaux has an incredibly [well-researched series](https://acoup.blog/2020/09/18/collections-iron-how-did-they-make-it-part-i-mining/) on medieval iron production, in which he suggests that the forests of Europe were cut down, not for farmland or for grazing, but for fuel to smelt new weapons.
+
+# Energy markets and a carbon corollary
+
+I hope that it's obvious that through the ingenuity of chemists and chemical engineers, we are able to interconvert energy from where it is abundant to where it is needed. This market for energy-derived products is much larger than you might have initially imagined, because **many goods are, in essence, repackaged energy.** Knowing this, it's unsurprising that economists track electricity usage as a proxy for economic growth, especially in emerging economies where the primary economic activity is making enough stuff to satisfy everybody's first world aspirations.
+
+The unfortunate conclusion is that our consumption of food and materials is directly linked to the quantity of CO2 emissions we produce.
+
+Is there any way to escape this conclusion? I see two ways.
+
+First, we can increase the amount of renewable energy we produce. I am confident that through the continued ingenuity of our chemical engineers, we will figure out some way to turn abundant energy into food and materials, even if that energy is volatile in nature.
+
+Second, we can reduce our spending on goods that are effectively repackaged energy, like food, physical items, and travel. Consume plant calories instead of animal calories. Reduce clothing purchases and reuse items for longer. Travel via less energy-intensive methods ([flying >> car > bus > train > bike/foot](https://ourworldindata.org/travel-carbon-footprint)). Shift spending to services. When it comes to repackaged energy goods, your CO2 reductions can be measured in dollars.
