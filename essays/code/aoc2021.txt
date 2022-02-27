@@ -102,9 +102,9 @@ bits :: (Num a, Ord a, Bits a) => Memo a
 bits f = IntTrie.apply (fmap f IntTrie.identity)
 ```
 
-and the rest of the module is just defining the bijection operator and bijections between bits and commonly used types, like integers/tuples/Maybe/strings/bool/Enum. We haven't even begun thinking about fixed-size caches and eviction policies, which are kind of important for any real system...
+and the rest of the module is just defining the bijection operator and bijections between bits and commonly used types, like integers/tuples/Maybe/strings/bool/Enum.
 
-To be clear, you _can_ implement hash tables in Haskell as they are implemented in most mainstream languages, it's just that mutating them while maintaining functional purity creates a difficult choice: either wrap every hash table access in `unsafePerformIO` to bypass all of Haskell's language guarantees, or copy the entire hash table on each mutation, defeating the purpose of a hash table. On the other hand, trees let you reuse subtrees, enabling updates in `O(log n)` while retaining functional purity.~
+Still, we haven't even begun thinking about fixed-size caches and eviction policies, which are kind of important for any real system... To be clear, you _can_ implement hash tables in Haskell as they are implemented in most mainstream languages, it's just that mutating them while maintaining functional purity creates a difficult choice: either wrap every hash table access in `unsafePerformIO` to bypass all of Haskell's language guarantees, or copy the entire hash table on each mutation, defeating the purpose of a hash table. On the other hand, trees let you reuse subtrees, enabling updates in `O(log n)` while retaining functional purity.
 
 # Takeaways
 
