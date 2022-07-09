@@ -6,9 +6,9 @@ I recently saw a [post from Heimdal](https://news.ycombinator.com/item?id=280369
 
 # Cement and carbon dioxide
 
-Cement is an aggregate of lime a.k.a. calcium oxide ($\textrm{CaO}$), silica ($\textrm{SiO_2}$), aluminum oxide ($\textrm{Al}_2\textrm{O}_3$), and other stuff. Concrete is about 50-60% lime by mass, making it the majority component.
+Cement is an aggregate of lime a.k.a. calcium oxide ($\ce{CaO}$), silica ($\ce{SiO2}$), aluminum oxide ($\ce{Al2O3}$), and other stuff. Concrete is about 50-60% lime by mass, making it the majority component.
 
-Unfortunately for the environment, calcium oxide is produced by mining and heating limestone, $\textrm{CaCO}_3$ at ~900 degrees Celsius until it decomposes to form calcium oxide and carbon dioxide. The net result is that concrete production is carbon-intensive. Heimdal proposes to fix this (and make money while doing so) by directly creating calcium oxide from seawater.
+Unfortunately for the environment, calcium oxide is produced by mining and heating limestone, $\ce{CaCO3}$ at ~900 degrees Celsius until it decomposes to form calcium oxide and carbon dioxide. The net result is that concrete production is carbon-intensive. Heimdal proposes to fix this (and make money while doing so) by directly creating calcium oxide from seawater.
 
 Actually, the majority consumer of lime isn't even the concrete business. It turns out that the iron smelting industry consumes the most lime. [(Source)](https://www.eula.eu/wp-content/uploads/2019/02/A-Competitive-and-Efficient-Lime-Industry-Technical-report-by-Ecofys_0.pdf). Anyway, this just bolsters the idea that carbon-free lime manufacture is a worthy goal. Heimdal's sales pitch is a bit roundabout. They make some pitch about "carbon fixation" followed by "profit by selling the resulting limestone to the concrete industry". But since the concrete industry is just going to burn the carbon dioxide off again, let's just pretend the business is lime production. 
 
@@ -22,41 +22,29 @@ Heimdal talks about an alkaline sorbent (which is probably an [amine scrubbing s
 
 The first reaction is the removal of calcium from seawater:
 
-\begin{equation}
-\textrm{Ca}^{2+} + 2\textrm{OH}^- \rightarrow \textrm{Ca(OH)}_2
-\end{equation}
+$$\ce{Ca^2+ + 2OH- -> Ca(OH)2}$$
 
-with a solubility product $\textrm{K}_{sp}$ of 6e-6, or $\Delta G = -30$kJ/mol. (This number is negative, indicating an energetic downhill.)
+with a solubility product $K_{sp}$ of 6e-6, or $\Delta G = -30$kJ/mol. (This number is negative, indicating an energetic downhill.)
 
 This reaction consumes hydroxide, and so we need a net source of hydroxide. Otherwise, the result is net ocean acidification, which would cause a net outgassing of carbon dioxide from the ocean into the atmosphere. That source of hydroxide is electrolysis, as hinted by their sales pitch mentioning the sale of hydrogen gas.
 
-\begin{equation}
-2\textrm{e}^- + 2\textrm{H}_2\textrm{O} \rightarrow 2\textrm{OH}^- + \textrm{H}_2
-\end{equation}
+$$\ce{2e- + 2H2O -> 2OH- + H2}$$
 
 Well, we've found our hydroxide, but now we're short some electrons. We need an electron source. The two biggest electron sources used in electrolysis at a commercial scale are graphite (in [aluminum production](https://en.wikipedia.org/wiki/Hall%E2%80%93H%C3%A9roult_process)) and chloride anions (in [chlorine production](https://en.wikipedia.org/wiki/Chloralkali_process)). The graphite is cheaper and more effective but it's consumed to form carbon dioxide, so that's a nonstarter. Let's assume chloride as a source of electrons.
 
-\begin{equation}
-2\textrm{Cl}^- \rightarrow 2\textrm{e}^- + \textrm{Cl}_2
-\end{equation}
+$$\ce{2Cl- -> 2e- = Cl2}$$
 
 The last two half-reactions come together to create a redox reaction with an electric potential of 1.36V, or $\Delta G = 262$kJ/mol. This number is positive, indicating a big energetic uphill which will be overcome by an electricity input.
 
-\begin{equation}
-2\textrm{H}^+ + 2\textrm{Cl}^- \rightarrow \textrm{H}_2 + \textrm{Cl}_2
-\end{equation}
+$$\ce{2H+ + 2Cl- -> H2 + Cl2}$$
 
 Adding all of these reactions together we have so far:
 
-\begin{equation}
-2\textrm{H}^+ + 2\textrm{Cl}^- + \textrm{Ca}^{2+} + 2\textrm{OH}^- \rightarrow \textrm{H}_2 + \textrm{Cl}_2 + \textrm{Ca(OH)}_2
-\end{equation}
+$$\ce{2H+ + 2Cl- + Ca^2+ + 2OH- -> H2 + Cl2 + Ca(OH)2}$$
 
 For some bookkeeping, we add 2x water autodissociation reactions (each one having $K_{w}$ of 1e-14, $\Delta G = -80$kJ/mol) and the quicklime hydration reaction with $\Delta G = 20$kJ/mol. The final net reaction is:
 
-\begin{equation}
-2\textrm{Cl}^- + \textrm{Ca}^{2+} + \textrm{H}_2\textrm{O} \rightarrow \textrm{H}_2 + \textrm{Cl}_2 + \textrm{CaO}
-\end{equation}
+$$\ce{2Cl- + Ca^2+ + H2O -> H2 + Cl2 + CaO}$$
 
 This reaction has an unadjusted cost of -30 + 262 + 2*-80 + 20 = 92 kJ/mol. In seawater, chloride ions have a concentration of ~0.5M, and calcium is about 0.01M. After adjusting for the unfavorable concentration gradients, we have a net energetic cost of __107 kJ/mol__.
 
@@ -80,4 +68,4 @@ I repeated this exact same analysis for the [Chloralkali process](https://en.wik
 
 So I think there's space for this idea to be profitable. (From me, that's a ringing endorsement!)
 
-More than just profitability, can they make a dent in our carbon problem? The scale of our carbon problem is on the order of 30 billion tons of CO2, of which maybe 1 billion tons are due to lime production. Heimdal is currently at the scale of 1 ton per year - __nine orders of magnitude__ away from making a difference. Assuming continuous Silicon Valley ridiculous growth rates of 50% year over year, they will take 50 years to grow to a point where they are actually making a dent in our carbon problem. I wish them good luck.
+More than just profitability, can they make a dent in our carbon problem? The scale of our carbon problem is on the order of 30 billion tons of $\ce{CO2}$, of which maybe 1 billion tons are due to lime production. Heimdal is currently at the scale of 1 ton per year - __nine orders of magnitude__ away from making a difference. Assuming continuous Silicon Valley ridiculous growth rates of 50% year over year, they will take 50 years to grow to a point where they are actually making a dent in our carbon problem. I wish them good luck.

@@ -30,10 +30,10 @@ Metals don't come out of the ground ready-to-use, except for [native metals](htt
 
 I hope that it's obvious that through the ingenuity of chemists and chemical engineers, we are able to interconvert energy from where it is abundant to where it is needed. This market for energy-derived products is much larger than you might have initially imagined, because **many goods are, in essence, repackaged energy.** Knowing this, it's unsurprising that economists track electricity usage as a proxy for economic growth, especially in emerging economies where the primary economic activity is making enough stuff to satisfy everybody's first world aspirations.
 
-The unfortunate conclusion is that our consumption of food and materials is directly linked to the quantity of CO2 emissions we produce.
+The unfortunate conclusion is that our consumption of food and materials is directly linked to the quantity of $\ce{CO2}$ emissions we produce.
 
 Is there any way to escape this conclusion? I see two ways.
 
 First, we can increase the amount of renewable energy we produce. I am confident that through the continued ingenuity of our chemical engineers, we will figure out some way to turn abundant energy into food and materials, even if that energy is volatile in nature.
 
-Second, we can reduce our spending on goods that are effectively repackaged energy, like food, physical items, and travel. Consume plant calories instead of animal calories. Reduce clothing purchases and reuse items for longer. Travel via less energy-intensive methods ([flying >> car > bus > train > bike/foot](https://ourworldindata.org/travel-carbon-footprint)). Shift spending to services. When it comes to repackaged energy goods, your CO2 reductions can be measured in dollars.
+Second, we can reduce our spending on goods that are effectively repackaged energy, like food, physical items, and travel. Consume plant calories instead of animal calories. Reduce clothing purchases and reuse items for longer. Travel via less energy-intensive methods ([flying >> car > bus > train > bike/foot](https://ourworldindata.org/travel-carbon-footprint)). Shift spending to services. When it comes to repackaged energy goods, your $\ce{CO2}$ reductions can be measured in dollars.
