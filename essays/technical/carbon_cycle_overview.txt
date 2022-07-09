@@ -1,0 +1,49 @@
+Notes on the Earth's Carbon Cycle
+2022/5/28
+chemistry,sustainability
+
+I've been digging into the space of sustainability and carbon mitigation strategies, and I've started by refreshing myself on planetary physics, chemistry, and geology. Here's what I've learned. Much of this material is summarized from [NASA Earth Observatory's summary page](https://earthobservatory.nasa.gov/features/CarbonCycle).
+
+# Slow carbon cycles
+
+On geological timescales (>millions of years), carbon-bearing rock like, carbonate minerals and shale, are subducted into the Earth's mantle by tectonic activity. After spending some time baking in the mantle, it's regurgitated as magma and carbon dioxide by hot springs and volcanoes. Carbon dioxide in the air eventually dissolves into the ocean, where silicate minerals reabsorb the carbon dioxide, accelerated by weathering processes. 
+
+The equations involved can be crudely simplified as
+
+$$
+\begin{align*}
+\ce{CaCO3 & ->[mantle heat] CaO + CO2(g)} \\
+\ce{CaO + SiO2 & ->[mantle heat] CaSiO3} \\
+\ce{CaSiO3 + CO2(g) & ->[weathering] CaCO3 + SiO2}
+\end{align*}
+$$
+
+The carbon flux of these processes is 0.01~0.1 Gt C per year. There are several companies attempting to accelerate this process via ocean alkalinization, such as [Heimdal](https://www.heimdalccu.com/), who I've [picked on before](https://www.moderndescartes.com/essays/carbon_neutral_concrete/).) Ocean alkalinization was proposed in [this paper by Kurt Zenz House](https://pubs.acs.org/doi/pdf/10.1021/es0701816), and I will analyze this paper in a followup essay.
+
+# Fast carbon cycles
+
+On biological timescales (years), carbon is fixed via photosynthesis, and then respired back to the atmosphere by all living organisms. This happens both on land (trees, plants) and in the sea (plankton, seaweed). Something that surprised me was the sheer scale of this process. On land, 120 Gt of carbon are cycled each year, and 100 Gt of carbon are cycled in the sea. Although these numbers are huge, the fluxes balance precisely, which is why humanity's yearly 8 Gt of uncompensated carbon affects the balance so strongly.
+
+For fun, I calculated the exchange rate between 8 Gt C and ppm of $\ce{CO2}$. The numerator is 7e14 moles of $\ce{CO2}$, or 1.6e16 L of $\ce{CO2}$ @ sea level and 25 C. The denominator is calculated by multiplying the surface area of the earth by 8000m, the [characteristic length scale](https://en.wikipedia.org/wiki/Characteristic_length) at which gravitational potential energy, average mass of air * gravity * height, is balanced with thermal energy, Boltzmann constant * typical temperature in the [barometric formula](https://en.wikipedia.org/wiki/Barometric_formula). I came up 1.6e16 L $\ce{CO2}$ in 3e22 L of atmosphere, or +5 ppm a year.
+
+I was pretty happy to see that the actual increase is about +2.3ppm a year, and even happier to learn that roughly half of the 8 Gt of yearly anthropogenic carbon is compensated by increased drawdown. My calculation was actually pretty darn close (for a physicist)!
+
+The sheer numbers here suggest that if we could somehow get more accumulated biomass to die and sink to the bottom of the ocean without being returned to the atmosphere, this could easily compensate for human emissions. (Whale breeding program, perhaps?) I don't know enough about aquaculture to know what the limiting factors are. Is oxygen diffusion the limiting factor? Perhaps nitrogen fixation? The opportunities here seem scalable but also risky; ecosystem engineering is notoriously tricky to get right.
+
+As difficult as ocean engineering seems, at least it's a technical problem. There's no regulation on the open seas, so if you really wanted to, you could charter a boat and dump iron shavings in the Pacific or what have you. (Obviously, you'd want to consult and double-check your calculations first!) On the other hand, land usage is a political problem because of competing use concerns. See, for example, Brazil's [difficulties in regulating slash-and-burn of rainforests](https://www.theguardian.com/fashion/2019/aug/29/burning-issue-how-fashions-love-of-leather-is-fuelling-the-fires-in-the-amazon).
+
+# Carbon stock
+
+Over hundreds of millions of years, small imbalances in the fast carbon cycles have resulted in large amounts of carbon accumulation in various places. Most obviously, there is 10,000 Gt of fossil carbon, but there's also 2000-3000 Gt of carbon trapped in the soil. It's claimed that the ocean has 30,000 Gt C, but I don't even know how you would calculate this number.
+
+Shifts in land usage patterns will cause some of this carbon to be released. Siberian and Canadian permafrost is estimated to contain 1,500 Gt of carbon alone, and it is currently melting. If it melts and decomposes over the course of 100 years, then this alone would triple the carbon emission rate of the world. Finding a way to prevent or mitigate this process seems rather high leverage. Methane clathrate mitigation seems like another high-leverage opportunity.
+
+# General trends and observations
+
+The sheer scale of preexisting biological processes on the Earth (100s Gt of carbon flux, 10,000s Gt of stockpiled carbon) was shocking to me. The exponential growth of human activity (currently at 8 Gt of C, doubling time 40 years) has only really just begun to rival existing natural processes. And yet, that is enough to have a measurable impact on the world. A gigaton of carbon is a _lot_. A single coal car train holds about 100 tons of carbon. A train of coal cars across the U.S., from the Atlantic to the Pacific, is 30 megatons of carbon. Even this quantity is only 1/250th of the carbon that humans extract from the ground yearly, mostly to burn for energy. **Any intervention that can make a dent in the carbon problem will be a problem of logistics, not of science.**
+
+I've only begun to explore the space of proposed mitigation strategies, but I think one common question is measurability: how do we know we're actually solving the problem, as opposed to theorizing that we have solved the problem? Measuring ppm $\ce{CO2}$ and mean temperature of the Earth is a highly delayed and noisy signal, and we need better tools. One such tool is [methane satellite monitoring](https://www.methanesat.org/), which can verify methane-capture claims and discover new opportunities for interventions.
+
+While satellite imagery is a fairly established technology, I have no idea what the equivalent deep-ocean monitoring technology would be. How we can possibly know that there are 30,000 Gt C stored in the ocean? The opportunity seems huge. 30,000 Gt C is a fathomably (har har) large number and if we swing this number just 1%, that would enough to solve our carbon problem. (Of course, a tiny swing in the other direction would be equally dangerous!) The temptation to look at ocean-based strategies is balanced only by the sheer difficulty in measuring these numbers. By better understanding where and how these vast amounts of carbon are stored, I'm certain we would find new opportunities for carbon mitigation. It's a bit of a Pandora's Box, though, since better knowledge of the sea might just lead to, e.g., more overfishing. The seas are already impossible enough to police!
+
+One final observation is that the level of scientific sophistication here doesn't seem particularly deep. Surfing through the literature on ocean chemistry and greenhouse warming of refrigerants, my impression is that I could have independently discovered and executed the scientific techniques, analyses, and results, given enough time. (I _do_ have an uncommonly deep knowledge of chemistry and physics so perhaps the arrogance is warranted.) The literature feels like a mere thousand years of human effort, compared to what feels like tens of thousands of years of human effort in the biological sciences. I am reminded of how I felt as I [dove into deep learning six years ago](https://www.moderndescartes.com/essays/my_ml_path/). At the time, the state of the art in deep learning probably also represented about a thousand years of human effort. There is still much to be done in geoscience, and potentially a lot of low-hanging fruit.
