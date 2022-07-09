@@ -1,0 +1,62 @@
+The Sulfur Untethering
+2022/6/23
+chemistry,sustainability
+
+Sulfur economics is a bit unusual in that its market supply is completely untethered from demand.
+How is this possible?
+In a nutshell: the [Clean Air Act](https://en.wikipedia.org/wiki/Clean_Air_Act_(United_States)#Acid_Rain_Program).
+
+Much of this material is summarized from this [2002 USGS report](https://pubs.usgs.gov/of/2002/of02-298/).
+
+# Sulfur production over the years
+
+Throughout the 20th century, the vast majority of sulfur was mined by the [Frasch process](https://en.wikipedia.org/wiki/Frasch_process), in which underground sulfur deposits are melted with superheated water, and pumped back up to the surface.
+Around 2000, the last Frasch mine in the U.S. shut down.
+It was simply not competitive anymore, despite being the most economical way to produce sulfur.
+
+The culprit behind the Frasch crash was the 1990 Clean Air Act.
+All fossil fuels contain some sulfur, and when burned, the sulfur turns into $\ce{SO2(g)}$ in the atmosphere and returns to the earth as acid rain.
+The Clean Air Act created a cap-and-trade program to limit sulfur emissions.
+This forced the fossil fuel industry to produce sulfur in quantities untethered to the demand for sulfur.
+
+<img src="/static/sulfur_producers.png" title="Sulfur production over time" style="width:100%;"/>
+
+Given the size of the fossil fuel industry, sulfur stockpiles grew and peaked in 2003, despite the shutdown of every Frasch mine.
+Eventually, usage caught up and the stockpiles were drawn down, causing a [price spike in 2008](https://cen.acs.org/articles/86/i15/Acid-Touch.html).
+Given sulfur's ties to the fossil fuel industry, you won't be surprised to learn that there's currently [another sulfur price spike](https://fred.stlouisfed.org/series/WPU0613020T1) due to the war in Ukraine.
+
+# Sulfur's uses and contributions to ocean acidification
+
+A simple prediction here is that as the world winds down its fossil fuel usage, Frasch mining will start back up to fill in the missing supply of sulfur.
+
+But what is sulfur used for, anyway? 
+Some sulfur is used directly in rubber manufacture (see [Vulcanization](https://en.wikipedia.org/wiki/Vulcanization)), but the vast majority is converted into sulfuric acid, to be used for its acidic properties.
+Eventually, this sulfuric acid finds its way to the ocean, where it causes a net efflux of carbon dioxide.
+Each atom of sulfur results in the efflux of 2 atoms of carbon.
+
+$$
+\begin{align*}
+\ce{S + 3/2O2 &-> SO3(g)} \\
+\ce{SO3(g) + H2O &-> H2SO4} \\
+\ce{H2SO4 + 2HCO3- &-> SO4^2- + 2H2O + 2CO2(g)}
+\end{align*}
+$$
+
+Humans extract roughly 80 megatons of sulfur a year, so to a first approximation, about 60 megatons of carbon are indirectly added to the atmosphere by the sulfur industry, about 0.8\% of total anthropogenic carbon emissions.
+Actually, the impact is not quite as bad as 60 MT of carbon.
+About a half of our sulfuric acid usage is used to extract phosphate and copper oxide ores, which are net alkaline.
+The result is accelerated weathering and net neutralization of sulfuric acid, when used for phosphate/copper extraction.
+Thus, the sulfur industry's net contribution to ocean acidity is about half the previous number, about 30 MT C / 110 MT $\ce{CO2e}$, or 0.4\% of anthropogenic emissions.
+
+On the other hand, most of this acidification impact is quite local.
+Acid rain clears sulfur oxides from the atmosphere within a week, before it has had enough time to mix into the atmosphere.
+Thus, ocean acidification from human sulfur usage directly causes coral reefs destruction.
+
+Ocean alkalinization is one way that we might directly counteract this effect.
+If the waste acid from alkalinization could be used to replace some usages of sulfuric acid, that would be even better and would mitigate the cost of alkalinization efforts.
+I'm not sure if acid-base splitting technology generates a high enough concentration of acid to be useful, though. The technology here will no doubt evolve.
+
+# Conclusion
+
+While the sulfur economy is a small part of the overall anthropogenic carbon problem, its effects are disproportionately localized and we would be likely to see more immediate environmental impact in the form of coastal habitat restoration.
+Given that sulfuric acid is primarily useful for its acidic properties, there are undoubtedly ways to replace its usage with other net-neutral acid sources.
