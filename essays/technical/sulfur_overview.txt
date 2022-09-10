@@ -1,5 +1,5 @@
 The Sulfur Untethering
-2022/6/23
+2022/7/9
 chemistry,sustainability
 
 Sulfur economics is a bit unusual in that its market supply is completely untethered from demand.
@@ -49,12 +49,13 @@ The result is accelerated weathering and net neutralization of sulfuric acid, wh
 Thus, the sulfur industry's net contribution to ocean acidity is about half the previous number, about 30 MT C / 110 MT $\ce{CO2e}$, or 0.4\% of anthropogenic emissions.
 
 On the other hand, most of this acidification impact is quite local.
-Acid rain clears sulfur oxides from the atmosphere within a week, before it has had enough time to mix into the atmosphere.
-Thus, ocean acidification from human sulfur usage directly causes coral reefs destruction.
+Rain clears sulfur oxides from the atmosphere within a week, before it has had enough time to mix into the atmosphere.
+Acidification from sulfur usage primarily affects rivers and coastal regions, and directly causes coral reef destruction.
 
 Ocean alkalinization is one way that we might directly counteract this effect.
 If the waste acid from alkalinization could be used to replace some usages of sulfuric acid, that would be even better and would mitigate the cost of alkalinization efforts.
-I'm not sure if acid-base splitting technology generates a high enough concentration of acid to be useful, though. The technology here will no doubt evolve.
+I'm not sure if acid-base splitting technology generates a high enough concentration of acid to replace sulfuric acid, though.
+The technology here will no doubt evolve.
 
 # Conclusion
 
