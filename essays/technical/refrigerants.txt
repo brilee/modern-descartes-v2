@@ -2,37 +2,45 @@ The Chemistry of Refrigerants
 2022/7/13
 chemistry,sustainability
 
-Refrigerants are gasses that are used in every air conditioning unit in the world.
-They transfer heat from cold to hot against the natural temperature gradient, by exploiting this One Weird Trick of temperature and pressure dependent phase transitions.
-There are hundreds of refrigerants known, and yet, we seem to have trouble finding the perfect refrigerant.
-Fluorinated gases are responsible for [3\% of the U.S.'s greenhouse gas emissions](https://www.epa.gov/ghgemissions/overview-greenhouse-gases#f-gases).
+Refrigerants are fluids that are used in every air conditioning unit in the world.
+They transfer heat from cold to hot against the natural temperature gradient, by exploiting temperature and pressure dependent phase transitions.
 
 In this essay I'll walk you through humanity's ongoing quest for the perfect refrigerant.
+A more in-depth review can be found in [this paper](https://pubs.acs.org/doi/full/10.1021/acs.jced.0c00338)
 
 # One Weird Trick
 
 When you mix ice at 0° C into a drink at 20° C, you get a drink at 0 degrees with some partially melted ice cubes.
 That's pretty weird, if you think about it.
+
 Phase transitions like melting and evaporation take up and release a lot of thermal energy - far more than normal heating and cooling of a material.
-Crucially, the temperature at which the liquid-gas transition happens is pressure-dependent.
-This allows the refrigeration cycle to compress the gas, forcing condensation (and releasing heat), and then evaporation by expanding the gas (absorbing heat).
+Crucially, the temperature at which the liquid-gas transition happens is pressure-dependent - higher pressures lead to higher boiling points.
+This allows the refrigeration cycle to release heat by compressing and condensing the gas, then absorb heat by expanding and evaporating the gas.
+
+The ratio of energy transferred to energy used is typically greater than 1, making it a very efficient way to heat and cool.
+I anticipate that heat pumps will become increasingly common as they make great environmental and financial sense.
+If you want to learn more, this guy is really enthusiastic and will [talk for hours about heat pump efficiency](https://www.youtube.com/watch?v=MFEHFsO-XSI&t=0s) and how they'll work even in the dead of winter.
+
+# A Refrigerant Wishlist
+
 The ideal refrigerant should have a boiling point that is somewhat below the operating cold temperature.
 That way, a cheap compressor can provide the moderate (~5 atm) pressures needed to straddle the cold-hot temperature gap.
-
-The coefficient of performance - the ratio of energy transferred to energy used to operate the compressor is typically greater than 1, making it a very efficient way to heat and cool.
-I won't get further into the efficiencies of air conditioners and heat pumps - if you want to learn more, this guy is really enthusiastic and will [talk for hours about heat pump efficiency](https://www.youtube.com/watch?v=MFEHFsO-XSI&t=0s).
+Depending on the application, $T_{cold}$ and $T_{hot}$ will differ.
+A refrigerated truck might have to keep its contents at -30° C in an outside temperature of 30° C, whereas a vehicle's air conditioner only has to output air at 10° C.
+Perusing the spec sheet for the "Thermo King V520", we can see that a truck cooler unit rated at -20° F uses refrigerant R-404a with a boiling point of -52° F / -47° C, whereas a truck cooler unit rated at 0° F uses refrigerant R-134a with a boiling point of -15° F / -26° C.
+Overall, we're looking for refrigerants with a boiling point between -50° C and -10° C for typical applications.
 
 Another desirable refrigerant property is safety, in the event of a leak.
 Ammonia, $\ce{NH3}$ (b.p. -13° C) used to be a popular refrigerant, but it's a notoriously pungent gas, and not particularly safe to inhale.
-Propane, $\ce{C3H8}$ (b.p. -20° C) is another formerly popular refrigerant, with the downside of being highly flammable and explosive in the right mixtures.
+Propane, $\ce{C3H8}$ (b.p. -20° C) is another formerly popular refrigerant, with the downside of being highly flammable and potentially explosive in the right mixtures.
 
 It turns out that the space of potential refrigerants is not that large.
-Most refrigerants have $\leq 4$ on-hydrogen/fluorine atoms; any more and the boiling point gets too high.
-(Why are hydrogens and fluorines omitted from this count? Because H/F have extremely low polarizability, and don't contribute to the Van der Waals forces that help molecules stick together in the liquid phase.)
+Most refrigerants have $\leq 4$ non-hydrogen/fluorine atoms; any more and the boiling point gets too high.
+(Why are hydrogens and fluorines omitted from this count? Because H/F have extremely low polarizability, and contribute minimally to the Van der Waals forces that help molecules stick together in the liquid phase.)
 
-Based on these criteria, DuPont systematically explored this space and decided that [Freons](https://en.wikipedia.org/wiki/Chlorofluorocarbon) were the way to go.
+Based on these criteria, DuPont systematically explored this space in the 1920s and decided that [Freons](https://en.wikipedia.org/wiki/Chlorofluorocarbon) were the way to go.
 R-12, $\ce{CCl2F2}$ (b.p. -20° C) is nonflammable and nontoxic.
-The chlorine and fluorine are similar in electronegativity to oxygen, and therefore, the molecule can be considered "already combusted" and no longer flammable.
+As chlorine and fluorine are similar in electronegativity to oxygen, the molecule is not flammable in air.
 
 # The Ozone Hole
 
@@ -42,45 +50,55 @@ What was news was that a single chlorine radical could catalyze the destruction 
 Fortunately, the world agreed to phase out the use of chlorinated hydrocarbons in the Montreal Protocol.
 Supposedly, Ronald Reagan led the charge here because he blamed his skin cancer on the ozone hole!
 
-Due to ozone destruction, chlorine, bromine, and iodine were no longer acceptable for use in refrigerants.
+Due to their ozone destruction potential, chlorine, bromine, and iodine were no longer acceptable for use in refrigerants.
 With this additional constraint, the set of allowable atoms shrinks to H, C, N, O, S, and F.
-HFCs like [R-134a](https://en.wikipedia.org/wiki/1,1,1,2-Tetrafluoroethane), $\ce{CF3CFH2}$ (b.p. -26° C) a.k.a. were the winners in this generation.
+HFCs like [R-134a](https://en.wikipedia.org/wiki/1,1,1,2-Tetrafluoroethane), $\ce{CF3CFH2}$ (b.p. -26° C), were the winners in this generation.
 Again, fluorine is a key ingredient here thanks to its noncombustible properties.
 
-# Greenhouse Warming Potential
+# Greenhouse Warming Issues
 
-It turns out we just can't have nice things.
-The C-F bond turns out to absorb IR radiation quite well, and R-134a has a greenhouse effect that is 1300x (!!) more potent than carbon dioxide per molecule.
-It's a devil's bargain: fluorine confers nonflammability but also has a potent greenhouse warming effect.
-In designing the next generation of HFOs like [R-1234yf](https://en.wikipedia.org/wiki/2,3,3,3-Tetrafluoropropene), $\ce{CH2=CFCF3}$ (b.p. -30° C), chemists have instead optimized for atmospheric breakdown time, mitigating the overall greenhouse warming potential to 2-4x carbon dioxide.
-After [many excuses](https://www.caranddriver.com/news/a15372080/daimler-claims-dupont-and-honeywell-developed-refrigerant-flammable-gm-continues-use/) from Daimler, parent of Mercedes-Benz, Volkswagen ([what is it with these execs](https://en.wikipedia.org/wiki/Volkswagen_emissions_scandal)?) about the expense of upgrading to HFOs, HFOs are in full use for cars/light trucks in the US/EU.
-I assume that after the [R-1234yf patent](https://patents.google.com/patent/US8071826B2/en) expires, it will become cheap enough to deploy for use in residential/commercial HVAC systems as well.
+As it turns out, Freon's replacement R-134a has a greenhouse effect that is 1300x (!!) more potent than carbon dioxide per molecule.
+Fluorine confers nonflammability but also has a potent greenhouse warming effect.
 
-Something to ponder is that it took [six years to discover R-1234yf, another four years to run exhaustive safety testing](https://www.epa.gov/sites/default/files/2014-09/documents/sciance.pdf), another five years to gather political support for mandates, and another five years to scale up and finish rolling out to automobiles. Over the next decade, it will likely roll out to adjacent markets.
-This 30-year process seems fairly representative of new technology rollout, and may even be on the fast side, due to DuPont's existing expertise and understanding of the problem space,  the relatively small search space, and the centralized regulatory mechanisms of the US/EU.
+The next generation of refrigerants, like [R-1234yf](https://en.wikipedia.org/wiki/2,3,3,3-Tetrafluoropropene), $\ce{CH2=CFCF3}$ (b.p. -30° C), manage to dodge this catch-22 by optimizing for atmospheric breakdown time.
+By creating "weak spots" in the molecule, R-1234yf degrades in the atmosphere over 11 days (compared to R-134a's 13 years), mitigating the cumulative greenhouse warming potential to near-zero.
+
+The downside is that these "weak spots" also enable a small amount of flammability.
+Testing revealed that this flammability would not be an issue even in a severe auto collision, and R-1234yf is today rolled out in cars and light trucks in the US and EU.
+
+Of course, this didn't stop Daimler, parent of Mercedes-Benz, Volkswagen ([what is it with these execs](https://en.wikipedia.org/wiki/Volkswagen_emissions_scandal)?) for [using this as an excuse to delay the HFO transition](https://www.caranddriver.com/news/a15372080/daimler-claims-dupont-and-honeywell-developed-refrigerant-flammable-gm-continues-use/).
+
+Nowadays, the greenhouse potential of refrigerants is well known - the [Kigali amendment](https://en.wikipedia.org/wiki/Kigali_Amendment) to the Montreal Protocol mandates a reduction in fluorinated gas emissions, and
+R-1234yf will undoubtedly play a major role in this transition once the [patent](https://patents.google.com/patent/US8071826B2/en) expires and prices come down.
+
+Something to ponder is that it took [six years to discover R-1234yf, another four years to run exhaustive safety testing](https://www.epa.gov/sites/default/files/2014-09/documents/sciance.pdf), another five years to gather political support for mandates (and deal with Daimler's bullshit), and another five years to scale up and finish rolling out to automobiles.
+Over the next decade, R-1234yf will likely roll out to adjacent markets.
+This 30-year process seems fairly representative of new technology rollout, and may even be on the fast side, due to Honeywell/DuPont's existing expertise and understanding of the problem space,  the relatively small search space, and the centralized regulatory mechanisms of the US/EU.
 Basic research and materials discovery will likely take at least this long to scale to planetary impact, if it ever does.
 
 # Eliminating high-GWP fluorinated gases
 
-High-GWP fluorinated gases are emitted to the atmosphere in a variety of ways.
-It can happen at the manufacturing plant, during improper air conditioner disposal, during a car collision, and even intentionally, in compressed air dusters (!!).
-Fluorinated gases are apparently also useful as inert gaseous blankets in applications like aluminum refining or electrical transformers.
-Finding low-GWP alternatives is an important step, but recovering and eliminating existing high-GWP fluorinated gases is also important.
+There's still a lot of work to be done in refrigerants: rolling out HFOs, broadening the adoption of heat pumps.
+One area I want to highlight is the cleanup of existing high-GWP refrigerants.
+
+Emissions of high-GWP refrigerants can happen at the manufacturing plant, as a slow leak during typical usage, during improper air conditioner disposal, during a car collision, and even intentionally, in compressed air dusters (!!).
 Due to the ridiculously high multipliers here, I suspect there is a lot of low-hanging fruit for climate change mitigation in this space.
+I'm encouraged by [Recoolit's](https://www.recoolit.com/post/no-refrigerant-left-behind) efforts in the area, and hope they find a good way to counter the [cobra effect](https://en.wikipedia.org/wiki/Perverse_incentive).
 
-I did a quick search for how to dispose of fluorinated-gas containing devices, and all I can find on the internet is people pointing fingers at other people saying "somebody local probably knows".
-Here's a startup idea, folks! Just be careful of the [cobra effect](https://en.wikipedia.org/wiki/Perverse_incentive).
-
-# Postscript: The Fluorous Phase
+# Postscript: PFAS?
 
 Fluorine is weird.
 The stability of the C-F bond leads to its chemical inertia - think Teflon.
 The C-F bond is so unreactive that fluorous solvents won't even interact with other solvents!
 This leads to a little-known fact that in addition to oil and water, there is a third mutually immiscible so-called "fluorous phase", which sounds like a made-up science fiction plot device.
 
-When working with the fluorous phase, fluorous surfactants (molecules with a fluorous end and a hydrophobic/philic end) like [PFOA](https://en.wikipedia.org/wiki/Perfluorooctanoic_acid) are needed to homogenize reactions involving fluorinated compounds.
-Since fluorinated compounds are so stable, PFOA bioaccumulates and persists in the environment, and it turns out biology has no idea what to do with these molecules, not unlike the _trans_ fatty acid situation.
+When working with the fluorous phase, fluorous surfactants (molecules with a fluorous end and a hydrophobic/philic end) like [PFOA](https://en.wikipedia.org/wiki/Perfluorooctanoic_acid) are needed to homogenize fluorous-aqueous-organic mixtures.
+These [PFAS](https://en.wikipedia.org/wiki/Per-_and_polyfluoroalkyl_substances) are stable, bioaccumulate, and persist in the environment, and rightly generate a lot of pushback.
 
-Perhaps these toxicity issues could be mitigated with partially fluorinated surfactants (to give oxidative enzymes a handle to solubilize and excrete these molecules, but honestly, I wouldn't be surprised if at some point we give up on fluorine, the same way we've given up on lead.
-I do hope we find a way to safely use fluorine, because its properties are so unique, and the alternative is probably to revert to propane as a refrigerant.
-(No, I don't really think $\ce{CO2}$ will ever make it as a refrigerant, due to the high pressures necessary!)
+Fluorinated refrigerants, being mostly gaseous in nature, don't actually require fluorous surfactants in their manufacture.
+R-1234yf degrades in the atmosphere to [trifluoroacetic acid](https://en.wikipedia.org/wiki/Trifluoroacetic_acid), or TFA.
+TFA is not considered to be a PFAS, as its extremely short chain renders it highly water-soluble and non-bioaccumulating.
+It accumulates in the ocean, but you might be surprised to learn that TFA levels in the ocean are mostly homogenous throughout the water column.
+Given that the water column takes thousands of years to equilibrate, this suggests that human activity can't possibly be the source of this TFA.
+Instead, deep sea vents are suspected to be the source of 95% of this small, inert molecule.
+I am not worried about R-1234yf when it comes to environmental risks, and even if scale-up generates TFA levels that are 1-10x background levels, it is probably a worthwhile tradeoff for its humanitarian and global warming wins.

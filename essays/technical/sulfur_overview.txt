@@ -2,35 +2,34 @@ The Sulfur Untethering
 2022/7/9
 chemistry,sustainability
 
-Sulfur economics is a bit unusual in that its market supply is completely untethered from demand.
+Sulfur economics is a bit unusual in that its market supply is untethered from demand.
 How is this possible?
 In a nutshell: the [Clean Air Act](https://en.wikipedia.org/wiki/Clean_Air_Act_(United_States)#Acid_Rain_Program).
 
 Much of this material is summarized from this [2002 USGS report](https://pubs.usgs.gov/of/2002/of02-298/).
 
-# Sulfur production over the years
+# Sulfur production and the Frasch Crash
 
 Throughout the 20th century, the vast majority of sulfur was mined by the [Frasch process](https://en.wikipedia.org/wiki/Frasch_process), in which underground sulfur deposits are melted with superheated water, and pumped back up to the surface.
 Around 2000, the last Frasch mine in the U.S. shut down.
-It was simply not competitive anymore, despite being the most economical way to produce sulfur.
+It was simply not competitive anymore, despite being the cheapest way to produce sulfur.
 
 The culprit behind the Frasch crash was the 1990 Clean Air Act.
 All fossil fuels contain some sulfur, and when burned, the sulfur turns into $\ce{SO2(g)}$ in the atmosphere and returns to the earth as acid rain.
 The Clean Air Act created a cap-and-trade program to limit sulfur emissions.
-This forced the fossil fuel industry to produce sulfur in quantities untethered to the demand for sulfur.
+Nowadays, fossil fuels have upwards of 97% of their sulfur content stripped during refining.
+This forces the petroleum industry to produce sulfur in quantities untethered to the demand for sulfur.
 
 <img src="/static/sulfur_producers.png" title="Sulfur production over time" style="width:100%;"/>
 
-Given the size of the fossil fuel industry, sulfur stockpiles grew and peaked in 2003, despite the shutdown of every Frasch mine.
+Given the size of the petroleum industry, sulfur stockpiles continued to grow, and peaked in 2003, despite the shutdown of every Frasch mine.
 Eventually, usage caught up and the stockpiles were drawn down, causing a [price spike in 2008](https://cen.acs.org/articles/86/i15/Acid-Touch.html).
-Given sulfur's ties to the fossil fuel industry, you won't be surprised to learn that there's currently [another sulfur price spike](https://fred.stlouisfed.org/series/WPU0613020T1) due to the war in Ukraine.
+Given sulfur's ties to the petroleum industry, you won't be surprised to learn that there's currently [another sulfur price spike](https://fred.stlouisfed.org/series/WPU0613020T1) due to the war in Ukraine.
 
 # Sulfur's uses and contributions to ocean acidification
 
-A simple prediction here is that as the world winds down its fossil fuel usage, Frasch mining will start back up to fill in the missing supply of sulfur.
-
-But what is sulfur used for, anyway? 
-Some sulfur is used directly in rubber manufacture (see [Vulcanization](https://en.wikipedia.org/wiki/Vulcanization)), but the vast majority is converted into sulfuric acid, to be used for its acidic properties.
+What is sulfur used for, anyway? 
+Elemental sulfur is used in rubber (see [Vulcanization](https://en.wikipedia.org/wiki/Vulcanization)), but the vast majority is converted into sulfuric acid, to be used for its acidic properties.
 Eventually, this sulfuric acid finds its way to the ocean, where it causes a net efflux of carbon dioxide.
 Each atom of sulfur results in the efflux of 2 atoms of carbon.
 
@@ -42,22 +41,35 @@ $$
 \end{align*}
 $$
 
-Humans extract roughly 80 megatons of sulfur a year, so to a first approximation, about 60 megatons of carbon are indirectly added to the atmosphere by the sulfur industry, about 0.8\% of total anthropogenic carbon emissions.
-Actually, the impact is not quite as bad as 60 MT of carbon.
+This equation tells us that 1 mol (32g) of sulfur triggers 2 moles (24g C, 88g $\ce{CO2}$) of outgassing.
+Humans extract roughly 80 megatons of sulfur a year, so to a first approximation, about 220 MT $\ce{CO2}$ are indirectly added to the atmosphere by the sulfur industry, about 0.8\% of total anthropogenic carbon emissions.
+Actually, the impact is not quite as bad as 220 MT of carbon.
 About a half of our sulfuric acid usage is used to extract phosphate and copper oxide ores, which are net alkaline.
 The result is accelerated weathering and net neutralization of sulfuric acid, when used for phosphate/copper extraction.
-Thus, the sulfur industry's net contribution to ocean acidity is about half the previous number, about 30 MT C / 110 MT $\ce{CO2e}$, or 0.4\% of anthropogenic emissions.
+Thus, the sulfur industry's net contribution to ocean acidity is about half the previous number, about 110 MT $\ce{CO2}$, or 0.4\% of anthropogenic emissions.
 
-On the other hand, most of this acidification impact is quite local.
-Rain clears sulfur oxides from the atmosphere within a week, before it has had enough time to mix into the atmosphere.
+The impact of this acidification is quite local, because sulfuric acid is very water-soluble and collects via acid rain -> river runoff.
 Acidification from sulfur usage primarily affects rivers and coastal regions, and directly causes coral reef destruction.
 
-Ocean alkalinization is one way that we might directly counteract this effect.
-If the waste acid from alkalinization could be used to replace some usages of sulfuric acid, that would be even better and would mitigate the cost of alkalinization efforts.
-I'm not sure if acid-base splitting technology generates a high enough concentration of acid to replace sulfuric acid, though.
-The technology here will no doubt evolve.
+(A funny and depressing aside: the byproduct of sulfuric acid mining of phosphate rock is calcium sulfate, or gypsum. Most of this mining happens in Florida, which also happens to have mildly radioactive phosphate ore. Thus, while gypsum would otherwise be used to make drywall, the radioactivity leads to [massive, massive piles of unusable gypsum byproduct in Florida](https://www.epa.gov/radtown/radioactive-material-fertilizer-production), to the tune of 1 _billion_ tons of phosphogypsum. It's okay, Florida will be underwater soon enough!)
+
+# Economic and climate implications of sulfur
+
+The sulfur economy exists in two possible modes, due to its ties to the petroleum industry.
+Depending on the clearing price of sulfur, Frasch mining is either commercially viable or not; we are currently in a nonviable regime.
+
+Ultimately, the vast majority of sulfur atoms removed from the ground will turn into sulfuric acid and contribute to outgassing of $\ce{CO2}$.
+So, taking the petroleum industry as a constant, we should instead seek to reduce the demand for sulfuric acid, making Frasch mining commercially unviable.
+
+Ocean alkalinity seem to have very welcome positive externalities on the sulfur market.
+Electrolysis is used to create a pH gradient and create acid/base streams.
+The alkaline base stream is dumped in the ocean, counteracting the effect of sulfuric acid runoff.
+The acid stream is awkward, because if it finds its way back to the ocean, it would be futile - kind of like trying to cool a house by leaving the refrigerator open.
+My assertion is that if we can concentrate the acid stream to industrially useful levels, it would displace the use of sulfuric acid, and in turn reduce the efflux of $\ce{CO2}$ due to sulfuric acid.
+In this scenario, it doesn't matter if the acid finds its way back to the ocean, because it has reduced the extraction of sulfur elsewhere in the economy.
 
 # Conclusion
 
-While the sulfur economy is a small part of the overall anthropogenic carbon problem, its effects are disproportionately localized and we would be likely to see more immediate environmental impact in the form of coastal habitat restoration.
+While the sulfur economy is a small part of the overall anthropogenic carbon problem, its effects are disproportionately localized and we would be likely to see immediate environmental impact in the form of coastal habitat restoration.
 Given that sulfuric acid is primarily useful for its acidic properties, there are undoubtedly ways to replace its usage with other net-neutral acid sources.
+This would reduce $\ce{CO2}$ efflux from the ocean and is morally equivalent to direct air capture.
