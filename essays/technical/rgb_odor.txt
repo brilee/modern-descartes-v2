@@ -1,0 +1,136 @@
+Machine Learning for Scent Prediction
+2022/9/10
+chemistry,machine_learning
+
+Over the past three years, I've been working on a team whose goal is to digitize the sense of smell. We started by building a [graph neural network capable of predicting smell from molecular structure](https://arxiv.org/abs/1910.10685), and followed up by trying to [understand the structure of smell space](https://www.biorxiv.org/content/10.1101/2022.09.01.504602v2). We're nowhere close to an RGB of odor, but we've gotten closer than anybody else so far.
+
+# How do you describe smell, anyway?
+
+Smell is a highly subjective experience, and no two people perceive a smell the same way.
+Consider vision: humans have a mere three color receptor types, and [at least as many types of colorblindness](https://en.wikipedia.org/wiki/Color_blindness#Summary_of_cone_complements).
+Humans have hundreds of odor receptor types, and there are probably thousands of uncategorized odor blindnesses.
+
+That's just on the "hardware" side; on the "software" side, cultural upbringing brings a great deal of nuance to smell.
+Just like different [languages divide color space in different ways](https://en.wikipedia.org/wiki/Color_term#Cultural_differences), our cultural upbringing heavily influences the way we think about smell.
+In one mock training session, our experimental collaborator demonstrated a sample of very fresh Pennsylvania hay, which I and the other Asians on my team perceived as an unmistakable green tea!
+(Apparently, [not just us](https://www.reddit.com/r/CasualConversation/comments/ah6v0r/does_anybody_else_think_that_green_tea_tastes/).)
+
+# In search of the RGB of Odor
+
+What does it mean to digitize the sense of smell?
+It means that we understand smell well enough to make quantitative predictions about human olfaction.
+
+Using color as a road map, we would want to develop an "RGB of odor".
+(Technically, it's "[CIE 1931](https://en.wikipedia.org/wiki/CIE_1931_color_space)", but I'll say RGB here.)
+The real RGB is based on our understanding of cone cells and their absorption spectra.
+As a display of this mastery, we can actually simulate the effects of color-blindness, since we have quantified the absorption spectra of wild-type and color-blind cone cells.
+We can also pull tricks like fluorescent light bulbs that look white despite their [highly unnatural spectra](https://en.wikipedia.org/wiki/Fluorescent_lamp#Phosphor_composition).
+RGB enables color printers, monitors, and cameras that can be independently calibrated to a standard, allowing for the capture, transmission, and replication of color.
+
+To qualify as a proper "RGB of odor", an odor encoding should satisfy these key properties:
+
+1. it has a "zero" element corrsponding to olfactory nothingness.
+1. it has a scaling rule that lets you predict the smell of different concentrations of a stimulus. Scaling _any_ stimulus down to zero concentration should bring you to olfactory zero.
+1. it has a combination rule that lets you predict the smell of a mixture of stimuli.
+1. This combination rule should be consistent with the scaling rule: the predicted smell of doubly concentrated odor X should match the predicted smell of a "mixture" of X with itself.
+1. it is a sufficient representation, meaning that it is sufficient to know the "odor RGB coordinates", regardless of the chemical composition used to achieve it.
+1. it reflects the underlying biological reality of receptors, and makes nontrivial predictions about odor blindnesses or [parosmias](https://en.wikipedia.org/wiki/Parosmia).
+
+The standard chemical equilibrium model (see Appendix) is minimal and consistent with all of these desiderata.
+The derivation is quite simple and depending on your background, Michaelis-Menten kinetics, Langmuir isotherms, Hill equations, or statistical mechanics would all lead you there.
+While I derived this independently in late 2019, the earliest reference to these ideas that I can find is [Alex Koulakov's papers](https://facultyprofiles.cshl.edu/alexei.koulakov/publications/) circa 2018.
+Koulakov's papers have a compressed sensing flavor, popular with physicists, but a modern deep learning take would probably be more productive in practice.
+
+Another complication, which may be incompatible with #5, is the time-dependence of odors.
+I don't have a citation, but I'm reasonably sure that the reason farts dissipate over time is not dilution or habituation, but chemical oxidation in air.
+That's an Ig Nobel waiting for anyone who wants to validate my claim :).
+The olfactory epithelium is also equipped with a [variety of cytochrome enzymes](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3608737/) for breaking down foreign substances.
+In my opinion, there's a decent chance that the chemical composition of an odor is irreducibly complex.
+
+# From Theory to Practice
+
+With this level of subjectivity, a consistent ontology of smell is a must.
+Today's perfume industry is centered around a [few](https://www.givaudan.com/fragrance-beauty/perfumery-school) [major](https://www.grasse-perfumery.com/) [perfumery](https://www.mane.com/fragrances/perfumery-school) [schools](https://www.iff.com/careers/iff-university/msc-scent-design), nearly all French in origin.
+As a result, compilations like [GoodScents](http://www.thegoodscentscompany.com/) and [Leffingwell](https://zenodo.org/record/4085098) are mostly consistent in the words they use to catalog the smell of several thousand molecules.
+These include intuitive words like "orange", "floral", and "earthy", but also more specialized terms like "balsamic",  "orris", "ambergris", and "ylang-ylang".
+
+Three years ago, we took this dataset and [trained a graph neural network to predict odor labels](https://arxiv.org/abs/1910.10685).
+Frankly, trying to back out an RGB of odor from this dataset is stupid.
+It's like trying to rederive CIE 1931 from the [XKCD color survey](https://blog.xkcd.com/2010/05/03/color-survey-results/).
+But ultimately, you train a model with the dataset you have, not the dataset you might want or wish for.
+
+We found that our models could predict odor labels better than traditional computational techniques, by a small but consistent margin.
+Did this mean our models were useful in practice? Would these results hold in the real world?
+
+To answer these questions, we selected and purchased 400 molecules, and asked a panel of human raters to tell us what each molecule smelled like.
+
+In making this jump, we faced every conceivable out-of-domain problem.
+Our training data was limited to perfumery ingredients, whereas our selections came from a commercial chemical catalog, with a heavy nitrogenous bias.
+Our training data was labelled by professional perfumers, whereas our test set would be labelled by amateur panelists of diverse backgrounds, without the benefit of perfumery school to learn what these words meant.
+To make it even harder, we intentionally selected molecules to span the breadth of structural space as well as perceptual space.
+
+You might be wondering about safety: see [my sketch of how to estimate exposure](/essays/vapor_pressure), which can be cross-referenced with OSHA exposure limits.
+In short, you shouldn't drink gasoline, but it's harmless to get a whiff of it.
+
+My colleague, Dr. Emily Mayhew, was indispensible in designing and managing the human trials.
+She anticipated and answered questions like "How do we ensure our panelists are using the rating scale in a consistent manner? How do we avoid [olfactory fatigue](https://en.wikipedia.org/wiki/Olfactory_fatigue), or for that matter, how do we know they haven't caught COVID and developed anosmia?".
+For my part, I designed and ran the molecule selection process, removing molecules like the explosive [HOBt](https://en.wikipedia.org/wiki/Hydroxybenzotriazole) from our study - the chemical equivalent of "tech debt" which might have ended up in an unexpected 💥 several years down the road.
+
+After collecting 18 raters X 400 molecules X 55 odor descriptors X 2 replicates = roughly 700,000 data points, we found that our model continued to outperform traditional chemoinformatic techniques by a small but consistent margin.
+Additionally, the model made predictions that were within the experimental intra-rater variation, about on par with the median human panelist.
+
+Mission accomplished!
+
+<img src="/static/mission_accomplished.jpg" title="Mission Accomplished" style="width:100%;"/>
+
+
+# Most olfactory data is crap
+
+... and ours was unfortunately no exception.
+We managed to dodge nearly every possible bullet, but in the end, we got hit by one.
+If you use our data, please, please read the GC-O notes!
+
+[GC-olfactometry](https://en.wikipedia.org/wiki/Gas_chromatography-olfactometry) is a time-consuming analytic technique that isolates and identifies the individual odors within a mixture.
+It's primarily used within the fragrance industry to reverse engineer perfume recipes.
+    It works by separating a mixture with gas chromatography, then piping the output into a human nose, who takes notes on the odor quality of the airstream!
+
+Applying GC-O to 50 of our 400 tested molecules, we found that about **a third of bottles had smells that were _not_ attributable to the molecule on the bottles' label**!
+That's because even if the bottle is 99% pure in the bulk liquid/solid phase, contaminants can have significantly different vapor pressures and odor intensity, causing the airspace to be dominated by contaminants.
+
+The bottom line: our model was making prediction based on the bottle's claimed contents, whereas our human raters were rating smells based on the bottle's true contents!
+And yet our models' predictions matched the panelists decently well, not doing significantly better or worse on the contaminated samples.
+
+There are a few possible interpretations here:
+
+1. impurities are structurally related to and smell similarly to the nominal compound. Many impurities were synthetic precursors and/or decomposition products of the nominal compound, for example.
+2. the training data also contains impure samples, and our model implicitly learned patterns of contamination. Many alkynes smelled phosphorous-garlicky, possibly as a consequence of acetylene production from [calcium carbide sources with calcium phosphide contaminant](https://en.wikipedia.org/wiki/Calcium_carbide).
+3. our panelists are noisier than we'd like, making the "on-par with humans" claims a lot less impressive.
+
+I think all three are at play here.
+With careful controls, we ruled out a fourth possibility - that our scoring function was unfairly rewarding the dense vector predictions of our models relative to the sparse human rating vectors.
+
+In retrospect, the "correct" way to prepare unknown materials for testing is to distill them, as this will specifically remove impurities of significantly differing volatility.
+Given how much effort went into this study, it would have been well worth dusting off my lab coat and spending a month in lab purifying every single molecule!
+
+# How close did we get to an RGB for odor?
+
+Notably missing, from both our training and human test data, is any notion of odorant concentration!
+Molecules in the GoodScents/Leffingwell training data are presented at whatever concentration reveals the "characteristic odor" of the molecule, and molecules in our human study are manually intensity-balanced in a similar fashion.
+That's how the GoodScents/Leffingwell training data was collected, and accordingly, our model wouldn't even know how to use concentration.
+
+The lack of concentration-dependence cripples our GNN-derived embedding space.
+It's capable of making similarity judgments (cosine distance between vectors), but it lacks the concentration and mixture modeling that are key to an RGB for odor.
+
+In my opinion, the careful concurrent design of mixture data collection, neural network architecture, and optimization techniques will move us closer to the discovery of an RGB for odor.
+Some amount of odor receptor modeling would be useful; it seems doable to run docking simulations for 1,000 odorants * 100 odor receptors.
+
+## Appendix: Standard chemical equilibrium model (statistical mechanics derivation)
+
+Model the nose as being a set of receptors.
+For any given receptor $\rho_i$, consider its simultaneous interaction with any number of odorants $\omicron_j$. 
+The chemical potential of each receptor-odorant combination, $\mu_{ij}^\circ$, measures the strength of the receptor-odorant interaction relative to the unbound receptor.
+We can adjust the chemical potential by the concentration of the species: $\mu_{ij} = \mu_{ij}^\circ + \ln[\omicron_j]$.
+The partition function of receptor states is $Z = 1 + \sum_i e^{\mu_i}$, and the quantity $1- \frac{1}{Z}$ represents the activation percent of the receptor.
+The vector of all receptors' activation percents forms an "RGB of odor" that follows all listed criteria.
+You can imagine creating variants of this model for all sorts of competitive/noncompetitive agonism, although this would require 2x or 3x as many free parameters.
+A subsequent function would map from receptor activation to human percept.
