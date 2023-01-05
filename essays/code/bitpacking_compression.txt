@@ -34,48 +34,49 @@ Compression algorithms have to balance speed vs compression, so I started lookin
 
 -->
 
-<table class="pure-table pure-table-striped"><thead>
-<tr>
+<table class="pure-table pure-table-striped">
+<thead>
+<tr class="header">
 <th>compression</th>
-<th style="text-align:right">time to process (s)</th>
-<th style="text-align:right">time to convert to bytes (s)</th>
-<th style="text-align:right">time to compress and write (s)</th>
-<th style="text-align:right">total time (s)</th>
-<th style="text-align:right">output size (bytes)</th>
+<th style="text-align: right;">time to process (s)</th>
+<th style="text-align: right;">time to convert to bytes (s)</th>
+<th style="text-align: right;">time to compress and write (s)</th>
+<th style="text-align: right;">total time (s)</th>
+<th style="text-align: right;">output size (bytes)</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>none</td>
-<td style="text-align:right">18.44</td>
-<td style="text-align:right">2.26</td>
-<td style="text-align:right">9.73</td>
-<td style="text-align:right">30.82</td>
-<td style="text-align:right">2028398365</td>
+<td style="text-align: right;">18.44</td>
+<td style="text-align: right;">2.26</td>
+<td style="text-align: right;">9.73</td>
+<td style="text-align: right;">30.82</td>
+<td style="text-align: right;">2028M</td>
 </tr>
-<tr>
+<tr class="even">
 <td>gzip9</td>
-<td style="text-align:right">19.56</td>
-<td style="text-align:right">1.91</td>
-<td style="text-align:right">152.03</td>
-<td style="text-align:right">173.92</td>
-<td style="text-align:right">16985552</td>
+<td style="text-align: right;">19.56</td>
+<td style="text-align: right;">1.91</td>
+<td style="text-align: right;">152.03</td>
+<td style="text-align: right;">173.92</td>
+<td style="text-align: right;">17M</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>gzip6</td>
-<td style="text-align:right">19.19</td>
-<td style="text-align:right">1.69</td>
-<td style="text-align:right">25.42</td>
-<td style="text-align:right">46.76</td>
-<td style="text-align:right">24124586</td>
+<td style="text-align: right;">19.19</td>
+<td style="text-align: right;">1.69</td>
+<td style="text-align: right;">25.42</td>
+<td style="text-align: right;">46.76</td>
+<td style="text-align: right;">24M</td>
 </tr>
-<tr>
+<tr class="even">
 <td>snappy</td>
-<td style="text-align:right">19.06</td>
-<td style="text-align:right">1.59</td>
-<td style="text-align:right">17.91</td>
-<td style="text-align:right">39.06</td>
-<td style="text-align:right">201098302</td>
+<td style="text-align: right;">19.06</td>
+<td style="text-align: right;">1.59</td>
+<td style="text-align: right;">17.91</td>
+<td style="text-align: right;">39.06</td>
+<td style="text-align: right;">201M</td>
 </tr>
 </tbody>
 </table>
@@ -95,143 +96,143 @@ I investigated all possible combinations of bitpacking and compression algorithm
 (The raw table) markdown-tables doesn't generate the right class names, so you have to manually render them, then copypasta the rendered HTML + edit the class names, <table class="pure-table pure-table-striped">.
 
 | bitpack | compression | time to process (s) | time to convert to bytes (s) | time to compress and write (s) | total time (s) | output size (bytes) |
-|------|--------|------:|-----:|-------:|------:|-----------:|
-| none | none   | 18.44 | 2.26 | 9.73   | 30.82 | 2028398365 |
-| none | gzip9  | 19.56 | 1.91 | 152.03 | 173.92| 16985552   |
-| none | gzip6  | 19.19 | 1.69 | 25.42  | 46.76 | 24124586   |
-| none | snappy | 19.06 | 1.59 | 17.91  | 39.06 | 201098302  |
-| half | none   | 19.43 | 0.95 | 1.67   | 22.35 | 515996085  |
-| half | gzip9  | 19.75 | 0.95 | 61.10  | 82.04 | 6439748    |
-| half | gzip6  | 19.39 | 0.95 | 10.31  | 30.91 | 11969127   |
-| half | snappy | 18.72 | 0.90 | 3.12   | 23.03 | 46599353   |
-| full | none   | 20.56 | 4.01 | 0.23   | 25.01 | 64499522   |
-| full | gzip9  | 19.25 | 3.94 | 9.65   | 33.04 | 2163007    |
-| full | gzip6  | 19.01 | 3.97 | 1.45   | 24.65 | 2782370    |
-| full | snappy | 19.20 | 3.89 | 0.46   | 23.76 | 7964800    |
+|------|--------|------:|-----:|-------:|------:|------:|
+| none | none   | 18.44 | 2.26 | 9.73   | 30.82 | 2028M |
+| none | gzip9  | 19.56 | 1.91 | 152.03 | 173.92| 17M   |
+| none | gzip6  | 19.19 | 1.69 | 25.42  | 46.76 | 24M   |
+| none | snappy | 19.06 | 1.59 | 17.91  | 39.06 | 201M  |
+| half | none   | 19.43 | 0.95 | 1.67   | 22.35 | 516M  |
+| half | gzip9  | 19.75 | 0.95 | 61.10  | 82.04 | 6.4M  |
+| half | gzip6  | 19.39 | 0.95 | 10.31  | 30.91 | 12.0M |
+| half | snappy | 18.72 | 0.90 | 3.12   | 23.03 | 46.6M |
+| full | none   | 20.56 | 4.01 | 0.23   | 25.01 | 64.5M |
+| full | gzip9  | 19.25 | 3.94 | 9.65   | 33.04 | 2.2M  |
+| full | gzip6  | 19.01 | 3.97 | 1.45   | 24.65 | 2.8M  |
+| full | snappy | 19.20 | 3.89 | 0.46   | 23.76 | 8.0M  |
 
 -->
 
 
 <table class="pure-table pure-table-striped">
 <thead>
-<tr>
+<tr class="header">
 <th>bitpack</th>
 <th>compression</th>
-<th style="text-align:right">time to process (s)</th>
-<th style="text-align:right">time to convert to bytes (s)</th>
-<th style="text-align:right">time to compress and write (s)</th>
-<th style="text-align:right">total time (s)</th>
-<th style="text-align:right">output size (bytes)</th>
+<th style="text-align: right;">time to process (s)</th>
+<th style="text-align: right;">time to convert to bytes (s)</th>
+<th style="text-align: right;">time to compress and write (s)</th>
+<th style="text-align: right;">total time (s)</th>
+<th style="text-align: right;">output size (bytes)</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>none</td>
 <td>none</td>
-<td style="text-align:right">18.44</td>
-<td style="text-align:right">2.26</td>
-<td style="text-align:right">9.73</td>
-<td style="text-align:right">30.82</td>
-<td style="text-align:right">2028398365</td>
+<td style="text-align: right;">18.44</td>
+<td style="text-align: right;">2.26</td>
+<td style="text-align: right;">9.73</td>
+<td style="text-align: right;">30.82</td>
+<td style="text-align: right;">2028M</td>
 </tr>
-<tr>
+<tr class="even">
 <td>none</td>
 <td>gzip9</td>
-<td style="text-align:right">19.56</td>
-<td style="text-align:right">1.91</td>
-<td style="text-align:right">152.03</td>
-<td style="text-align:right">173.92</td>
-<td style="text-align:right">16985552</td>
+<td style="text-align: right;">19.56</td>
+<td style="text-align: right;">1.91</td>
+<td style="text-align: right;">152.03</td>
+<td style="text-align: right;">173.92</td>
+<td style="text-align: right;">17M</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>none</td>
 <td>gzip6</td>
-<td style="text-align:right">19.19</td>
-<td style="text-align:right">1.69</td>
-<td style="text-align:right">25.42</td>
-<td style="text-align:right">46.76</td>
-<td style="text-align:right">24124586</td>
+<td style="text-align: right;">19.19</td>
+<td style="text-align: right;">1.69</td>
+<td style="text-align: right;">25.42</td>
+<td style="text-align: right;">46.76</td>
+<td style="text-align: right;">24M</td>
 </tr>
-<tr>
+<tr class="even">
 <td>none</td>
 <td>snappy</td>
-<td style="text-align:right">19.06</td>
-<td style="text-align:right">1.59</td>
-<td style="text-align:right">17.91</td>
-<td style="text-align:right">39.06</td>
-<td style="text-align:right">201098302</td>
+<td style="text-align: right;">19.06</td>
+<td style="text-align: right;">1.59</td>
+<td style="text-align: right;">17.91</td>
+<td style="text-align: right;">39.06</td>
+<td style="text-align: right;">201M</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>half</td>
 <td>none</td>
-<td style="text-align:right">19.43</td>
-<td style="text-align:right">0.95</td>
-<td style="text-align:right">1.67</td>
-<td style="text-align:right">22.35</td>
-<td style="text-align:right">515996085</td>
+<td style="text-align: right;">19.43</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">1.67</td>
+<td style="text-align: right;">22.35</td>
+<td style="text-align: right;">516M</td>
 </tr>
-<tr>
+<tr class="even">
 <td>half</td>
 <td>gzip9</td>
-<td style="text-align:right">19.75</td>
-<td style="text-align:right">0.95</td>
-<td style="text-align:right">61.10</td>
-<td style="text-align:right">82.04</td>
-<td style="text-align:right">6439748</td>
+<td style="text-align: right;">19.75</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">61.10</td>
+<td style="text-align: right;">82.04</td>
+<td style="text-align: right;">6.4M</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>half</td>
 <td>gzip6</td>
-<td style="text-align:right">19.39</td>
-<td style="text-align:right">0.95</td>
-<td style="text-align:right">10.31</td>
-<td style="text-align:right">30.91</td>
-<td style="text-align:right">11969127</td>
+<td style="text-align: right;">19.39</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">10.31</td>
+<td style="text-align: right;">30.91</td>
+<td style="text-align: right;">12.0M</td>
 </tr>
-<tr>
+<tr class="even">
 <td>half</td>
 <td>snappy</td>
-<td style="text-align:right">18.72</td>
-<td style="text-align:right">0.90</td>
-<td style="text-align:right">3.12</td>
-<td style="text-align:right">23.03</td>
-<td style="text-align:right">46599353</td>
+<td style="text-align: right;">18.72</td>
+<td style="text-align: right;">0.90</td>
+<td style="text-align: right;">3.12</td>
+<td style="text-align: right;">23.03</td>
+<td style="text-align: right;">46.6M</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>full</td>
 <td>none</td>
-<td style="text-align:right">20.56</td>
-<td style="text-align:right">4.01</td>
-<td style="text-align:right">0.23</td>
-<td style="text-align:right">25.01</td>
-<td style="text-align:right">64499522</td>
+<td style="text-align: right;">20.56</td>
+<td style="text-align: right;">4.01</td>
+<td style="text-align: right;">0.23</td>
+<td style="text-align: right;">25.01</td>
+<td style="text-align: right;">64.5M</td>
 </tr>
-<tr>
+<tr class="even">
 <td>full</td>
 <td>gzip9</td>
-<td style="text-align:right">19.25</td>
-<td style="text-align:right">3.94</td>
-<td style="text-align:right">9.65</td>
-<td style="text-align:right">33.04</td>
-<td style="text-align:right">2163007</td>
+<td style="text-align: right;">19.25</td>
+<td style="text-align: right;">3.94</td>
+<td style="text-align: right;">9.65</td>
+<td style="text-align: right;">33.04</td>
+<td style="text-align: right;">2.2M</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>full</td>
 <td>gzip6</td>
-<td style="text-align:right">19.01</td>
-<td style="text-align:right">3.97</td>
-<td style="text-align:right">1.45</td>
-<td style="text-align:right">24.65</td>
-<td style="text-align:right">2782370</td>
+<td style="text-align: right;">19.01</td>
+<td style="text-align: right;">3.97</td>
+<td style="text-align: right;">1.45</td>
+<td style="text-align: right;">24.65</td>
+<td style="text-align: right;">2.8M</td>
 </tr>
-<tr>
+<tr class="even">
 <td>full</td>
 <td>snappy</td>
-<td style="text-align:right">19.20</td>
-<td style="text-align:right">3.89</td>
-<td style="text-align:right">0.46</td>
-<td style="text-align:right">23.76</td>
-<td style="text-align:right">7964800</td>
+<td style="text-align: right;">19.20</td>
+<td style="text-align: right;">3.89</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">23.76</td>
+<td style="text-align: right;">8.0M</td>
 </tr>
 </tbody>
 </table>
