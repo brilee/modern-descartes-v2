@@ -6,9 +6,9 @@ I recently saw a [post from Heimdal](https://news.ycombinator.com/item?id=280369
 
 # Cement and carbon dioxide
 
-Cement is an aggregate of lime a.k.a. calcium oxide ($\ce{CaO}$), silica ($\ce{SiO2}$), aluminum oxide ($\ce{Al2O3}$), and other stuff. Concrete is about 50-60% lime by mass, making it the majority component.
+Cement is an aggregate of lime a.k.a. calcium oxide ($\ce{CaO}$), silica ($\ce{SiO2}$), aluminum oxide ($\ce{Al2O3}$), and other stuff. Cement is about 50-60% lime by mass, making it the majority component.
 
-Unfortunately for the environment, calcium oxide is produced by mining and heating limestone, $\ce{CaCO3}$ at ~900 degrees Celsius until it decomposes to form calcium oxide and carbon dioxide. The net result is that concrete production is carbon-intensive. Heimdal proposes to fix this (and make money while doing so) by directly creating calcium oxide from seawater.
+Unfortunately for the environment, calcium oxide is produced by mining and heating limestone, $\ce{CaCO3}$ at ~900 degrees Celsius until it decomposes to form calcium oxide and carbon dioxide. The net result is that concrete production is carbon-intensive, both from its heating requirements and from the intrinsic release of $\ce{CO2}$. Heimdal proposes to fix this (and make money while doing so) by directly creating calcium oxide from seawater.
 
 Actually, the majority consumer of lime isn't even the concrete business. It turns out that the iron smelting industry consumes the most lime. [(Source)](https://www.eula.eu/wp-content/uploads/2019/02/A-Competitive-and-Efficient-Lime-Industry-Technical-report-by-Ecofys_0.pdf). Anyway, this just bolsters the idea that carbon-free lime manufacture is a worthy goal. Heimdal's sales pitch is a bit roundabout. They make some pitch about "carbon fixation" followed by "profit by selling the resulting limestone to the concrete industry". But since the concrete industry is just going to burn the carbon dioxide off again, let's just pretend the business is lime production. 
 
@@ -69,3 +69,7 @@ I repeated this exact same analysis for the [Chloralkali process](https://en.wik
 So I think there's space for this idea to be profitable. (From me, that's a ringing endorsement!)
 
 More than just profitability, can they make a dent in our carbon problem? The scale of our carbon problem is on the order of 30 billion tons of $\ce{CO2}$, of which maybe 1 billion tons are due to lime production. Heimdal is currently at the scale of 1 ton per year - __nine orders of magnitude__ away from making a difference. Assuming continuous Silicon Valley ridiculous growth rates of 50% year over year, they will take 50 years to grow to a point where they are actually making a dent in our carbon problem. I wish them good luck.
+
+# Other potential issues
+
+I mentioned that the market for chlorine gas is much thinner than the market for lime. But what is chlorine gas used for, anyway? Typically, bleaching/oxidation purposes, in which the byproduct is typically hydrochloric acid. If this acid makes its way into the oceans, it causes a net offgassing of carbon dioxide.
