@@ -15,6 +15,11 @@ Just like different [languages divide color space in different ways](https://en.
 In one mock training session, our experimental collaborator demonstrated a sample of very fresh Pennsylvania hay, which I and the other Asians on my team perceived as an unmistakable green tea!
 (Apparently, [not just us](https://www.reddit.com/r/CasualConversation/comments/ah6v0r/does_anybody_else_think_that_green_tea_tastes/).)
 
+With this level of subjectivity, a consistent ontology of smell is a must.
+Today's perfume industry is centered around a [few](https://www.givaudan.com/fragrance-beauty/perfumery-school) [major](https://www.grasse-perfumery.com/) [perfumery](https://www.mane.com/fragrances/perfumery-school) [schools](https://www.iff.com/careers/iff-university/msc-scent-design), nearly all French in origin.
+As a result, compilations like [GoodScents](http://www.thegoodscentscompany.com/) and [Leffingwell](https://zenodo.org/record/4085098) are mostly consistent in the words they use to catalog the smell of several thousand molecules.
+These include intuitive words like "orange", "floral", and "earthy", but also more specialized terms like "balsamic",  "orris", "ambergris", and "ylang-ylang".
+
 # In search of the RGB of Odor
 
 What does it mean to digitize the sense of smell?
@@ -49,12 +54,7 @@ In my opinion, there's a decent chance that the chemical composition of an odor 
 
 # From Theory to Practice
 
-With this level of subjectivity, a consistent ontology of smell is a must.
-Today's perfume industry is centered around a [few](https://www.givaudan.com/fragrance-beauty/perfumery-school) [major](https://www.grasse-perfumery.com/) [perfumery](https://www.mane.com/fragrances/perfumery-school) [schools](https://www.iff.com/careers/iff-university/msc-scent-design), nearly all French in origin.
-As a result, compilations like [GoodScents](http://www.thegoodscentscompany.com/) and [Leffingwell](https://zenodo.org/record/4085098) are mostly consistent in the words they use to catalog the smell of several thousand molecules.
-These include intuitive words like "orange", "floral", and "earthy", but also more specialized terms like "balsamic",  "orris", "ambergris", and "ylang-ylang".
-
-Three years ago, we took this dataset and [trained a graph neural network to predict odor labels](https://arxiv.org/abs/1910.10685).
+Three years ago, we took the Goodscents and Leffingwell datasets and [trained a graph neural network to predict odor labels](https://arxiv.org/abs/1910.10685).
 Frankly, trying to back out an RGB of odor from this dataset is stupid.
 It's like trying to rederive CIE 1931 from the [XKCD color survey](https://blog.xkcd.com/2010/05/03/color-survey-results/).
 But ultimately, you train a model with the dataset you have, not the dataset you might want or wish for.
@@ -79,10 +79,9 @@ For my part, I designed and ran the molecule selection process, removing molecul
 After collecting 18 raters X 400 molecules X 55 odor descriptors X 2 replicates = roughly 700,000 data points, we found that our model continued to outperform traditional chemoinformatic techniques by a small but consistent margin.
 Additionally, the model made predictions that were within the experimental intra-rater variation, about on par with the median human panelist.
 
-Mission accomplished!
+Mission accomplished, as a Dubya from Texas would say.
 
 <img src="/static/mission_accomplished.jpg" title="Mission Accomplished" style="width:100%;"/>
-
 
 # Most olfactory data is crap
 
@@ -92,9 +91,9 @@ If you use our data, please, please read the GC-O notes!
 
 [GC-olfactometry](https://en.wikipedia.org/wiki/Gas_chromatography-olfactometry) is a time-consuming analytic technique that isolates and identifies the individual odors within a mixture.
 It's primarily used within the fragrance industry to reverse engineer perfume recipes.
-    It works by separating a mixture with gas chromatography, then piping the output into a human nose, who takes notes on the odor quality of the airstream!
+It works by separating a mixture with gas chromatography, then piping the output into a human nose, who takes notes on the odor quality of the airstream!
 
-Applying GC-O to 50 of our 400 tested molecules, we found that about **a third of bottles had smells that were _not_ attributable to the molecule on the bottles' label**!
+Applying GC-O to 50 of our 400 tested molecules, we found that about **a third of tested bottles had smells that were _not_ attributable to the molecule on the bottles' label**!
 That's because even if the bottle is 99% pure in the bulk liquid/solid phase, contaminants can have significantly different vapor pressures and odor intensity, causing the airspace to be dominated by contaminants.
 
 The bottom line: our model was making prediction based on the bottle's claimed contents, whereas our human raters were rating smells based on the bottle's true contents!
@@ -102,7 +101,7 @@ And yet our models' predictions matched the panelists decently well, not doing s
 
 There are a few possible interpretations here:
 
-1. impurities are structurally related to and smell similarly to the nominal compound. Many impurities were synthetic precursors and/or decomposition products of the nominal compound, for example.
+1. impurities are structurally related to and smell similarly to the nominal compound. Many detected impurities were synthetic precursors and/or decomposition products of the nominal compound, for example.
 2. the training data also contains impure samples, and our model implicitly learned patterns of contamination. Many alkynes smelled phosphorous-garlicky, possibly as a consequence of acetylene production from [calcium carbide sources with calcium phosphide contaminant](https://en.wikipedia.org/wiki/Calcium_carbide).
 3. our panelists are noisier than we'd like, making the "on-par with humans" claims a lot less impressive.
 
