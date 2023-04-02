@@ -4,7 +4,7 @@ computer_science,machine_learning
 
 # Introduction
 
-If you've ever played Magic: The Gathering or other card games involving large, unwieldy decks of cards, you've probably wondered: How the heck am I supposed to shuffle this thing? How would I even know if I were shuffling properly?
+If you've ever played Magic: The Gathering or other card games where card decks routinely exceed the size of your hands, you've probably wondered: How the heck am I supposed to shuffle this thing? How would I even know if I were shuffling properly?
 
 As it turns out, there are similar problems in machine learning, where training datasets routinely exceed the size of your machine's memory. Shuffling here is very important; imagine you (the model) are swimming through the ocean (the data) trying to predict an average water temperature (the outcome). You won't really be able to give a good answer because the ocean is not well shuffled.
 
