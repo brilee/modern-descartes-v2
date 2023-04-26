@@ -9,7 +9,7 @@
 <hr />
 <ul>
 {% for essay in essays_with_tag %}
-    <li>{{essay.date}}&nbsp;|&nbsp; <a href="/{{ESSAY_WEBDIR}}/{{essay.slug}}/">{{essay.title}}</a></li>
+    <li>{{essay.date}}&nbsp;|&nbsp; <a href="/{{ESSAY_WEBDIR}}/{{essay.slug}}/">{{essay.title | safe}}</a></li>
 {% endfor %}
 </ul>
 

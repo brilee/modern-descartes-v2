@@ -23,6 +23,7 @@ firebase deploy
 [goatcounter](https://moderndescartes.goatcounter.com/)
 
 If you change anything about the compilation step, do a manual check over essays exercising various features - in particular:
+    - why did/does brain exist (escaped HTML) 
     - fractal plants (javascript embedded snippets)
     - probability manipulations (heavy TeX)
     - hyperloglog (code blocks)
