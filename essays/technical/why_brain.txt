@@ -1,0 +1,93 @@
+Why <s>does</s> did Google Brain exist?
+2023/04/26
+machine_learning,system_dynamics
+
+This essay was originally written in December 2022 as I pondered the future of my job. I sat on it because I wasn't sure of the optics of posting such an essay while employed by Google Brain. But then Google made my decision easier by laying me off in January. My severance check cleared, and last week, Brain and DeepMind merged into one new unit, killing the Brain brand in favor of "[Google DeepMind](https://blog.google/technology/ai/april-ai-update/)". As somebody with a unique perspective and the unique freedom to share it, I hope I can shed some light on the question of Brain's existence. I'll lay out the many reasons for Brain's existence and assess their continued validity in today's economic conditions.
+
+# The Industry Research Lab
+
+I want to start by precisely describing the paradox that needs to be explained.
+
+Academics have always faced the dilemma of research freedom in academia versus higher pay in industry. It's not surprising that as a machine learning expert, Google will pay you handsome sums to do ML. The tradeoff is usually that you have to work on recommender systems, ad optimization, search ranking, etc., instead of pure research.
+
+To be clear, Brain hosts many researchers and projects, many of which are directly or indirectly profitable. For example, many researchers focus on improving optimizers, architecture search, and hyperparameter search. This research is directly profitable, as it lowers compute cost to achieve a given level of performance. I don't think this needs any further explanation.
+
+What needs explanation is why Google Brain (alongside DeepMind, OpenAI, FAIR, and others) funds hundreds of ML researchers to work on pure research, seemingly just for research's sake, while still compensating an order of magnitude more than academia would. For example, my team worked on [machine learning for olfaction](/essays/rgb_odor/). What is Google doing, funding research on smell? What's the catch? This is the question I would like to answer.
+
+# Prestige
+
+Most academics assume that Brain is angling for prestige: "Brain is in a bidding war with other industrial research labs to hire the best researchers, so that they can be the most prestigious research group, which will in turn help them hire the best researchers". After all, this is how academia in the U.S. works: with a trinity of funding, students/postdocs, and principal investigators (PIs). In principle, funding goes to the most talented PIs and students/postdocs; students/postdocs go where the most talented PIs and funding are; PIs go where they can find talented students/postdocs and funding.
+
+Universities are directly incentivized to maximize prestige, as they take a ([surprisingly large](https://austinhenley.com/blog/grantbudget.html)) cut of all research funding. Industry research labs don't have the same incentive structure. Rather than profiting from maintaining a prestigious lab, it ends up costing more to keep top researchers from defecting. Uber AI Labs seemed to exist solely for prestige (ego?) reasons and was duly canceled by Dara "Adult Supervision" Khosrowshahi after he took over from Uber founder Travis Kalanick.
+
+Prestige confers two main effects: a positive brand image in the consumer space, and easier hiring, both within pure research and in applied ML. For example, I hadn't even considered applying to Apple during my [job hunt](/essays/my_ml_path) several years ago, due to their lack of ML presence! Perhaps Apple didn't recruit machine learning experts precisely because they did not need machine learning experts - a [sensible decision in line with Apple's growth philosophy](https://blog.pragmaticengineer.com/apple-job-cuts-tide/). But if you do need to hire several thousand ML engineers, it makes sense to fund a handful of top ML researchers as a prestige play. I believe that my team, working on ML for olfaction, was partly a prestige play.
+
+Prestige-oriented research still makes sense today as a hiring tactic, but given that the industry is collectively cutting recruiting budgets, prestige spending must also be reduced.
+
+# MBAs and Golden Eggs
+
+The next obvious reason for Google to invest in pure research is for the breakthrough discoveries it has yielded and can continue to yield. 
+
+As a rudimentary brag sheet, Brain gave Google TensorFlow, TPUs, [significantly improved Translate](https://arxiv.org/abs/1609.08144), [JAX](https://jax.readthedocs.io/en/latest/), and [Transformers](https://arxiv.org/abs/1706.03762). These are just the projects that were {pure research at inception} X {have significant profit impact today}; if I loosen either constraint, the list would be far longer, e.g. [ML for medical imaging](https://jamanetwork.com/journals/jama/article-abstract/2588763), and [AutoML](https://ai.googleblog.com/2017/11/automl-for-large-scale-image.html), to name a few.
+
+Brain's freewheeling, bottom-up, researcher-centric culture was arguably what generated these breakthroughs. Jeff Dean is in charge of research, precisely because he embodies these ideals. If instead an MBA were in control, the MBA culture would trickle down, killing the goose that lays the golden eggs. Better to hand over the golden eggs after they're laid and keep the MBAs in the shadows.
+
+Over time, two trends have empowered MBAs to act more openly. The first is the economic backdrop: with a tightening economy and with increased competition from OpenAI/VC-funded AI startups, Google feels a need to be more responsible and directed about its research investments. The second is increased familiarity with ML's capabilities. In the early days of deep learning, nobody knew what it could be capable of, and the researchers were given the privilege of chartering a research vision. Today, thought leaders casually opine on how and where ML will be useful, and MBAs feel like this is an acceptable substitute for expert opinion. The result is reduced researcher freedom and more top-down direction.
+
+As an amusing anecdote, Google's researcher promotion criteria were for some time linked to external recognition of research significance. If Google's promo committees, formed of senior researchers, can't even decide whether their own research is significant, then what chance would MBAs have? In the very near future, I would expect researcher promotion criteria to shift towards delivered business value, rather than external recognition of research impact.
+
+Today, I see a similar wave of researcher empowerment with LLMs, as once again, nobody but the researchers can credibly opine on their capabilities. Even then, every LLM researcher can feel MBAs breathing on their necks in a way that wasn't the case during deep learning's ascendancy.
+
+# The 51% attack
+
+Another reason for Google's funding of open-ended research is to maintain its lead in machine learning.
+
+Google had stayed ahead of the industry for well over a decade in large-scale systems programming. Systems like [MapReduce](https://research.google/pubs/pub62/) (Hadoop), [Spanner](https://research.google/pubs/pub39966/) (CockroachDB), and [Zanzibar](https://research.google/pubs/pub48190/) (AuthZed) solved problems that the industry was only beginning to realize were problems, and it took 5-10 years for viable alternatives (indicated in parentheses), copycatting the corresponding Google whitepapers, to be available to competitors.
+
+When Google open-sourced TensorFlow, it was clear that they had done it again. This early success suggested that Google would be able to stay ahead of its competitors by generously funding long-shot research bets.
+
+Unfortunately, this early lead would be completely squandered within a few short years, with PyTorch/Nvidia GPUs easily overtaking TensorFlow/Google TPUs. ML was, and frankly is, still too nascent to have significant technical barriers to entry. The sustained eye-popping funding for AI companies generated a surge in supply, with the number of ML researchers growing ~25% YoY for the past decade. I taught myself enough ML to blend in with the researchers at Brain over a relatively short 2 years, and so have many others. Nobody, not even Google, can afford to throw money into a bottomless pit.
+
+Developing an early lead in a field (*cough* Transformers *cough*) is also only valuable to the extent that Google can translate that research edge into product. Brain's [recent talent exodus](https://docs.google.com/presentation/d/1WrkeJ9-CjuotTXoa4ZZlB3UPBXpxe4B3FMs9R9tn34I/edit#slide=id.g164b1bac824_0_3835) is in no small part due to internal perception that Google was sitting on groundbreaking research rather than developing it to its potential. ChatGPT raised serious existential questions for Brain. If we take Google's inability to execute on research translation as a constant, then does it even make sense to invest internally in open-ended speculative research? Google's [$400M investment in Anthropic AI](https://www.ft.com/content/583ead66-467c-4bd5-84d0-ed5df7b5bf9c) is a bad look: Google execs are hedging their research bets on external research groups.
+
+# Catalyst theory
+
+One unusual thing about Brain is its liberal publication policy - [Brain often outpublishes entire universities at top-tier ML conferences](https://medium.com/criteo-engineering/neurips-2020-comprehensive-analysis-of-authors-organizations-and-countries-a1b55a08132e). Having invested vast sums into open-ended research, why give it away for free? The major reasons for publication are 1) prestige 2) because researchers can quit and take the knowledge with them anyway. A more subtle reason is 3) to catalyze growth in a field.
+
+The catalyst theory is that by publishing key research in areas relevant to Google's core business, that research direction will move in a way that benefits Google. For example, Google has always been interested in better NLP, and the publication of key research like [LSTMs in 2014](https://arxiv.org/abs/1409.3215) and [Transformers in 2017](https://arxiv.org/abs/1706.03762) catalyzed the growth of the entire NLP field. Google is one of the few companies with both the consumer surface area and the computational might to scale up ML deployments to a billion users, so Google benefits from the overall advancement of the field.
+
+In peacetime mode, it makes sense to spend \$X to grow the overall pie, as long as your slice of the pie grows more than \$X. In wartime mode, it also matters how much your competitors' slice of the pie is growing. OpenAI's alliance with Microsoft means that there is another giant out there with both the consumer surface area and the computational might to scale up ML deployments. As Google transitions to [wartime mode](https://a16z.com/2011/04/14/peacetime-ceo-wartime-ceo/), the catalyst theory is almost certainly dead at Google.
+
+# Retainer fee
+
+DARPA's mission statement is "to prevent and create technological surprise". The best defense is a good offense, but it certainly doesn't hurt to have a stable of technical experts who can quickly understand and respond to unexpected developments in the field. When times are good, the experts can focus on original research, and when times are bad, the experts will be drafted to work on defensive projects. Seems reasonable, although the drawback of this plan is that there is no way to guarantee that the experts will actually stick around when you cancel their pet projects. To remove any doubt, you could also just lay them off 🙂. Sarcasm aside, Google wasn't wrong to lay me off; the fact that I started writing this essay 5 months ago was a strong indicator to me back then that I should be looking for new jobs.
+
+Times are now bad. I expect to see Google call upon its researchers to focus on LLMs, first with the carrot, and then the stick.
+
+# Tech Hubris
+
+Many of Brain's open-ended research projects are quite interdisciplinary in nature. As previously mentioned, my team worked on [ML for olfaction](https://ai.googleblog.com/2022/09/digitizing-smell-using-molecular-maps.html), and Brain is also pioneering advances in ML for [medical imaging](https://jamanetwork.com/journals/jama/fullarticle/2588763), [weather modeling](https://ai.googleblog.com/2020/03/a-neural-weather-model-for-eight-hour.html), [neuronal imaging](https://ai.googleblog.com/2018/07/improving-connectomics-by-order-of.html), [DNA variant calling](https://ai.googleblog.com/2017/12/deepvariant-highly-accurate-genomes.html), [music and art](https://magenta.tensorflow.org/), [protein annotation](https://ai.googleblog.com/2022/03/using-deep-learning-to-annotate-protein.html), and probably more that I've missed. There are many success stories outside of Brain, like AlphaGo and AlphaFold.
+
+There is no question that these interdisciplinary efforts have yielded much fruit. However, two countervailing trends have reduced Google's willingness to continue funding these efforts.
+
+The first is researcher demographics. There is nothing quite as annoying as a [physicist first encountering a new field](https://xkcd.com/793/). On the other hand, there is nothing quite as transcendental as a domain expert learning physics (or in this case, machine learning). Given the long timelines of a PhD program, the vast majority of early ML researchers were self-taught crossovers from other fields. This created the conditions for excellent interdisciplinary work to happen. This transitional anomaly is unfortunately mistaken by most people to be an inherent property of machine learning to upturn existing fields. It is not.
+
+Today, the vast majority of new ML researcher hires are freshly minted PhDs, who have only ever studied problems from the ML point of view. I've seen repeatedly that it's much harder for a ML PhD to learn chemistry than for a chemist to learn ML. (This may be survivorship bias; the only chemists I encounter are those that have successfully learned ML, whereas I see ML researchers attempt and fail to learn chemistry all the time.) In any case, I expect the quality and success rate of later interdisciplinary projects to drop correspondingly. Even if Google execs don't understand the nature of the trend, they will notice the decreasing quality of the breakthroughs.
+
+The second is that from a business perspective, it turns out it is much easier for incumbents to learn machine learning than it is for Google to learn a new business field. [Google Health](https://www.healthcaredive.com/news/google-disbands-health-unit-as-chief-departs-for-cerner/605387/) is the most prominent example, but I have seen this pattern play out repeatedly in other domains. I am skeptical that DeepMind's Isomorphic labs will get much further. On the other hand, companies like Recursion Pharmaceuticals and Relay Therapeutics, staffed with a mix of career biologists and chemists-turned-ML engineers, have done well. The benefits of interdisciplinary ML breakthroughs seem to go to incumbents, and do not form a strong basis for a new business line for Google.
+
+# The Brain-DeepMind Merger
+
+Where to begin? My thoughts on this are jumbled and in the interest of a timely blog post, I will present them in bulleted list form...
+
+- Google execs apparently thought the DeepMind branding was stronger than Brain branding. Alternatively, Demis refused to sign off on the merger unless the DeepMind name stayed.
+- This merger is probably a prelude to a greater restructuring.
+- Neither side "won" this merger. I think both Brain and DeepMind lose. I expect to see many project cancellations, project mergers, and reallocations of headcount over the next few months, as well as attrition.
+- With fewer projects to go around, I expect to see a lot of middle management get cut or leave.
+- I expect there to be a lot of turbulence due to DeepMind's top-down culture clashing with Brain's bottom-up culture. The turbulence will bring any merger efficiency gains down to, or even below zero.
+
+# The road ahead
+
+Despite Brain's tremendous value creation from its early funding of open-ended ML research, it is becoming increasingly apparent to Google that it does not know how to capture that value. Google is of course not obligated to fund open-ended research, but it will nevertheless be a sad day for researchers and for the world if Google turns down its investments.
+
+Google is already a second-mover in many consumer and business product offerings and it seems like that's the way it will be in ML research as well. I hope that Google at least does well at being second place. There's lots of room for winners in machine learning.
