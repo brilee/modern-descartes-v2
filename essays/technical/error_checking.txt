@@ -1,6 +1,6 @@
 Four Short Stories on Error Checking
 2012/6/24
-miscellaneous
+system_dynamics
 
 My microwave clock has been broken since a power outage. It now reads something like 7 hours behind the real time. I've been too lazy to fix it, but the bright side is that it's 7 hours behind, and not 15 minutes behind. If it were 15 minutes behind, then who knows - I might mistake it to be the correct time, and end up fifteen minutes late to an appointment.
 

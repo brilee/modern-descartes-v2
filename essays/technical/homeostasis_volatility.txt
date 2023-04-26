@@ -1,6 +1,6 @@
 Homeostasis and Volatility
 2021/3/28
-miscellaneous
+system_dynamics
 
 Nature is remarkably resilient to a wide range of environmental conditions. One of the key strategies involved is _homeostasis_: the use of [negative feedback loops](https://en.wikipedia.org/wiki/Negative_feedback) to respond to fluctuations in the environment.
 

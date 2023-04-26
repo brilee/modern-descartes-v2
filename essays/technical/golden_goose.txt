@@ -1,6 +1,6 @@
 The Goose That Stopped Laying Golden Eggs
 2017/5/11
-miscellaneous
+system_dynamics
 
 There are many companies that have had great brands and have subsequently destroyed their reputation by pushing shoddy products. [This reddit thread](https://www.reddit.com/r/AskReddit/comments/3o7p5z/which_company_or_brand_no_longer_has_the_quality/) suggests brands like Craftsman, Pyrex, CNN, Breyers, RadioShack, among others. Was it just incompetence that led these companies to kill the goose that laid their golden eggs, or was there some other force at work?
 

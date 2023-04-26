@@ -1,6 +1,6 @@
 The Ultimatum Game
 2016/6/27
-miscellaneous
+system_dynamics
 
 With the recent announcement of Brexit, and with Trump on the horizon, I've been worried for the state of Western politics. It's easy to dismiss Brexiters as ignorant, selfish assholes who would prefer to see the world burn. But I don't think it's quite that simple.
 
