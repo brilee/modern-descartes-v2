@@ -21,9 +21,9 @@ rows = python_client.query("SELECT id FROM B WHERE...")
 result = python_client.query("SELECT * FROM A WHERE id IN (%s)" % ', '.join(rows))
 ```
 
-It worked, and other than the unnecessary second round-trip to the database, this worked just fine for our launch dataset. We had deadlines looming, so this code got checked in as is.
+Other than the unnecessary second round-trip to the database, this worked just fine for our launch dataset. With the launch deadline looming, this code got checked in as is.
 
-# For want of a bounded query string
+## For want of a bounded query string
 
 We launched, and started running this pipeline daily on the latest data dumps. One day, we hit the following error message:
 
@@ -42,7 +42,7 @@ for chunk in more_itertools.chunked(rows, 1000):
 
 The code chugged along.
 
-# For want of a fast pipeline
+## For want of a fast pipeline
 
 As our dataset continued to grow, the number of chunks in this `for` loop ticked upwards. Eventually, as the pipeline execution time started to push several hours, the team made a push to optimize the pipeline. Bob added concurrent queries to parallelize the code:
 
@@ -57,27 +57,53 @@ results = list(itertools.chain(*(q.result() for q in pending_queries)))
 
 This brought execution time back down to a more tolerable slowness.
 
-# For want of parallel queries
+## For want of parallel queries
 
 Unfortunately, this solution was but a band-aid. We ran into the following error not long afterwards:
 
 ```language-plaintext
 WARNING: Concurrent INTERACTIVE query limit reached (50). To increase concurrent queries, drop to BATCH priority, or contact us to increase your quota limits.
 ```
-Bob did both, firing off an email to our GCP contact and dropping our query priority to BATCH. I don't remember what happened to our quota, but what I do remember is that our pipeline didn't get any faster... BATCH priority meant that our queries could take arbitrarily long to execute, depending on whether BigQuery was having a busy day! Our pipeline execution times bounced around between a few hours to half a day. Despite each day's pipeline run kicking off around midnight, we started getting questions from our analysts around 8AM about where today's data was.
+Bob did both, firing off an email to our GCP contact and dropping our query priority to BATCH. I don't remember what happened to our quota, but what I do remember is that our pipeline didn't get any faster... BATCH priority meant that our queries could take arbitrarily long to execute, depending on whether BigQuery was having a busy day! Our pipeline execution times bounced around between a few hours to half a day. Despite each day's pipeline run kicking off around midnight, we started getting occasional questions from our analysts around 8AM about where today's data was.
 
-# The project...?
+This was the last I saw of this particular train wreck, as I left the company soon after.
 
-I didn't stay around long enough to see the next iteration of this train wreck.
+# It's never just the one thing
 
-As they say, "A month in the lab saves an hour in the library", and I'd definitely commented on the JOIN statements during the initial code review. Unfortunately this change had been buried in a 2,000-line diff, and with looming launch deadlines, our TL/M told us to ship it.
+You may be wondering why nobody commented on the missing JOIN during code review. And how did the issue persist for so long?
 
-In retrospect, the missing JOINs were just a smoulder. That smoulder eventually turned into a fire, but many other things were already on fire. The aforementioned TL/M, a first time homeowner, had their water pipes burst over the holidays, just weeks before our launch date in January. I've never seen someone under so much stress to try and make an immovable launch deadline! We also had to politely tell our partners that, no, CSV didn't just mean "wrap the fields in double quotes and join them with commas and newlines". Our on-call shifts were best described as disappointing. Imagine being woken up at 4AM to find out that some user submitted a fake phone number, uncovering an edge case where the frontend phone number validator disagreed with the backend validator. Of course, our leadership, who mandated that all signup errors warranted paging the on-call, was equally to blame! And when the fix was submitted for the phone number bug, bureaucratic Q/C processes meant that our on-calls continued to be paged for bogus phone numbers for a few more weeks. So yes, much fire.
+I was the code reviewer on the initial PR, and yes, I'd commented on the issue. Unfortunately, the PR totalled 2,000 lines of code, and this was just one of many issues I found in that diff. When I asked our TL what to do, they advised me to ship it, since we had a launch deadline upcoming and working code was better than no code. I figured this was a "disagree and commit" situation so I let the code through.
 
-What lessons should you take away from this episode? Here's a few:
+Later, the easy availability of all of those IDs in Python meant that other subsequent steps came to depend on those values. That was why it was so difficult to revert back to the simple JOIN statement.
 
-- Learn the capabilities of your tools. With the exception of NPM modules, most tools are designed to solve problems, possibly the ones you have.
-- Don't let junior SWEs get 2000 lines into a change before submitting a pull request.
+We also didn't have much breathing room to do things right; organizationally, the missing JOIN performance issue was just one of many fires. Post-launch, our on-call shifts were best described as disappointing. Imagine being woken up at 4AM to find out that some user submitted a fake phone number, uncovering an edge case where the frontend phone number validator disagreed with the backend validator. (Our leadership had mandated that all signup errors warranted paging the on-call). And when the fix was submitted for the phone number bug, bureaucratic Q/C and release processes meant that our on-calls continued to be paged for bogus phone numbers for a few more weeks.
+
+# Postmortem
+
+What lessons should we take away from this story?
+
+For Bob:
+
+- Learn the capabilities of your tools. With the exception of NPM modules, tools are designed to solve problems, possibly the ones you have.
+- 2000 lines is far too late to get feedback. [Smaller changes](https://google.github.io/eng-practices/review/developer/small-cls.html) are more likely to receive actionable feedback.
+- If you encounter an unusually round system limit, you're probably using the system in a way its designers explicitly discourage.
+- As an inexperienced engineer, you have unknown unknowns. Find mentors to help identify them.
+
+For the code reviewer:
+
+- Pick your battles when reviewing code; you, the code author, and the project all have a patience budget for code review that should not be exceeded. Ask your TL for backup.
+
+For the TL:
+
 - Operate on data where it resides. Python is a control plane, not a data plane.
-- If you encounter an unusually round system limit, you're probably using the system in a way its designers never imagined.
-- Parallelizing something you haven't optimized first is as likely to make it slower as it is to speed it up.
+- Parallelizing something you haven't optimized first is as likely to slow it down as to speed it up.
+- Communicate expectations around engineering workflow.
+- More broadly, have a system in place to identify and address cultural issues. Others may not realize they need to ask for help.
+
+For the manager:
+
+- Budget extra time for junior engineers to learn their tools and best practices.
+- Help Bob find mentors.
+- Make clear that Bob's expectations are not just about producing code and helping meet the launch deadline, but growing to the point where his work needs minimal supervision from more senior members of the team.
+- Understand how rigid your project's launch date and scope are, and be intentional about tech debt.
+- Does your team have a TL? Are you the TL? ([Bad idea](https://lethain.com/tech-lead-managers/))
