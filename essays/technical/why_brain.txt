@@ -1,4 +1,4 @@
-Why <s>does</s> did Google Brain exist?
+Why did Google Brain exist?
 2023/04/26
 machine_learning,system_dynamics
 
@@ -54,7 +54,7 @@ Developing an early lead in a field (*cough* Transformers *cough*) is also only 
 
 One unusual thing about Brain is its liberal publication policy - [Brain often outpublishes entire universities at top-tier ML conferences](https://medium.com/criteo-engineering/neurips-2020-comprehensive-analysis-of-authors-organizations-and-countries-a1b55a08132e). Having invested vast sums into open-ended research, why give it away for free? The major reasons for publication are 1) prestige 2) because researchers can quit and take the knowledge with them anyway. A more subtle reason is 3) to catalyze growth in a field.
 
-The catalyst theory is that by publishing key research in areas relevant to Google's core business, that research direction will move in a way that benefits Google. For example, Google has always been interested in better NLP, and the publication of key research like [LSTMs in 2014](https://arxiv.org/abs/1409.3215) and [Transformers in 2017](https://arxiv.org/abs/1706.03762) catalyzed the growth of the entire NLP field. Google is one of the few companies with both the consumer surface area and the computational might to scale up ML deployments to a billion users, so Google benefits from the overall advancement of the field.
+The catalyst theory is that by publishing key research in areas relevant to Google's core business, that research direction will move in a way that benefits Google. For example, Google has always been interested in better NLP, and the publication of key research like [seq2seq in 2014](https://research.google/pubs/pub43155/) and [Transformers in 2017](https://arxiv.org/abs/1706.03762) catalyzed the growth of the entire NLP field. Google is one of the few companies with both the consumer surface area and the computational might to scale up ML deployments to a billion users, so Google benefits from the overall advancement of the field.
 
 In peacetime mode, it makes sense to spend \$X to grow the overall pie, as long as your slice of the pie grows more than \$X. In wartime mode, it also matters how much your competitors' slice of the pie is growing. OpenAI's alliance with Microsoft means that there is another giant out there with both the consumer surface area and the computational might to scale up ML deployments. As Google transitions to [wartime mode](https://a16z.com/2011/04/14/peacetime-ceo-wartime-ceo/), the catalyst theory is almost certainly dead at Google.
 
