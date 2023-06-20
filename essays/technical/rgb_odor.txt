@@ -28,7 +28,7 @@ It means that we understand smell well enough to make quantitative predictions a
 Using color as a road map, we would want to develop an "RGB of odor".
 (Technically, it's "[CIE 1931](https://en.wikipedia.org/wiki/CIE_1931_color_space)", but I'll say RGB here.)
 The real RGB is based on our understanding of cone cells and their absorption spectra.
-As a display of this mastery, we can actually simulate the effects of color-blindness, since we have quantified the absorption spectra of wild-type and color-blind cone cells.
+As a display of this mastery, we can actually [simulate the effects of color-blindness](https://developer.chrome.com/blog/cvd/), since we have quantified the absorption spectra of wild-type and color-blind cone cells.
 We can also pull tricks like fluorescent light bulbs that look white despite their [highly unnatural spectra](https://en.wikipedia.org/wiki/Fluorescent_lamp#Phosphor_composition).
 RGB enables color printers, monitors, and cameras that can be independently calibrated to a standard, allowing for the capture, transmission, and replication of color.
 

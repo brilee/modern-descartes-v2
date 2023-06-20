@@ -2,6 +2,8 @@ Why did Google Brain exist?
 2023/04/26
 machine_learning,system_dynamics
 
+_[Auf Deutsch lesen](https://www.golem.de/news/brain-deepmind-hinter-den-kulissen-von-googles-ki-forschung-2306-174989.html)_
+
 This essay was originally written in December 2022 as I pondered the future of my job. I sat on it because I wasn't sure of the optics of posting such an essay while employed by Google Brain. But then Google made my decision easier by laying me off in January. My severance check cleared, and last week, Brain and DeepMind merged into one new unit, killing the Brain brand in favor of "[Google DeepMind](https://blog.google/technology/ai/april-ai-update/)". As somebody with a unique perspective and the unique freedom to share it, I hope I can shed some light on the question of Brain's existence. I'll lay out the many reasons for Brain's existence and assess their continued validity in today's economic conditions.
 
 # The Industry Research Lab

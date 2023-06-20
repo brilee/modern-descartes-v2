@@ -2,7 +2,6 @@ from collections import namedtuple, defaultdict
 import datetime
 import os
 import subprocess
-import sys
 
 import feedgenerator
 from jinja2 import Environment, FileSystemLoader, select_autoescape
