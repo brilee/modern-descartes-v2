@@ -29,7 +29,7 @@ JINJA_ENV = Environment(
 
 Essay = namedtuple('Essay', ['slug', 'title', 'date', 'content', 'tags'])
 
-def make_rss(compiled_essays):
+def make_rss(compiled_essays: list[Essay]):
 
     feed = feedgenerator.Atom1Feed(
         title="Modern Descartes - Essays by Brian Lee",
@@ -44,7 +44,8 @@ def make_rss(compiled_essays):
     with open(os.path.join(STAGING_DIR, ESSAY_WEBDIR, 'rss.xml'), 'w') as f:
         feed.write(f, 'utf-8')
 
-def compile_html(template_name, output_file, **context):
+
+def compile_and_write_html(template_name: str, output_file: str, **context):
     default_context = {"ESSAY_WEBDIR": ESSAY_WEBDIR}
     default_context.update(**context)
     output_path = os.path.join(STAGING_DIR, output_file)
@@ -53,6 +54,7 @@ def compile_html(template_name, output_file, **context):
     compiled = template.render(**default_context)
     with open(output_path, 'w') as f:
         f.write(compiled)
+
 
 def parse_essay(essay_path):
     essay_shortname = os.path.splitext(os.path.basename(essay_path))[0]
@@ -74,25 +76,31 @@ def parse_essay(essay_path):
                  date=essay_date, content=essay_content, tags=tags)
 
 
-def compile_essays():
+def compile_essay(essay_path) -> list[Essay]:
+    dirpath, filename = os.path.split(essay_path)
+    (essay_shortname, extension) = os.path.splitext(filename)
+    if extension not in ALLOWED_EXTENSIONS:
+        return []
+    if filename[0] == '_':
+        return []
+
+    try:
+        essay = parse_essay(essay_path)
+        compile_and_write_html('essay_detailed.html',
+            'essays/{}/index.html'.format(essay.slug), essay=essay)
+        return [essay]
+    except Exception as e:
+        print('Failed to process {}'.format(filename))
+        print(type(e), e)
+    return []
+
+
+def compile_essays() -> list[Essay]:
     print("Processing essays...")
     all_essays = []
     for dirpath, _, filenames in os.walk(ESSAY_DIR):
         for filename in filenames:
-            (essay_shortname, extension) = os.path.splitext(filename)
-            essay_path = os.path.join(dirpath, filename)
-            if extension not in ALLOWED_EXTENSIONS:
-                continue
-            if filename[0] == '_':
-                continue
-            try:
-                essay = parse_essay(essay_path)
-                all_essays.append(essay)
-                compile_html('essay_detailed.html',
-                    'essays/{}/index.html'.format(essay.slug), essay=essay)
-            except Exception as e:
-                print('Failed to process {}'.format(filename))
-                print(type(e), e)
+            all_essays.extend(compile_essay(os.path.join(dirpath, filename)))
 
     print("Compiled {} essays".format(len(all_essays)))
     return all_essays
@@ -100,18 +108,18 @@ def compile_essays():
 def compile_all():
     assert STAGING_DIR not in ('/', '.', '..', '')
     subprocess.run('[ -d {} ] && rm -r {}'.format(STAGING_DIR, STAGING_DIR), shell=True, stderr=subprocess.STDOUT)
-    compile_html('404.html', '404.html')
-    compile_html('index.html', 'index.html')
+    compile_and_write_html('404.html', '404.html')
+    compile_and_write_html('index.html', 'index.html')
     all_essays = compile_essays()
     essays_sorted = sorted(all_essays, key=lambda e: e.date, reverse=True)
     essays_by_tag = defaultdict(list)
     for essay in essays_sorted:
         for tag in essay.tags:
             essays_by_tag[tag].append(essay)
-    compile_html('essay_index.html', 'essays/index.html',
+    compile_and_write_html('essay_index.html', 'essays/index.html',
         essays_sorted=essays_sorted, tags=essays_by_tag)
     for tag, essays_with_tag in essays_by_tag.items():
-        compile_html('essay_tag.html', 'essays/tags/{}/index.html'.format(tag),
+        compile_and_write_html('essay_tag.html', 'essays/tags/{}/index.html'.format(tag),
             tag=tag, essays_with_tag=essays_with_tag)
     make_rss(essays_sorted)
     subprocess.run('cp -r -p {static} {staging}/{static}'.format(
