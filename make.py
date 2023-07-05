@@ -1,3 +1,4 @@
+import atexit
 from collections import namedtuple, defaultdict
 import datetime
 import os
@@ -5,6 +6,9 @@ import subprocess
 
 import feedgenerator
 from jinja2 import Environment, FileSystemLoader, select_autoescape
+import watchdog
+import watchdog.events
+import watchdog.observers
 
 
 WEBSITE_URL = 'https://www.moderndescartes.com'
@@ -28,6 +32,16 @@ JINJA_ENV = Environment(
     autoescape=select_autoescape(['html', 'xml']))
 
 Essay = namedtuple('Essay', ['slug', 'title', 'date', 'content', 'tags'])
+
+def is_public_essay(essay_path):
+    dirpath, filename = os.path.split(essay_path)
+    (essay_shortname, extension) = os.path.splitext(filename)
+    if extension not in ALLOWED_EXTENSIONS:
+        return False
+    if filename[0] == '_':
+        return False
+    return True
+
 
 def make_rss(compiled_essays: list[Essay]):
 
@@ -77,11 +91,7 @@ def parse_essay(essay_path):
 
 
 def compile_essay(essay_path) -> list[Essay]:
-    dirpath, filename = os.path.split(essay_path)
-    (essay_shortname, extension) = os.path.splitext(filename)
-    if extension not in ALLOWED_EXTENSIONS:
-        return []
-    if filename[0] == '_':
+    if not is_public_essay(essay_path):
         return []
 
     try:
@@ -90,7 +100,7 @@ def compile_essay(essay_path) -> list[Essay]:
             'essays/{}/index.html'.format(essay.slug), essay=essay)
         return [essay]
     except Exception as e:
-        print('Failed to process {}'.format(filename))
+        print('Failed to process {}'.format(essay_path))
         print(type(e), e)
     return []
 
@@ -125,6 +135,29 @@ def compile_all():
     subprocess.run('cp -r -p {static} {staging}/{static}'.format(
         static=STATIC_DIR, staging=STAGING_DIR), shell=True)
 
+
+class RecompileEssayHandler(watchdog.events.LoggingEventHandler):
+    def dispatch(self, event):
+        essay_path = os.fsdecode(event.src_path)
+        if is_public_essay(essay_path):
+            print(f'Recompiling {essay_path}...', end="")
+            compile_essay(essay_path)
+            print('done.')
+        else:
+            print(f"Ignoring {essay_path}")
+
+
 if __name__ == '__main__':
     compile_all()
-    subprocess.call(['python', '-m', 'http.server', '8888', '-d', 'staging'])
+    webserver = subprocess.Popen(['python', '-m', 'http.server', '8888', '-d', 'staging'])
+    atexit.register(webserver.kill)
+    event_handler = RecompileEssayHandler()
+    observer = watchdog.observers.Observer()
+    observer.schedule(event_handler, ESSAY_DIR, recursive=True)
+    observer.start()
+    try:
+        while observer.is_alive():
+            observer.join(1)
+    finally:
+        observer.stop()
+        observer.join()
