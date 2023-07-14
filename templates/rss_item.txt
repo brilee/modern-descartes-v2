@@ -1,0 +1,7 @@
+{% import 'macros.html' as macros %}
+
+<p> Originally posted {{essay.date}}</p>
+<p> Tagged: {{macros.tag_link_list(ESSAY_WEBDIR, essay.tags)}}</p>
+<hr />
+
+{{essay.content|safe}}

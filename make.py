@@ -53,19 +53,24 @@ def make_rss(compiled_essays: list[Essay]):
         feed.add_item(
             title=essay.title,
             link=os.path.join(WEBSITE_URL, ESSAY_WEBDIR, essay.slug),
-            description=essay.content,
+            description=compile_html('rss_item.txt', essay=essay),
             pubdate=essay.date)
     with open(os.path.join(STAGING_DIR, ESSAY_WEBDIR, 'rss.xml'), 'w') as f:
         feed.write(f, 'utf-8')
 
 
-def compile_and_write_html(template_name: str, output_file: str, **context):
+def compile_html(template_name, **context):
     default_context = {"ESSAY_WEBDIR": ESSAY_WEBDIR}
     default_context.update(**context)
-    output_path = os.path.join(STAGING_DIR, output_file)
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
     template = JINJA_ENV.get_template(template_name)
     compiled = template.render(**default_context)
+    return compiled
+
+
+def compile_and_write_html(template_name: str, output_file: str, **context):
+    compiled = compile_html(template_name, **context)
+    output_path = os.path.join(STAGING_DIR, output_file)
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
     with open(output_path, 'w') as f:
         f.write(compiled)
 
