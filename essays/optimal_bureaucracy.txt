@@ -1,0 +1,57 @@
+Optimal Bureaucracy
+2023/9/12
+math,software_engineering,system_dynamics
+
+This past week, I ended up annoyed with continuous integration systems. In short: the CI consisted of three stages in the following order: basic linters/formatters (10 minutes, 90\% pass rate), unit tests (25 minutes, 95\% pass rate), and SonarQube (5 minutes, 95\% pass rate). You would think linters/unit tests should have 100\% pass rate, but hey, developers are lazy and they push minor edits and hit the merge button, without bothering to run the tests locally first. I happened to run into a SonarQube issue (and it wasn't locally reproducible), so I had to wait for this long pipeline to iterate on the fix. This was frustrating and I had the vague intuition that SonarQube _shouldn't be at the end of the CI pipeline_. But was that actually true, or was I just unlucky that it was the last step that was failing?
+
+It turns out that this type of question occurs in many different settings.
+
+- In drug development, drugs go through multiple optimization stages - first, the molecular structure is optimized for drug activity; then it is tweaked for [ADME properties](https://en.wikipedia.org/wiki/ADME); then it's tested in animals for toxicity; then it goes through a series of clinical trials. Is this the right ordering? 
+- At Google, project launches had to go through multiple reviews: security review, legal, regulatory, SRE, product, (and probably more I'm forgetting). One typical failure mode of this process is that the engineering is done up front and then engineers get annoyed and push back when a reviewer tells them that their product is fundamentally illegal/insecure/doesn't fit with the product portfolio. Should the engineers have instead worked to satisfy some subset of the reviewers before even starting on their work?
+- You're trying to figure out where a group of family/friends will get together for a big reunion. Everybody has their own constraints and preferences for where/when/how this should happen. In what order should you check your suggested plan with everyone?
+- Any [waterfall](https://en.wikipedia.org/wiki/Waterfall_model) project has to choose the order in which they address requirements and/or stakeholders.
+
+Let's formalize the CI question to a more general setting and solve that problem.
+
+# The Math
+
+Here's how you might formalize this problem.
+
+You have $n$ requirements, each with some cost $C_i$ and probability of success $P_i$. The probabilities are all independent. You must complete all requirements in sequence; if any requirement fails you must start over from scratch. What ordering of requirements will minimize the total expected cost of the process?
+
+## Solution
+
+Let $E_i$ indicate the cost up to some step $i$, then
+
+$$E_i = \frac{E_{i-1} + C_i}{P_i}$$
+$$E_n = \frac{C_1}{P_1P_2P_3\ldots P_n} + \frac{C_2}{P_2P_3\ldots P_n} + \frac{C_3}{P_3\ldots P_n} + \ldots + \frac{C_n}{P_n}$$
+
+We could brute force over all $n!$ possible orderings and pick the one with lowest cost - but hey, if this were the best solution available, I wouldn't be writing about it :D
+
+What would a more elegant solution look like? Some wishful thinking says that if we found some function $F(C_i, P_i)$, and sorted the tasks by this function, then we could achieve $O(n \log n)$. 
+
+If we try solving the case with $n=2$, we'll find that we end up with a candidate function $F = \frac{C_i}{1-P_i}$. (I use $\stackrel{?}{<}$ to denote unknown ordering)
+
+$$
+\begin{align*}
+\frac{C_1}{P_1P_2} + \frac{C_2}{P_2} \stackrel{?}{<}& \frac{C_2}{P_1P_2} + \frac{C_1}{P_1} \\
+C_1\frac{1-P_2}{P_1P_2} \stackrel{?}{<}& C_2\frac{1-P_1}{P_1P_2} \\
+\frac{C_1}{1 - P_1} \stackrel{?}{<}& \frac{C_2}{1-P_2}
+\end{align*}
+$$
+
+The implication is that the ordering $1, 2$ is more efficient than $2, 1$ only if $F(1) < F(2)$.
+
+Does sorting by $F$ yield an optimal solution? Yes. Consider any two adjacent steps $i$ and $i+1$. The cost up through $i-1$ does not depend on $i, i+1$, and the specific ordering of $(i, i+1)$ vs $(i+1, i)$ does not constrain steps $i+2...$ in any way. So we are free to optimize the ordering of $i$ and $i+1$ without regard to the rest of the sequence. The optimal ordering of $i$ and $i+1$ turns out to be identical to the solved case of $n=2$ - sort by $F$!. Any order inversions can be made more efficient by flipping the two elements. Writ large, this implies that you can bubble sort your list.
+
+The conclusion: optimal ordering is accomplished by sorting requirements by $F(i) = \frac{C_i}{1 - P_i}$.
+
+# Optimizing CI
+
+Recall that we had basic linters/formatters (10 minutes, 90\% pass rate), unit tests (25 minutes, 95\% pass rate), and SonarQube (5 minutes, 95\% pass rate). The function F for these three stages evaluates to 100, 500, and 100. So we can say that SonarQube should always happen before unit tests, and is tied with the linters/formatters. However, in the scenario where SonarQube is already failing, then the probability of passing it with your fixes is something lower, perhaps 50-75\%. In this scenario, SonarQube clearly belongs at the start of the CI pipeline, with a score of 10-20.
+
+I'd love to see CI platforms allow the flexibility to reorder stages according to which one failed most recently, or to have more intelligent ordering according to empirically observed failure rates and durations. One could argue that SonarQube should be made available locally, but there are many valid CI use cases that can't be run locally - for example TensorFlow's CI used to run against {Windows, Linux} X {CPU, GPU, TPU} targets, with corresponding hardware/OS maintenance requirements. (This CI burden is the primary reason why TensorFlow [dropped native Windows support](https://discuss.tensorflow.org/t/2-10-last-version-to-support-native-windows-gpu/12404)!) As it is, most CI configurations are done by hand and don't ever change.
+
+# Acknowledgments
+
+Thanks to [Jay Leeds](https://www.linkedin.com/in/jay-leeds-6a588919a/) for providing a solution and alerting me that a close variation of this problem was posed in [2023's ICPC NAC](https://www.youtube.com/watch?v=c_ilfGOnBtE). (It seems the author of that problem was similarly frustrated with their CI!)
