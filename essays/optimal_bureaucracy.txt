@@ -50,6 +50,8 @@ The conclusion: optimal ordering is accomplished by sorting requirements by $F(i
 
 Recall that we had basic linters/formatters (10 minutes, 90\% pass rate), unit tests (25 minutes, 95\% pass rate), and SonarQube (5 minutes, 95\% pass rate). The function F for these three stages evaluates to 100, 500, and 100. So we can say that SonarQube should always happen before unit tests, and is tied with the linters/formatters. However, in the scenario where SonarQube is already failing, then the probability of passing it with your fixes is something lower, perhaps 50-75\%. In this scenario, SonarQube clearly belongs at the start of the CI pipeline, with a score of 10-20.
 
+In this toy example, I use time as a cost metric, but it can of course encompass compute or SaaS costs as well.
+
 I'd love to see CI platforms allow the flexibility to reorder stages according to which one failed most recently, or to have more intelligent ordering according to empirically observed failure rates and durations. One could argue that SonarQube should be made available locally, but there are many valid CI use cases that can't be run locally - for example TensorFlow's CI used to run against {Windows, Linux} X {CPU, GPU, TPU} targets, with corresponding hardware/OS maintenance requirements. (This CI burden is the primary reason why TensorFlow [dropped native Windows support](https://discuss.tensorflow.org/t/2-10-last-version-to-support-native-windows-gpu/12404)!) As it is, most CI configurations are done by hand and don't ever change.
 
 # Acknowledgments
