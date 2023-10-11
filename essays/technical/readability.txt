@@ -21,7 +21,7 @@ You can learn more about Readability in the [SWE Book](https://abseil.io/resourc
 
 To many Nooglers, Readability's enshrinement at the very core of the code submission mechanism seems like unnecessary bureaucracy. To many veteran Googlers, readability _still_ seems like unnecessary bureaucracy. You can choose not to get readability (totally allowed!), but if too few people on your team have readability, then the team's work can grind to a crawl when those reviewers go on vacation. Googlers undertaking their readability pilgrimage will statistically encounter that one readability reviewer who takes pride in their prowess as a human code linter, or has a vendetta against some language feature. These are just some of the many valid reasons to dislike readability at Google.
 
-Still, for every person who dislikes the readability process, there are many others who have been helped. Many of my coworkers have greatly benefitted from making the readability pilgrimage, and I hope that the hundreds of diffs I've reviewed have improved the codebase at Google. Readability's systematic influence on the Google codebase also leads to a more consistent baseline level of code quality, relative to other companies of a similar size.
+Still, for every person who dislikes the readability process, there are many others who have been helped. Many of my coworkers have become much better engineers by making the readability pilgrimage, and I hope that the hundreds of diffs I've reviewed have directly improved the codebase at Google. Readability's systematic influence on the Google codebase also leads to a more consistent baseline level of code quality, relative to other companies of a similar size.
 
 ## Readability and Me
 
@@ -35,7 +35,7 @@ I could have taken the easy way out by picking at nits that the linter missed. B
 
 Several months into my service as a readability mentor, I found that I could review code 10 times faster than when I first started. I could understand, within minutes, the change's intent, the context of why the surrounding codebase might look the way it did, and sometimes even the author's career history. (e.g. "You seem to come from a Java background. This visitor design pattern is more concisely expressed in Python using custom tree iterators.") I've become a measurably 10x engineer, at least in this one specific ability to review code.
 
-# Readability's cultural significance
+# Readability's role in Google culture
 
 Readability is just the tip of the Google culture iceberg. In the early days, Craig Silverstein, employee #1 at Google, would [carefully and thoroughly review](https://abseil.io/resources/swe-book/html/ch03.html#readability_standardized_mentorship_thr:~:text=In%20Google%E2%80%99s%20early%20days%2C%20Craig%20Silverstein) every new hire's first CL for best practices and uniform style. I don't know if Craig anticipated what readability would become, but it's safe to say that he and other early Googlers understood the multiplicative returns of consistent code style, engineer fungibility, excellent tooling and centralized systems on programmer productivity.
 
@@ -47,7 +47,7 @@ If you accept Google's core thesis, readability is merely the scaling mechanism 
 
 # Should your company implement Readability?
 
-The criteria of readability at Google are 
+The defining features of readability at Google are 
 
 1. consensus on a bar for readability
 2. a process for mentoring engineers until they qualify for readability.

@@ -2,6 +2,8 @@ A Research Codebase Manifesto
 2023/2/14
 software_engineering,machine_learning,python
 
+_Note: Multiple people have told me that this essay could equally well have been titled "A Startup Codebase Manifesto". YMMV._
+
 At Google Brain, I was the tech lead of a team with multiple researchers and engineers actively running experiments and committing changes to a shared codebase. This codebase has generated feedback like "you have no idea how much i miss our old codebase", "this is a textbook example of what a research codebase should look like", and "I was curious how company X's research codebase would look and it's a complete mess compared to your codebase". (For curious googlers: you can find this codebase if you search for CLs submitted by brianklee@).
 
 Managing a research codebase is difficult. I have heard of other research teams that attempted to join their many research subprojects' codebases, only to run into issues around code ossification, slower iteration cycles, and general researcher frustration. Yet other research teams, wary of these issues, embrace the academic baseline of untended anarchy (yes, even at Google).
