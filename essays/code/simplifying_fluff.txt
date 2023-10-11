@@ -42,7 +42,7 @@ Take this test:
     self.assert(car2.speed_m_s) = 5
     self.assertTrue(willColideWithin5sec(car1, car2))
 
-Many of these fields are irrelevant, so we may as well hide them behind a factory method. 
+Many of these fields are irrelevant, so we may as well hide them behind a factory method that sets sensible defaults.
 
     car1 = make_suv(
         location=Location(x_m=0, y_m=0),
