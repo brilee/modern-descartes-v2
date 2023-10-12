@@ -26,6 +26,15 @@ pre {
     margin-left: 2em;
 }
 
+a.heading-link {
+  color: unset;
+  text-decoration: none;
+}
+
+a.heading-link:hover {
+  text-decoration: underline;
+}
+
 /**
  * GitHub Gist Theme
  * Author : Anthony Attard - https://github.com/AnthonyAttard
