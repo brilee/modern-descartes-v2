@@ -1,0 +1,78 @@
+How to be a Good Codemate
+2023/10/11
+software_engineering
+
+Every year, millions of college first years become roommates with people they've never met before. There are no parents to set rules, and that one roommate who keeps on leaving their stuff everywhere, doesn't seem to understand that he's making everybody's life harder. Sometimes, one person does the thankless work of cleaning up after their roommates. Arguments erupt over allocation of duties, and the takeaway lesson is inevitably, "get your own place as soon as you can afford it".
+
+A similar situation plays out in tech companies as recent graduates become codemates with engineers they've never met before. Normally there are "parents" (senior engineers) to supervise, but this isn't always the case. Maybe the company hired too many junior engineers; maybe the senior engineers are overloaded; maybe the senior engineers can't or won't mentor. For junior engineers in these situations, here is a crash course on **How To Be a Good Codemate**.
+
+# Why you should care
+
+You should care if any of these happen regularly:
+
+- The commands you were running yesterday don't run today, and you find yourself double-checking the main branch to see if that's broken, too.
+- You spend half your work day trying to diagnose a mysterious bug, only to find out that the fix involves updating a dependency or executing some other manual environment-altering step that you would have never figured out on your own.
+- Your effort is spent in equal parts writing the actual code, and packaging the code in a way that satisfies all of the automated linters, tests, links to ticketing systems, and other blocking requirements.
+- You encounter significant merging/rebasing costs when trying to merge your work into a quickly-moving main branch.
+- Your continuous integration pipeline routinely flakes, and the recommended workaround is simply "try running it again". People insist on carefully reviewing every change, because they don't trust that CI will catch bugs.
+
+# How to be a good codemate
+
+The common theme here is that _none of the above problems have to do with coding ability or code quality_. It has, instead, everything to do with setting expectations on how you communicate and collaborate within a shared codebase. You may additionally run into frustrations directly related to bad code, but today I'd like to focus on non-coding frustrations.
+
+## Tell your teammates what you're working on
+
+> The commands you were running yesterday don't run today, and you find yourself double-checking the main branch to see if that's broken, too.
+
+When one person's code change breaks another person's workflow, it isn't necessarily the fault of the person who submitted the change. If they didn't know how to test your workflow, then they can't possibly be expected _not_ to break you. So you have to tell them how to test your workflow - ideally as a unit test, integration test, or in its simplest form, a bash script or other command line invocation.
+
+Assuming you have a continuous integration system configured, you can even hook this script into CI as an integration test. (Only do this if your script runs in less than, say, 30 seconds, perhaps by taking advantage of a flag like "--data_fraction=0.001". Long CI runtimes are an expensive tax on development - avoid if at all possible.) Adding your scripts to CI comes with two main benefits:
+
+- your codemates can't accidentally break you - they will be stopped by CI!
+- in fact, your codemates will fix your script for you, by updating your code, flags or whatever else the fix may involve. This is globally optimal, as the person making the breaking change usually knows better how to fix the breakage. (If this is not true, then it's only fair for them to ask you for help in fixing your script.)
+
+As the number of engineers collaborating in a codebase goes up, the frequency of inadvertent breakage events goes up quadratically. The [Beyonce Rule](https://abseil.io/resources/swe-book/html/ch11.html#the_beyonceacutesemicolon_rule), as it is called at Google, is simply, "If you liked it, you shoulda put a test on it.", and is the only way to scalably inform your team how not to break your code.
+
+## Some User Assembly Required
+
+> You spend half your work day trying to diagnose a mysterious bug, only to find out that the fix involves updating a dependency or executing some other manual environment-altering step that you would have never figured out on your own.
+
+Occasionally, a commit will require manual action for continued correctness. For example, an updated dependency might require everyone to run `pip install --upgrade some_library==newer.version`. Or perhaps some AWS account permissions or buckets got changed and everyone needs to update their .aws config file.
+
+Changes requiring manual steps **need to be announced publicly**. There is nothing sillier than having multiple people independently debug a weird error for 1-2 hours before they all simultaneously arrive in the team chat and ask, "Is anyone else seeing this error?", only for the offending committer to say, "Oh yeah, you need to run XXX". 5 minutes of writing up an announcement can save hours of wasted time.
+
+The real pro move is to use tools that transparently and automatically install and use the currently checked-in configuration, to eliminate this entire class of bugs.
+
+## You get a papercut, you get a papercut, everybody gets a papercut!
+
+> Your effort is spent in equal parts writing the actual code, and packaging the code in a way that satisfies all of the automated linters, test coverage requirements, links to tickets, and other blocking requirements.
+
+Scrum masters aside, engineers are a frequent source of their own bureaucratic slowdowns. Here's how that might happen. Let's say you want to enable a new linter rule, which will cause a hundred new lint errors to start appearing throughout the codebase. Instead of doing the boring work of fixing all hundred errors concomitantly with the linter configuration change, a tempting option is to use the "hold-the-line" feature of some linters, allowing the new linter rule to go through, but only enforcing the lint errors once somebody (else) touches the offending code. This is a terrible idea.
+
+What could have been 30 minutes of one engineer's time, now becomes something like 10 to 100 engineers * 5 minutes of time (due to context switching costs) - a tremendous waste of time. Centralizing the work has three main benefits: it is globally efficient for one engineer to do it, it creates economies of scale (maybe you figure out a clever regex to fix it all at once), and it puts the burden of proof on the right person - if you don't think the changes are worth your personal effort, then why would you distribute that burden onto everyone else?
+
+I've been pleased with the industry transition from linters that nag you about formatting issues, to formatters that automatically fix those formatting issues. The latter requires more up front investment but saves time in the long run. More engineers should try to adopt this mindset.
+
+## Sorting the Bookshelf by Color
+
+> You encounter significant merging/rebasing costs when trying to merge your work into a quickly-moving main branch.
+
+This one is a fundamentally hard problem - with $N$ engineers working closely together, there are $O(N^2)$ opportunities to step on each others' toes. One common toe-stepping maneuver is refactoring - renaming modules, renaming variables/classes, moving attributes/functions/classes around, regrouping code, or even fixing whitespace. Because refactoring touches a small number of lines of code across many files, merge conflicts are inevitable.
+
+Refactoring the codebase has benefits: it compresses the mental map needed to understand how the codebase works. However, it also has costs: people have to relearn their mental map. A needless refactor is like sorting a bookshelf by color -  unnecessary, annoying, and productivity-destroying. So the first rule of refactoring is Don't Refactor. Try to get your formatting and naming right the first time. (Related discussion: [better naming for utils](/essays/noutils))
+
+The second rule of refactoring is: don't mix refactors with feature changes. Refactoring changes are 10-100x easier to review than normal feature-adding changes. This is also true for every engineer who must resolve merge conflicts by applying the refactoring rule to their own code. If you mix refactors with feature changes, what happens is that the fast-path to understanding and applying the changes is no longer a valid shortcut! This is aggravating to everyone involved.
+
+At larger scales, managing refactors requires a new set of tools and approaches; search for "Rosie" in the [Google monorepo whitepaper](https://cacm.acm.org/magazines/2016/7/204032-why-google-stores-billions-of-lines-of-code-in-a-single-repository/fulltext#FNF) for a sketch of the complexities involved.
+
+## A Leap of Faith
+
+> Your continuous integration pipeline routinely flakes, and the recommended workaround is simply "try running it again". People insist on carefully reviewing every change, because they don't trust that CI will catch bugs.
+
+CI needs active maintenance. Flaky tests build up, causing CI to have to rerun multiple times before passing; the number of untested workflows (and accidental breakage) increases; CI runtime only ever seems to increase. Eventually, what happens is that people stop trusting their CI. People are desensitized to the frequent "CI Is Broken at HEAD!" automated pings. Code review slows to a grind; since CI cannot be trusted, the most senior engineers become reviewing bottlenecks as they are the only one who can anticipate whether a change is safe to merge. Every change needs a customized set of manual tests to demonstrate correctness.
+
+I prefer the "leap of faith" strategy: just pretend that your CI can be trusted, even if you don't think it should be! Then, when you inevitably merge broken code - figure out what sort of test would have caught your mistake, and add it! You may think that breaking the main branch is expensive, but it is equally expensive to suffer through a worry-laden code review process. Having a quick rollback procedure is a good way to mitigate accidental breakage, and further enables this strategy.
+
+# Conclusion
+
+As teams scale in size, coordination headwinds and Conway's law are inevitable. Ultimately, the solution is to embrace Conway's law, and shard the codebase along organizational lines, to reduce the $O(N^2)$ cost of coordinating many peoples' work. Still, a closely knit working group is more powerful than smaller independent groups, if they can manage not to step on each others' toes. By identifying and solving these coordination issues, individual teams can forestall the inevitable Conway sharding. 
