@@ -1,6 +1,6 @@
 Carbon Neutral Concrete - the numbers
 2021/8/2
-chemistry,sustainability
+chemistry,sustainability,popular
 
 I recently saw a [post from Heimdal](https://news.ycombinator.com/item?id=28036927), a startup claiming to do carbon-neutral concrete production. In this essay, I'll explain why this is a problem worth working on, and take a rough stab at calculating whether the hard reality of chemistry and economics supports their business model.
 

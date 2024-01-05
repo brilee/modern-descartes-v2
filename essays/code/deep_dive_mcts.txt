@@ -1,6 +1,6 @@
 A Deep Dive into Monte Carlo Tree Search
 2018/5/15
-computer_science,machine_learning,python,alphago,software_engineering
+computer_science,machine_learning,python,alphago,software_engineering,popular
 
 _(This was originally a sponsor talk given at PyCon 2018. Unfortunately there is no video.)_
 

@@ -1,6 +1,6 @@
 How (Not?) to Use Python's List Comprehensions
 2016/9/4
-computer_science,python
+computer_science,python,popular
 
 Everyone knows about the for loop:
 
