@@ -54,7 +54,7 @@ One of the strengths of the three-tier codebase is that it helps engineers and r
 
 ## Keeping track of code
 
-Another strength of the three-tier codebase is centralization of code. Centralization creates a single source of truth, encourages core code reuse, and streamlines workflows. It's important enough that the sole purpose of the Experimental directory is to discourage the creation of private codebases. Google Drive and your laptop's hard drive count as private codebases, in this reckoning. Ultimately, a shared codebase is a foundation for shared progress and learning.
+Another strength of the three-tier codebase is centralization of code. Centralization creates a single source of truth, encourages core code reuse, and streamlines workflows. It's important enough that the sole purpose of the Experimental directory is to discourage the creation of private codebases. A Colab notebook on Google Drive or an unpushed git branch on your laptop's hard drive count as private codebases, in this reckoning. Ultimately, a shared codebase is a foundation for shared progress and learning.
 
 In the absence of centralization, many inefficiencies arise. If you haven't struggled to recover the precise version of some notebook that generated figure 4 in your paper, which Reviewer 2 is now critiquing, then have you really done research? What about haggling with your IT department's privacy lawyers to try and salvage a python notebook from a former intern's returned laptop?
 
