@@ -1,6 +1,6 @@
 2021 Advent of Code in Haskell
 2022/2/22
-computer_science
+computer science
 
 Over the 2021 Christmas season, I worked through problems 1-15 of the [Advent of Code](https://adventofcode.com/2021) in Haskell. For each problem, I tried to do it "correctly" in Haskell, rather than hacking my way through the problem. I learned a ton and had a lot of fun. You can see my [solutions on GitHub](https://github.com/brilee/advent-haskell).
 

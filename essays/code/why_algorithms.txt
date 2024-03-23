@@ -1,6 +1,6 @@
 Why study algorithms?
 2019/4/2
-computer_science,software_engineering
+computer science,software engineering
 
 A common sentiment is that algorithms and data structures are useless to know, other than to pass the interview process at most software companies, and that one should just learn enough to get by those interviews. I strongly disagree with this notion, and I'll try to explain why I think it's valuable to study algorithms and data structures in depth.
 

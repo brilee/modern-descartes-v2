@@ -1,6 +1,6 @@
 Optimal Bureaucracy
 2023/9/12
-math,software_engineering,system_dynamics
+statistics,software engineering
 
 This past week, I ended up annoyed with continuous integration systems. In short: the CI consisted of three stages in the following order: basic linters/formatters (10 minutes, 90\% pass rate), unit tests (25 minutes, 95\% pass rate), and SonarQube (5 minutes, 95\% pass rate). You would think linters/unit tests should have 100\% pass rate, but hey, developers are lazy and they push minor edits and hit the merge button, without bothering to run the tests locally first. I happened to run into a SonarQube issue (and it wasn't locally reproducible), so I had to wait for this long pipeline to iterate on the fix. This was frustrating and I had the vague intuition that SonarQube _shouldn't be at the end of the CI pipeline_. But was that actually true, or was I just unlucky that it was the last step that was failing?
 

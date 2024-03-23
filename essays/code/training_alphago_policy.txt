@@ -1,6 +1,6 @@
 Training AlphaGo's Policy Network
 2016/7/5
-computer_science,machine_learning,alphago
+computer science,machine learning,alphago
 
 Historically, algorithmic approaches to playing Go have not been very successful. AlphaGo's success comes not from sophisticated algorithms, but neural networks that mimic a human's game intuition.
 

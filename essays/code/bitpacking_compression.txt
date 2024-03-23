@@ -1,6 +1,6 @@
 Bitpacking and Compression of Sparse Datasets
 2016/10/18
-software_engineering,machine_learning,alphago
+software engineering,machine learning,alphago
 
 Introduction
 ------------

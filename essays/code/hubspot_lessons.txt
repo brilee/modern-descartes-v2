@@ -1,6 +1,6 @@
 Lessons from a year at Hubspot
 2015/5/10
-software_engineering,personal
+software engineering,personal
 
 I started working at Hubspot almost exactly a year ago. I've improved at the actual mechanics of writing code, but along the way, I learned some other things that that I didn't expect to learn.
 

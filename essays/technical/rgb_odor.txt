@@ -1,6 +1,6 @@
 Machine Learning for Scent Prediction
 2022/9/10
-chemistry,machine_learning
+chemistry,machine learning
 
 Over the past three years, I've been working on a team whose goal is to digitize the sense of smell. We started by building a [graph neural network capable of predicting smell from molecular structure](https://arxiv.org/abs/1910.10685), and followed up by trying to [understand the structure of smell space](https://www.biorxiv.org/content/10.1101/2022.09.01.504602v2). We're nowhere close to an RGB of odor, but we've gotten closer than anybody else so far.
 

@@ -1,6 +1,6 @@
 Path Shenanigans
 2014/3/14
-software_engineering,python
+software engineering,python
 
 I had turned in my working laptop for repairs and was doing some work on my ~5 year old macbook. I was trying to figure out why my python dict comprehensions were throwing syntax errors, and realized my python version was old. I checked my $PATH variable, which turned out to be an amalgation of 6 different python versions (of which only the first one did anything). 
 

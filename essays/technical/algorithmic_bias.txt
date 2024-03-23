@@ -1,6 +1,6 @@
 Algorithmic Bias
 2018/11/25
-machine_learning,statistics
+machine learning,statistics
 
 Algorithmic bias has been around forever. Recently, it's a very relevant issue as companies left and right promise to revolutionize industries with "machine learning" and "artificial intelligence", by which they typically mean good ol' algorithms and statistical techniques, but also sometimes deep learning. 
 

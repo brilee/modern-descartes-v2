@@ -1,6 +1,6 @@
 Intraprocess Communication
 2014/3/17
-computer_science,software_engineering,python
+computer science,software engineering,python
 
 I recently wrote a sudoku solver in a mutable object-oriented style (Code is at github.com/brilee/games). This mutability posed some strange problems for me when it came time to clone the board state and carry out the depth-first brute-force.
 

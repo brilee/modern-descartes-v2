@@ -1,6 +1,6 @@
 Bulk and Cut as a Metaphor for Codebase Growth
 2022/01/23
-software_engineering
+software engineering
 
 In bodybuilding, "bulk and cut" refers to a cycle of gaining weight (building both fat and muscle), and then losing weight (dropping fat while retaining muscle). Over multiple cycles, you grow muscle more efficiently than if you used an incremental muscle-building strategy. (Supposedly.)
 

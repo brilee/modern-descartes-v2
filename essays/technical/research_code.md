@@ -1,6 +1,6 @@
 A Research Codebase Manifesto
 2023/2/14
-software_engineering,machine_learning,python,popular
+software engineering,machine learning,python,popular
 
 _Note: Multiple people have told me that this essay could equally well have been titled "A Startup Codebase Manifesto". YMMV._
 

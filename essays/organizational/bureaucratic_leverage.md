@@ -1,6 +1,6 @@
 Bureaucratic Leverage
 2023/12/12
-system_dynamics,management,popular
+strategy,popular
 
 Why do we hate bureaucracy?
 

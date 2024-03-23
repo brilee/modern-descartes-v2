@@ -1,6 +1,6 @@
 AlphaGo Zero: an analysis
 2017/12/03
-computer_science,machine_learning,alphago
+computer science,machine learning,alphago
 
 Where to begin?
 

@@ -1,6 +1,6 @@
 How to be a Good Codemate
 2023/10/11
-software_engineering
+software engineering
 
 Every year, millions of college first years become roommates with people they've never met before. There are no parents to set rules, and that one roommate who keeps on leaving their stuff everywhere, doesn't seem to understand that he's making everybody's life harder. Sometimes, one person does the thankless work of cleaning up after their roommates. Arguments erupt over allocation of duties, and the takeaway lesson is inevitably, "get your own place as soon as you can afford it".
 

@@ -1,6 +1,6 @@
 Readability: Google's Temple to Engineering Excellence
 2023/07/03
-software_engineering,management,popular
+software engineering,strategy,popular
 
 When reflecting on my six years at Google, its readability process stands out as unique within the tech landscape.
 

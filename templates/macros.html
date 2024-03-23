@@ -1,3 +1,3 @@
 {% macro tag_link_list(ESSAY_WEBDIR, tags) -%}
-{% for tag in tags %}<a href="/{{ESSAY_WEBDIR}}/tags/{{tag}}">{{tag}}</a>{{ ", " if not loop.last }}{% else %}(None){% endfor %}
+{% for tag in tags %}<a href="/{{ESSAY_WEBDIR}}/tags/{{tag.replace(' ', '_')}}">{{tag}}</a>{{ ", " if not loop.last }}{% else %}(None){% endfor %}
 {%- endmacro %}

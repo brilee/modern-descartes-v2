@@ -134,7 +134,7 @@ def compile_all():
     compile_and_write_html('essay_index.html', 'essays/index.html',
         essays_sorted=essays_sorted, tags=essays_by_tag)
     for tag, essays_with_tag in essays_by_tag.items():
-        compile_and_write_html('essay_tag.html', 'essays/tags/{}/index.html'.format(tag),
+        compile_and_write_html('essay_tag.html', 'essays/tags/{}/index.html'.format(tag.replace(' ', '_')),
             tag=tag, essays_with_tag=essays_with_tag)
     make_rss(essays_sorted)
     subprocess.run('cp -r -p {static} {staging}/{static}'.format(

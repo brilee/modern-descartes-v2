@@ -1,6 +1,6 @@
 Why did Google Brain exist?
 2023/04/26
-machine_learning,system_dynamics,popular
+machine learning,strategy,popular
 
 _[Auf Deutsch lesen](https://www.golem.de/news/brain-deepmind-hinter-den-kulissen-von-googles-ki-forschung-2306-174989.html)_
 
