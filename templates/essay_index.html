@@ -17,7 +17,7 @@
 <h3>...by date</h3>
 <ul>
 {% for essay in essays_sorted %}
-    <li>{{essay.date}}&nbsp;|&nbsp; <a href="/{{ESSAY_WEBDIR}}/{{essay.slug}}/">{{essay.title | safe}}</a>{% if "popular" in essay.tags %} ⭐️ {% endif %}</li>
+    <li>{{macros.essay_link(ESSAY_WEBDIR, essay)}}</li>
 {% endfor %}
 </ul>
 

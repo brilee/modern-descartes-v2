@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% import 'macros.html' as macros %}
 
 {% block title %}Essays by Brian Lee{% endblock %}
 
@@ -9,7 +10,7 @@
 <hr />
 <ul>
 {% for essay in essays_with_tag %}
-    <li>{{essay.date}}&nbsp;|&nbsp; <a href="/{{ESSAY_WEBDIR}}/{{essay.slug}}/">{{essay.title | safe}}</a></li>
+    <li>{{macros.essay_link(ESSAY_WEBDIR, essay)}}</li>
 {% endfor %}
 </ul>
 
