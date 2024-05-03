@@ -1,5 +1,5 @@
 Who pays you? And why?
-2024/4/27
+2024/5/2
 strategy
 
 I get asked for career advice from time to time. While each situation is different, a recurring theme is disempowerment - feeling like there's nothing you can do to advance your career. To help diagnose, I like to ask two questions: Who pays you? And why? These two questions encourage you to leave the comfort zone of job descriptions and confront the reality of what it'll take to get to the next level at your current job, or potentially a new job.

@@ -1,7 +1,7 @@
 {% macro tag_link_list(ESSAY_WEBDIR, tags) -%}
-{% for tag in tags %}<a href="/{{ESSAY_WEBDIR}}/tags/{{tag.replace(' ', '_')}}">{{tag}} {% if "popular" == tag %} ⭐️ {% endif %}</a>{{ ", " if not loop.last }}{% else %}(None){% endfor %}
+{% for tag in tags %}<a href="/{{ESSAY_WEBDIR}}/tags/{{tag.replace(' ', '_')}}">{{tag}}{% if "popular" == tag %} ⭐️{% endif %}</a>{{ ", " if not loop.last }}{% else %}(None){% endfor %}
 {%- endmacro %}
 
 {% macro essay_link(ESSAY_WEBDIR, essay) -%}
-{{essay.date}}&nbsp;|&nbsp; <a href="/{{ESSAY_WEBDIR}}/{{essay.slug}}/">{{essay.title | safe}}</a>{% if "popular" in essay.tags %} ⭐️ {% endif %}
+{{essay.date}}&nbsp;|&nbsp; <a href="/{{ESSAY_WEBDIR}}/{{essay.slug}}/">{{essay.title | safe}}</a>{% if "popular" in essay.tags %} ⭐️{% endif %}
 {%- endmacro %}
