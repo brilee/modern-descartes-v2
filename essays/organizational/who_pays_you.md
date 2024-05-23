@@ -1,6 +1,6 @@
 Who pays you? And why?
 2024/5/2
-strategy
+strategy,popular
 
 I get asked for career advice from time to time. While each situation is different, a recurring theme is disempowerment - feeling like there's nothing you can do to advance your career. To help diagnose, I like to ask two questions: Who pays you? And why? These two questions encourage you to leave the comfort zone of job descriptions and confront the reality of what it'll take to get to the next level at your current job, or potentially a new job.
 
@@ -46,7 +46,7 @@ Trust your gut. In my experience, people get thoroughly boiled before they final
 
 Once you figure out how to find personal alignment, you'll also be well-equipped to handle one of the harder problems facing management: how to maximize your team's output by figuring out how to align others' personal needs with organizational needs.
 
-# Reimmagining your experiences
+# Reimagining your experiences
 
 Let's say you've decided to switch teams/jobs. How you talk about your past experience reveals a significant amount about how well you understand the answers to who and why.
 

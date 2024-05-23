@@ -30,7 +30,7 @@ As a result, most business use cases for LLMs will inevitably operate on small d
 
 The software industry has spent well over a decade learning how to build systems that scale across trillions of rows and thousands of machines, with the tradeoff that you would wait at least 30s per invocation. We got used to this inconvenience because it let us turn a 10 day single-threaded job into a 20 minute distributed job.
 
-Now, faced with the daunting prospect of a mere 1 million rows, all of that is unnecessary complexity. Users deserve sub-second overheads when doing non-LLM computations on such small data. Lilac utilizes DuckDB to blast all cores on a single machine to compute basic summary statistics for every column in the user's dataset, in less than a second - a luxury that we can afford because of our increased budget for slop!
+Now, faced with the daunting prospect of a mere 1 million rows, all of that is unnecessary complexity. Users deserve sub-second overheads when doing non-LLM computations on such small data. Lilac utilizes DuckDB to blast all cores on a single machine to compute basic summary statistics for every column in the user's dataset, in less than a second - a luxury that we can afford because of small data!
 
 ## Massive budget for bloat
 
@@ -66,7 +66,7 @@ Yet, the insane cost of LLMs means that data egress costs are a relatively small
 
 ## A new GPU cloud will emerge
 
-Because of the ease with which small data can flow between clouds, I expect a new cloud competitor, focused on cheap GPU compute. Scale will be king here, because increased scale results in negotiating power for GPU purchase contracts, investments into GPU reliability, investments into engineering tricks to maximize GPU utilization, and improved latency for realtime applications. Modal, Lambda, and NVidia seem like potential cloud winners here, but the truth is that we're all winners, because relentless competition will drive down GPU costs for everyone.
+Because of the ease with which small data can flow between clouds, I expect a new cloud competitor, focused on cheap GPU compute. Scale will be king here, because increased scale results in negotiating power for GPU purchase contracts, investments into GPU reliability, investments into engineering tricks to maximize GPU utilization, improved latency for realtime applications, and investments into data/security/compliance certifications. Modal, Lambda, and NVidia seem like potential cloud winners here, but the truth is that we're all winners, because relentless competition will drive down GPU costs for everyone.
 
 ## Attack > defense
 
@@ -75,8 +75,6 @@ A certain class of user-generated content will become a Turing Arena of sorts, w
 Unfortunately for the internet, I think attack will win over the defense. The reason is safety in numbers.
 
 A small number of attackers will have the resources to use the most expensive LLMs to generate the most realistic looking fake reviews, specifically in categories where the profit margins are highest (think "best hotel in manhattan" or "best machu picchu tour"). However, a much larger number of attackers will have moderate resources to use medium-sized LLMs to generate a much larger volume of semi-realistic fake reviews. The defense, on the other hand, has to scale up LLMs to run on all user-generated content, and realistically they will only be able to afford running medium or small LLMs to do so. Dan Luu's [logorrhea on the diseconomies of scale](https://danluu.com/diseconomies-scale/) is exactly the right way to think here.
-
-Eventually, I think it will actually push some sort of in-person notarization or other reputation-based system to finally become a reality - the physical logistics will eventually become cheaper than running that many LLMs at scale. I won't endorse anything cryptocurrency related, but it's clear that Sam Altman's Worldcoin saw this eventuality coming many years ago.
 
 # Conclusion
 
