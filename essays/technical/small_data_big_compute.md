@@ -1,6 +1,6 @@
 Small Data, Big Compute
 2024/3/31
-software engineering,machine learning,strategy
+software engineering,machine learning,strategy,popular
 
 LLMs are really expensive to run, computationally speaking. I think you may be surprised by the order of magnitude difference.
 

@@ -1,6 +1,6 @@
 The FactoBattery
 2023/1/3
-sustainability
+sustainability,popular
 
 Renewable energies are very annoying to grid operators. Their energy production is unreliable, yet the grid requires that energy production and consumption be matched instantaneously. As a result, backup grid capacity (typically, fossil fuels) is required in proportion to the amount of renewables. At other times, renewable energy is sometimes _curtailed_, which is to say, "temporarily disconnected to avoid overenergizing the grid". Grid operators are accustomed to dealing with some variation, and curtailment rates are currently low, around 5%. But as renewables continue to grow, [25% curtailment](https://www.caiso.com/documents/curtailmentfastfacts.pdf) is our likely future.
 

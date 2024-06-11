@@ -1,6 +1,6 @@
 Explaining Backpropagation in Neural Networks using Pascal's Triangle
 2016/5/19
-machine learning,math,computer science
+machine learning,computer science
 
 Neural networks are getting a lot of press lately. I was personally convinced that there's something very important going on after AlphaGo trounced Lee Sedol in a five game match.
 
