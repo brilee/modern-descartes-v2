@@ -43,16 +43,16 @@ Let's analyze the suitability of batteries for this scenario. **I will assess ba
 In this scenario, a conventional lithium-ion battery has the following stats:
 
 <!--
-(The raw table) markdown-tables doesn't generate the right class names, so you have to manually render them, then copypasta the rendered HTML + edit the class names, <table class="pure-table pure-table-striped">.
+(The raw table) markdown-tables doesn't generate the right class names, so you have to manually render them, then copypasta the rendered HTML + edit the class names, <table>.
 
 | Technology             | Lifetime | Cost  | Rate | Capex      | Opex | Fuel |
 |------------------------|---------:|------:|-----:|-----------:|-----:|-----:|
 | Li battery             | 10 years | $516M | 8%   | $75M       | $1M  | 0    |
 -->
 
-<table class="pure-table pure-table-striped">
+<table class="striped">
 <thead>
-<tr class="header">
+<tr>
 <th>Technology</th>
 <th style="text-align: right;">Lifetime</th>
 <th style="text-align: right;">Capex</th>
@@ -64,7 +64,7 @@ In this scenario, a conventional lithium-ion battery has the following stats:
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>Li battery</td>
 <td style="text-align: right;">10 years</td>
 <td style="text-align: right;">$522M</td>
@@ -83,7 +83,7 @@ To make all of our batteries comparable, everything is scaled to 100MW. For a co
 If batteries move energy through time, peaker plants move energy _production_ through time. Both are levers to balance the grid. A peaker plant is therefore in some sense a battery. Other programs, like residential incentive programs, are also "batteries". This idea goes by the names "virtual power plant", "demand response", and "curtailment provider".
 
 <!--
-(The raw table) markdown-tables doesn't generate the right class names, so you have to manually render them, then copypasta the rendered HTML + edit the class names, <table class="pure-table pure-table-striped">.
+(The raw table) markdown-tables doesn't generate the right class names, so you have to manually render them, then copypasta the rendered HTML + edit the class names, <table>.
 
 | Technology             | Lifetime | Cost  | Rate | Capex      | Opex | Fuel |
 |------------------------|---------:|------:|-----:|-----------:|-----:|-----:|
@@ -92,9 +92,9 @@ If batteries move energy through time, peaker plants move energy _production_ th
 | Residental curtailment | 3 years  | $180M | 8%   | $67M       | $33M | 0    |
 -->
 
-<table class="pure-table pure-table-striped">
+<table class="striped">
 <thead>
-<tr class="header">
+<tr>
 <th>Technology</th>
 <th style="text-align: right;">Lifetime</th>
 <th style="text-align: right;">Capex</th>
@@ -106,7 +106,7 @@ If batteries move energy through time, peaker plants move energy _production_ th
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>Li battery</td>
 <td style="text-align: right;">10 years</td>
 <td style="text-align: right;">$522M</td>
@@ -116,7 +116,7 @@ If batteries move energy through time, peaker plants move energy _production_ th
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">$77M</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Natural Gas peaker</td>
 <td style="text-align: right;">40 years</td>
 <td style="text-align: right;">$125M</td>
@@ -126,7 +126,7 @@ If batteries move energy through time, peaker plants move energy _production_ th
 <td style="text-align: right;">$17M</td>
 <td style="text-align: right;">$28M</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Residental curtailment</td>
 <td style="text-align: right;">5 years</td>
 <td style="text-align: right;">$180M</td>
@@ -152,7 +152,7 @@ One example is an aluminum smelter, which consumes electricity to [electrolyze a
 Another more favorable example is an electrolysis-driven fertilizer plant. In this scheme, electricity is used to generate hydrogen gas, which is combined with nitrogen using the Haber-Bosch process to form ammonia. Note that this is an emerging technology (nearly all HB uses methane-derived hydrogen gas) and thus gets a harsher interest rate.
 
 <!--
-(The raw table) markdown-tables doesn't generate the right class names, so you have to manually render them, then copypasta the rendered HTML + edit the class names, <table class="pure-table pure-table-striped">.
+(The raw table) markdown-tables doesn't generate the right class names, so you have to manually render them, then copypasta the rendered HTML + edit the class names, <table>.
 
 | Technology             | Lifetime   | Cost       | Rate | Capex      | Opex | Fuel |
 |------------------------|-----------:|-----------:|-----:|-----------:|-----:|-----:|
@@ -163,9 +163,9 @@ Another more favorable example is an electrolysis-driven fertilizer plant. In th
 | Electrolysis/HB plant  | 9/30 years | $360M/300M | 8%   | $12M + 27M | $14M | 0    |
 -->
 
-<table class="pure-table pure-table-striped">
+<table class="striped">
 <thead>
-<tr class="header">
+<tr>
 <th>Technology</th>
 <th style="text-align: right;">Lifetime</th>
 <th style="text-align: right;">Capex</th>
@@ -177,7 +177,7 @@ Another more favorable example is an electrolysis-driven fertilizer plant. In th
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>Li battery</td>
 <td style="text-align: right;">10 years</td>
 <td style="text-align: right;">$522M</td>
@@ -187,7 +187,7 @@ Another more favorable example is an electrolysis-driven fertilizer plant. In th
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">$77M</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Natural Gas peaker</td>
 <td style="text-align: right;">40 years</td>
 <td style="text-align: right;">$125M</td>
@@ -197,7 +197,7 @@ Another more favorable example is an electrolysis-driven fertilizer plant. In th
 <td style="text-align: right;">$17M</td>
 <td style="text-align: right;">$28M</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Residental curtailment</td>
 <td style="text-align: right;">5 years</td>
 <td style="text-align: right;">$180M</td>
@@ -207,7 +207,7 @@ Another more favorable example is an electrolysis-driven fertilizer plant. In th
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">$76M</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Aluminum smelting</td>
 <td style="text-align: right;">8 years</td>
 <td style="text-align: right;">$1000M</td>
@@ -217,7 +217,7 @@ Another more favorable example is an electrolysis-driven fertilizer plant. In th
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">$351M</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Electrolysis/HB plant</td>
 <td style="text-align: right;">8/30 years</td>
 <td style="text-align: right;">$360M / 300M</td>
@@ -236,9 +236,9 @@ It turns out that overbuilding a plant by 3x is expensive and wasteful and if yo
 
 Actually, the fertilizer plant doesn't have to be overbuilt in its entirety. Instead, we merely have to overbuild the electrolyzers at 4X, install some hydrogen buffering capacity, and the downstream Haber-Bosch unit, built at 1X, can run at 100% utilization. The net cost of this factobattery is much cheaper:
 
-<table class="pure-table pure-table-striped">
+<table class="striped">
 <thead>
-<tr class="header">
+<tr>
 <th>Technology</th>
 <th style="text-align: right;">Lifetime</th>
 <th style="text-align: right;">Capex</th>
@@ -250,7 +250,7 @@ Actually, the fertilizer plant doesn't have to be overbuilt in its entirety. Ins
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>Li battery</td>
 <td style="text-align: right;">10 years</td>
 <td style="text-align: right;">$522M</td>
@@ -260,7 +260,7 @@ Actually, the fertilizer plant doesn't have to be overbuilt in its entirety. Ins
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">$77M</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Natural Gas peaker</td>
 <td style="text-align: right;">40 years</td>
 <td style="text-align: right;">$125M</td>
@@ -270,7 +270,7 @@ Actually, the fertilizer plant doesn't have to be overbuilt in its entirety. Ins
 <td style="text-align: right;">$17M</td>
 <td style="text-align: right;">$28M</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Residental curtailment</td>
 <td style="text-align: right;">5 years</td>
 <td style="text-align: right;">$180M</td>
@@ -280,7 +280,7 @@ Actually, the fertilizer plant doesn't have to be overbuilt in its entirety. Ins
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">$76M</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Aluminum smelting</td>
 <td style="text-align: right;">8 years</td>
 <td style="text-align: right;">$1000M</td>
@@ -290,7 +290,7 @@ Actually, the fertilizer plant doesn't have to be overbuilt in its entirety. Ins
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">$351M</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Electrolysis/HB plant</td>
 <td style="text-align: right;">8/30 years</td>
 <td style="text-align: right;">$360M / 300M</td>
@@ -300,7 +300,7 @@ Actually, the fertilizer plant doesn't have to be overbuilt in its entirety. Ins
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">$65M</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Electrolysis/H2 buffer</td>
 <td style="text-align: right;">8/25 years</td>
 <td style="text-align: right;">$360M / 20M</td>
@@ -314,7 +314,7 @@ Actually, the fertilizer plant doesn't have to be overbuilt in its entirety. Ins
 </table>
 
 <!--
-(The raw table) markdown-tables doesn't generate the right class names, so you have to manually render them, then copypasta the rendered HTML + edit the class names, <table class="pure-table pure-table-striped">.
+(The raw table) markdown-tables doesn't generate the right class names, so you have to manually render them, then copypasta the rendered HTML + edit the class names, <table>.
 
 | Technology             | Lifetime   | Capex      | Rate | Capex/y    | Opex/y  | Fuel | Total |
 |------------------------|-----------:|-----------:|-----:|-----------:|--------:|-----:|------:|

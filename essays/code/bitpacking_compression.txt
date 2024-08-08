@@ -23,7 +23,7 @@ The easiest thing to try first was swapping out gzip for another compression lib
 Compression algorithms have to balance speed vs compression, so I started looking for a something in between gzip and snappy. I then discovered that gzip offered multiple compression levels, and that Python's gzip wrapper defaulted to maximum compression. That explained why my original gzip implementation was so slow. Switching to `compresslevel=6` compressed 4x faster than `compresslevel=9`, and the compression ratio only dropped from 120x to 80x. Not bad. If I had stopped here, I'd be pretty happy with this tradeoff.
 
 <!--
-(The raw table) markdown-tables doesn't generate the right class names, so you have to manually render them, then copypasta the rendered HTML + edit the class names, <table class="pure-table pure-table-striped">.
+(The raw table) markdown-tables doesn't generate the right class names, so you have to manually render them, then copypasta the rendered HTML + edit the class names, <table>.
 
 | compression | time to process (s) | time to convert to bytes (s) | time to compress and write (s) | total time (s) | output size (bytes) |
 |--------|------:|-----:|-------:|-------:|-----------:|
@@ -34,9 +34,9 @@ Compression algorithms have to balance speed vs compression, so I started lookin
 
 -->
 
-<table class="pure-table pure-table-striped">
+<table class="striped">
 <thead>
-<tr class="header">
+<tr>
 <th>compression</th>
 <th style="text-align: right;">time to process (s)</th>
 <th style="text-align: right;">time to convert to bytes (s)</th>
@@ -46,7 +46,7 @@ Compression algorithms have to balance speed vs compression, so I started lookin
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>none</td>
 <td style="text-align: right;">18.44</td>
 <td style="text-align: right;">2.26</td>
@@ -54,7 +54,7 @@ Compression algorithms have to balance speed vs compression, so I started lookin
 <td style="text-align: right;">30.82</td>
 <td style="text-align: right;">2028M</td>
 </tr>
-<tr class="even">
+<tr>
 <td>gzip9</td>
 <td style="text-align: right;">19.56</td>
 <td style="text-align: right;">1.91</td>
@@ -62,7 +62,7 @@ Compression algorithms have to balance speed vs compression, so I started lookin
 <td style="text-align: right;">173.92</td>
 <td style="text-align: right;">17M</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>gzip6</td>
 <td style="text-align: right;">19.19</td>
 <td style="text-align: right;">1.69</td>
@@ -70,7 +70,7 @@ Compression algorithms have to balance speed vs compression, so I started lookin
 <td style="text-align: right;">46.76</td>
 <td style="text-align: right;">24M</td>
 </tr>
-<tr class="even">
+<tr>
 <td>snappy</td>
 <td style="text-align: right;">19.06</td>
 <td style="text-align: right;">1.59</td>
@@ -93,7 +93,7 @@ It turns out that gzipping after bitpacking yields a 1000x compression. Even on 
 I investigated all possible combinations of bitpacking and compression algorithms, yielding the following table. (Half bitpack refers to converting float32 to uint8.)
 
 <!--
-(The raw table) markdown-tables doesn't generate the right class names, so you have to manually render them, then copypasta the rendered HTML + edit the class names, <table class="pure-table pure-table-striped">.
+(The raw table) markdown-tables doesn't generate the right class names, so you have to manually render them, then copypasta the rendered HTML + edit the class names, <table>.
 
 | bitpack | compression | time to process (s) | time to convert to bytes (s) | time to compress and write (s) | total time (s) | output size (bytes) |
 |------|--------|------:|-----:|-------:|------:|------:|
@@ -113,9 +113,9 @@ I investigated all possible combinations of bitpacking and compression algorithm
 -->
 
 
-<table class="pure-table pure-table-striped">
+<table class="striped">
 <thead>
-<tr class="header">
+<tr>
 <th>bitpack</th>
 <th>compression</th>
 <th style="text-align: right;">time to process (s)</th>
@@ -126,7 +126,7 @@ I investigated all possible combinations of bitpacking and compression algorithm
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>none</td>
 <td>none</td>
 <td style="text-align: right;">18.44</td>
@@ -135,7 +135,7 @@ I investigated all possible combinations of bitpacking and compression algorithm
 <td style="text-align: right;">30.82</td>
 <td style="text-align: right;">2028M</td>
 </tr>
-<tr class="even">
+<tr>
 <td>none</td>
 <td>gzip9</td>
 <td style="text-align: right;">19.56</td>
@@ -144,7 +144,7 @@ I investigated all possible combinations of bitpacking and compression algorithm
 <td style="text-align: right;">173.92</td>
 <td style="text-align: right;">17M</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>none</td>
 <td>gzip6</td>
 <td style="text-align: right;">19.19</td>
@@ -153,7 +153,7 @@ I investigated all possible combinations of bitpacking and compression algorithm
 <td style="text-align: right;">46.76</td>
 <td style="text-align: right;">24M</td>
 </tr>
-<tr class="even">
+<tr>
 <td>none</td>
 <td>snappy</td>
 <td style="text-align: right;">19.06</td>
@@ -162,7 +162,7 @@ I investigated all possible combinations of bitpacking and compression algorithm
 <td style="text-align: right;">39.06</td>
 <td style="text-align: right;">201M</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>half</td>
 <td>none</td>
 <td style="text-align: right;">19.43</td>
@@ -171,7 +171,7 @@ I investigated all possible combinations of bitpacking and compression algorithm
 <td style="text-align: right;">22.35</td>
 <td style="text-align: right;">516M</td>
 </tr>
-<tr class="even">
+<tr>
 <td>half</td>
 <td>gzip9</td>
 <td style="text-align: right;">19.75</td>
@@ -180,7 +180,7 @@ I investigated all possible combinations of bitpacking and compression algorithm
 <td style="text-align: right;">82.04</td>
 <td style="text-align: right;">6.4M</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>half</td>
 <td>gzip6</td>
 <td style="text-align: right;">19.39</td>
@@ -189,7 +189,7 @@ I investigated all possible combinations of bitpacking and compression algorithm
 <td style="text-align: right;">30.91</td>
 <td style="text-align: right;">12.0M</td>
 </tr>
-<tr class="even">
+<tr>
 <td>half</td>
 <td>snappy</td>
 <td style="text-align: right;">18.72</td>
@@ -198,7 +198,7 @@ I investigated all possible combinations of bitpacking and compression algorithm
 <td style="text-align: right;">23.03</td>
 <td style="text-align: right;">46.6M</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>full</td>
 <td>none</td>
 <td style="text-align: right;">20.56</td>
@@ -207,7 +207,7 @@ I investigated all possible combinations of bitpacking and compression algorithm
 <td style="text-align: right;">25.01</td>
 <td style="text-align: right;">64.5M</td>
 </tr>
-<tr class="even">
+<tr>
 <td>full</td>
 <td>gzip9</td>
 <td style="text-align: right;">19.25</td>
@@ -216,7 +216,7 @@ I investigated all possible combinations of bitpacking and compression algorithm
 <td style="text-align: right;">33.04</td>
 <td style="text-align: right;">2.2M</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>full</td>
 <td>gzip6</td>
 <td style="text-align: right;">19.01</td>
@@ -225,7 +225,7 @@ I investigated all possible combinations of bitpacking and compression algorithm
 <td style="text-align: right;">24.65</td>
 <td style="text-align: right;">2.8M</td>
 </tr>
-<tr class="even">
+<tr>
 <td>full</td>
 <td>snappy</td>
 <td style="text-align: right;">19.20</td>

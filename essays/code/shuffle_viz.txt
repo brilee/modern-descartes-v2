@@ -54,7 +54,7 @@ Let's start with the simplest shuffle. We'll start with a dataset and stream it 
 <tr><th colspan="7">Buffer size ratio </th></tr>
 <tr>
 <th rowspan="4"># data</td>
-<td />
+<th />
 <th>0</th>
 <th>0.01</th>
 <th>0.1</th>
@@ -104,7 +104,7 @@ The next thought I had was whether you could do any better by chaining multiple 
 <tr><th colspan="5"># chained shufflers </th></tr>
 <tr>
 <th rowspan="5">buffer size</td>
-<td />
+<th />
 <th>1</th>
 <th>2</th>
 <th>4</th>
@@ -151,7 +151,7 @@ It seems, then, that we need some way to create large-scale movement of data. Th
 <tr><th colspan="6">number of shards </th></tr>
 <tr>
 <th rowspan="5">buffer size</td>
-<td />
+<th />
 <th>1</th>
 <th>2</th>
 <th>4</th>
@@ -204,7 +204,7 @@ The following table has 1, 2, 4, 8 shards, with 1, 2, 4, 8 of those shards being
 <tr><th colspan="6">shards read in parallel </th></tr>
 <tr>
 <th rowspan="5"># shards</td>
-<td />
+<th />
 <th>1</th>
 <th>2</th>
 <th>4</th>
@@ -251,7 +251,7 @@ Next, I tried jittering the shard sizes to try and fix the shard boundary issue.
 <tr><th colspan="6">shards read in parallel </th></tr>
 <tr>
 <th rowspan="5"># shards</td>
-<td />
+<th />
 <th>1</th>
 <th>2</th>
 <th>4</th>
@@ -300,7 +300,7 @@ Here's what two-stage shuffling looks like. Each stage is shuffled with the same
 <tr><th colspan="6">shards read in parallel </th></tr>
 <tr>
 <th rowspan="5"># shards</td>
-<td />
+<th />
 <th>1</th>
 <th>2</th>
 <th>4</th>

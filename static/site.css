@@ -1,0 +1,205 @@
+
+:root {
+  --background-color: #fff;
+  --subtle-emphasis-color: #eee;
+  --text-color: #000;
+  --table-header: #ccc;
+  --link-color: #33e;
+  --link-visited-color: #528;
+  --hljs-keyword: #d73a49;
+  --hljs-entity: #6f42c1;
+  --hljs-constant: #005cc5;
+  --hljs-string: #032f62;
+  --hljs-variable: #e36209;
+  --hljs-comment: #6a737d;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #222;
+    --subtle-emphasis-color: #333;
+    --text-color: #ccc;
+    --table-header: #555;
+    --link-color: #66f;
+    --link-visited-color: #85a;
+    --hljs-keyword: #ff7b72;
+    --hljs-entity: #d2a8ff;
+    --hljs-constant: #79c0ff;
+    --hljs-string: #a5d6ff;
+    --hljs-variable: #ffa657;
+    --hljs-comment: #8b949e;
+    }
+}
+
+body {
+    font-family: sans-serif;
+    color: var(--text-color);
+    background-color: var(--background-color);
+
+}
+
+a {
+  color: var(--link-color);
+}
+
+a:visited {
+  color: var(--link-visited-color);
+}
+
+#header {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 768px;
+}
+
+
+#header ul {
+  display: inline-block;
+  *display: inline;
+  vertical-align: middle;
+  padding: 0px;
+  margin: 0px;
+}
+
+#header li {
+  display:inline-block;
+  *display:inline;
+  vertical-align:middle;
+}
+
+#header a {
+  display: block;
+  line-height: 1.5em;
+  text-decoration: none;
+  padding: 5px 20px;
+}
+
+#header a:hover,
+#header a:focus {
+  background: var(--subtle-emphasis-color);
+}
+
+#header a, 
+#header a:visited,
+#header a:hover,
+#header a:active {
+  color: currentColor;  /* Remove default link coloring */
+  text-decoration: none;  /* Remove the underline */
+}
+
+#content {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: 100px;
+    max-width: 768px;
+    line-height: 1.5;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  empty-cells: show;
+}
+
+table.striped thead {
+  background-color: var(--table-header);
+}
+
+table.striped td,
+table.striped th {
+  padding: .4em .4em;
+  border-left: 1px solid #888;
+}
+
+table.striped td:first-child,
+table.striped th:first-child {
+  border-left-width: 0;
+}
+
+table.striped th, 
+table.striped th:empty {
+border-bottom: 1px solid #888;
+}
+
+table.striped tbody tr:nth-child(even) {
+  background-color: var(--background-color); 
+}
+table.striped tbody tr:nth-child(odd) {
+  background-color: var(--subtle-emphasis-color);
+}
+
+pre {
+    margin-left: 2em;
+}
+
+/* styles for section headers (they're permalinks but we don't want them to look like links) */
+a.heading-link {
+  color: unset;
+  text-decoration: none;
+}
+
+a.heading-link:hover {
+  text-decoration: underline;
+}
+
+/* styles for code highlighting (GitHub / GitHub Dark) */
+
+.hljs {
+  display: block;
+  background: var(--background-color);
+  padding: 0.5em;
+  color: var(--text-color);
+  overflow-x: auto;
+}
+
+
+ .hljs-doctag,
+ .hljs-keyword,
+ .hljs-meta .hljs-keyword,
+ .hljs-template-tag,
+ .hljs-template-variable,
+ .hljs-type,
+ .hljs-variable.language_ {
+   /* prettylights-syntax-keyword */
+   color: var(--hljs-keyword)
+ }
+ .hljs-title,
+ .hljs-title.class_,
+ .hljs-title.class_.inherited__,
+ .hljs-title.function_ {
+   /* prettylights-syntax-entity */
+   color: var(--hljs-entity)
+ }
+ .hljs-attr,
+ .hljs-attribute,
+ .hljs-literal,
+ .hljs-meta,
+ .hljs-number,
+ .hljs-operator,
+ .hljs-variable,
+ .hljs-selector-attr,
+ .hljs-selector-class,
+ .hljs-selector-id {
+   /* prettylights-syntax-constant */
+   color: var(--hljs-constant)
+ }
+ .hljs-regexp,
+ .hljs-string,
+ .hljs-meta .hljs-string {
+   /* prettylights-syntax-string */
+   color: var(--hljs-string)
+ }
+ .hljs-built_in,
+ .hljs-symbol {
+   /* prettylights-syntax-variable */
+   color: var(--hljs-variable)
+ }
+ .hljs-comment,
+ .hljs-code,
+ .hljs-formula {
+   /* prettylights-syntax-comment */
+   color: var(--hljs-comment)
+ }
+

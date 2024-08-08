@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="stylesheet" href="/static/pure-min.css">
-<link rel="stylesheet" href="/static/css/custom.css">
+<link rel="stylesheet" href="/static/site.css">
 <link rel="stylesheet" href="/static/katex/katex.min.css">
 <link rel="shortcut icon" type="image/png" href="/static/favicon.png"/>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,7 +14,7 @@
 
 <body>
 
-<div id="header" class="pure-menu pure-menu-open pure-menu-horizontal">
+<div id="header">
 {% block menu %}
 <ul>
     <li><a href="/">Brian Kihoon Lee</a></li>
@@ -27,8 +26,8 @@
 <div id="content">
 {% block content %}
 
-<div class="pure-g">
-    <div class="pure-u-1">
+<div>
+    <div>
 	{% block maintext %}
 	<p>Default maintext</p>
 	{% endblock maintext %}

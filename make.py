@@ -3,6 +3,7 @@ from collections import namedtuple, defaultdict
 import datetime
 import os
 import subprocess
+import time
 
 import feedgenerator
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -152,17 +153,30 @@ class RecompileEssayHandler(watchdog.events.LoggingEventHandler):
             print(f"Ignoring {essay_path}")
 
 
+
+class RecompileAssetsHandler(watchdog.events.LoggingEventHandler):
+    def dispatch(self, event):
+        asset_path = os.fsdecode(event.src_path)
+        relpath = os.path.relpath(asset_path, STATIC_DIR)
+        print('Staging', relpath)
+        staging_path = os.path.join(STAGING_DIR, STATIC_DIR, relpath)
+        subprocess.run(['cp', '-p', asset_path, staging_path])
+
 if __name__ == '__main__':
     compile_all()
     webserver = subprocess.Popen(['python', '-m', 'http.server', '8888', '-d', 'staging'])
     atexit.register(webserver.kill)
-    event_handler = RecompileEssayHandler()
-    observer = watchdog.observers.Observer()
-    observer.schedule(event_handler, ESSAY_DIR, recursive=True)
-    observer.start()
+    observer1 = watchdog.observers.Observer()
+    observer1.schedule(RecompileEssayHandler(), ESSAY_DIR, recursive=True)
+    observer1.start()
+    observer2 = watchdog.observers.Observer()
+    observer2.schedule(RecompileAssetsHandler(), STATIC_DIR, recursive=True)
+    observer2.start()
     try:
-        while observer.is_alive():
-            observer.join(1)
+        while True:
+            time.sleep(1)
     finally:
-        observer.stop()
-        observer.join()
+        observer1.stop()
+        observer2.stop()
+        observer1.join()
+        observer2.join()
