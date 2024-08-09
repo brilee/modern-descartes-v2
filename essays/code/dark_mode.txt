@@ -1,0 +1,62 @@
+This site now supports Dark Mode
+2024/8/8
+software engineering
+
+Inspired by [Charles Eckman's recent blog post](https://cceckman.com/writing/dark-mode/), I've added dark mode support to my website. This post talks about some of the implementation details, and how I used ChatGPT to teach myself enough CSS to make it to the finish line.
+
+# Colors, colors everywhere!
+
+Fundamentally, the code change is actually really easy. You replace every single color in your CSS with a CSS variable, and then declare your light mode/dark mode color scheme using a `@media` selector.
+
+```
+:root {
+  --background-color: #fff;
+  --text-color: #000;
+  /* ... more colors ... */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #222;
+    --text-color: #eee;
+    /* ... more colors ... */
+    }
+}
+
+body {
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+```
+
+The actual hard part is hunting down every single color in your site's CSS. I'd been using Pure.css as kind of a "I really do not want to think about CSS" layer, and the Pure CSS had at least 60 different colors. I could have whipped out some regex to transform it all, but instead I decided to just rip out Pure entirely. It turns out that I didn't need it at all. CSS has gotten a lot, lot better since I first did my site's CSS. Chrome's inspector tools were incredibly useful for hunting down which rule was actually responsible for something I was seeing, so I could copy over the relevant snippet from Pure.
+
+The second most annoying part is hunting down all the small things you don't normally think about, like:
+
+- the subtle highlighting effect when you hover over my site header menu
+- the blue color of a link (and the purple of a clicked link), and then trying to replicate the "feel" of those blues and purples in a dark mode context.
+- the odd-even highlighting effect of my striped data tables in places like the [Factobattery essay](/essays/factobattery/)
+
+Finally, syntax highlighting in code snippets was mildly annoying, but mostly because highlight.js is bloated and tries to support every language in existence. (No, I do not particularly care to define a color for syntax highlighting BNF grammars or verilog. You'll node that the CSS snippet above isn't syntax highlighted correctly, and that's because I have better things to do.)
+
+KaTeX compiled output turned out to be a non-issue - it just inherits the color/background color of normal text. I also did not attempt to invert any image colors; you're just going to have to deal with blocks of color in images.
+
+Finally, I did this dark mode writeup... well, in the dark, so I could actually see how my colors looked when my laptop monitor was turned down to its lowest setting, in a dark room.
+
+# ChatGPT, CSS Tutor
+
+I do not think I would have had the [spoons](https://en.wikipedia.org/wiki/Spoon_theory) to make it through this dark mode project if I did not have ChatGPT to act as a tutor. What could have been 30 minutes of head-banging turned into a 1 minute read through ChatGPT's explanation of how `table.striped th` differed from `table .striped th`. Other questions I asked ChatGPT, for which it gave me nearly perfect answers:
+
+- how would I use css to reset the styling on an \<a\> link element? I want it to look black, no underline like normal text
+- (after getting back an answer recommending setting color: black) is the default text color actually black or is there some "unset" color that I should be using?
+- how do I write css to make alternating table rows gray / white?
+- how can I use python watchdog to monitor a directory and do something to any changed files? 
+- is there a way to have two observers watching different directories? how would I have to change the `if __main__` section to wait on both observers?
+- How would I concisely express these two CSS rules as one combo rule? table .striped td, table .striped th
+- why doesn't it work to do table .striped td, th
+- what is the selector for a \<th\> element nested under a \<table class="striped"\>? (here's where I finally figured out what noob mistake I was making.)
+- does it matter if there's a space between table and .striped
+
+Of these questions, "python watchdog" and "alternating table rows gray/white" is one that would have been easily answerable by Google. Even then, I only asked the basic python watchdog question so that I could set up the context to add my followup question. ChatGPT's ability to answer very specific clarifying questions in the context of previous Q/A pairs is just such a transformative experience. Can you imagine trying to ask Google "does it matter if there's a space between table and .striped"? No need to imagine, just ask Google. Absolutely useless.
+
+I've been increasingly working this way with ChatGPT and there is very much an educational revolution just waiting to happen here.

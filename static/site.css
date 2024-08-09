@@ -17,11 +17,11 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --background-color: #222;
-    --subtle-emphasis-color: #333;
-    --text-color: #ccc;
-    --table-header: #555;
-    --link-color: #66f;
-    --link-visited-color: #85a;
+    --subtle-emphasis-color: #444;
+    --text-color: #eee;
+    --table-header: #666;
+    --link-color: #7cf;
+    --link-visited-color: #c7f;
     --hljs-keyword: #ff7b72;
     --hljs-entity: #d2a8ff;
     --hljs-constant: #79c0ff;
