@@ -3,17 +3,14 @@
 This is a static site generator that compiles a set of markdown files, generates HTML, and then uses firebase to serve content.
 
 # Instructions to myself
-```
-python3 -m venv .
-source bin/activate
-pip install -r requirements.txt
-```
+
+[Install uv](https://docs.astral.sh/uv)
 
 [Install pandoc](https://pandoc.org/installing.html)
 
 # How to compile/deploy
 ```
-python3 make.py
+uv run make.py
 firebase logout && firebase login
 firebase deploy
 ```

@@ -1,0 +1,11 @@
+[project]
+name = "modern-descartes-v2"
+version = "0.1.0"
+description = "Static site compiler for www.moderndescartes.com"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "feedgenerator>=2.1.0",
+    "jinja2>=3.1.4",
+    "watchdog>=5.0.3",
+]
