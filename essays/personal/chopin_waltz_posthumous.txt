@@ -1,0 +1,15 @@
+Score of Chopin's Waltz in A minor (2024)
+2024/10/27
+music
+
+As reported in the [New York Times](https://www.nytimes.com/2024/10/27/arts/music/chopin-waltz-discovery.html), a Waltz by Chopin, discovered posthumously in 2024, transcribed by yours truly from the [raw scan](https://www.themorgan.org/sites/default/files/images/music/pages/452191/452191v_0001.jpg) and [Lang-Lang's performance](https://vp.nyt.com/video/2024/10/15/127974_1_chopin-find-35399_wg_1080p.mp4).
+
+[Download sheet music PDF](/static/chopin_waltz_posthumous2024.pdf)
+
+# Editor's notes
+
+Very, very obviously a Chopin Waltz. The chord choices, usage of triplets/mordants, and the suspended pedal tones is characteristic. It's a mix of [Prelude Op 28 no 11](https://www.youtube.com/watch?v=si5aT6FDPZ0)'s ephemeral brilliance and [Waltz Op 34 no. 2](https://www.youtube.com/watch?v=PGdpRmL2XUc)'s lilting, moody style.
+
+My "edition" is not an [urtext](https://en.wikipedia.org/wiki/Urtext_edition). I added some phrasing where I thought it was obvious and perhaps went missing over the ages from the raw scan. The ornamentation in measure 20 was probably modified by Lang-Lang, but I think it fits the piece better than a plain mordant, so I notated it as played.
+
+If I were to judge based purely on the music - minus all of the contextual clues like paper, ink, backstory - the probability of it being fake is ~10%. I say this only because it is shockingly similar to 34-2 in harmonic and stylistic elements, which is exactly the kind of thing an AI trained on a not-big-enough dataset would do. While AI utterly fails at longer pieces, it could plausibly render a coherent 24-measure piece in the style of Chopin, and DeepMind could plausibly be working in stealth on a really good music-composition AI. But in the end, the piece is too tightly composed, and I trust NYT's decision to trust the historians who are familiar with evaluating such artifacts.
