@@ -1,10 +1,12 @@
 Learn Perfect Pitch in 15 years
 2024/11/25
-music,personal
+music,personal,popular
 
 I learned perfect pitch as an adult.
 
 It was not easy or quick, and there were so many qualifiers that, for over a decade, I didn't really think I "deserved" the label. But as I got older, those qualifiers started dropping off one by one, and today I'm convinced that I have perfect pitch. I describe my musical journey and thoughts on what perfect pitch "is".
+
+_Addendum_: This post spawned a lot of discussion on [Hacker News](https://news.ycombinator.com/item?id=42250701) and quite a few people resonated (hah) with my description of "childhood perfect pitch, but weirdly, only for one instrument". If this sounds like you, perhaps you too, can learn perfect pitch in 15 years :)
 
 # Popular perception of perfect pitch
 
