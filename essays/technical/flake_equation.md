@@ -1,6 +1,6 @@
 The Tyranny of the Flake Equation
 2024/6/11
-software engineering,statistics
+software engineering,statistics,llms,popular
 
 I once worked with an algorithm whose runtime scaled roughly linearly with the number of rows of data. To date, the largest job we'd ever attempted had taken a few hours. One day, we tried to run a job that was only four times as large as our previous largest job. We figured we'd just leave it running for a day and it would be complete. Instead, due to frequent job preemption and other flakiness, the job took almost two weeks to complete! Each time, the easiest path forward was to restart and pray for good luck. I joked that we'd somehow discovered an algorithm with exponential runtime.
 

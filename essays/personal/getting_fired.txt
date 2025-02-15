@@ -1,8 +1,8 @@
-I was fired from HubSpot in 2016
+Getting fired and surviving
 2022/12/30
 personal,software engineering
 
-There, I said it.
+In 2016, I got fired from my job at HubSpot.
 
 When it happened, I was embarassed. I felt like it'd been my fault and that I was deficient somehow. I didn't tell anyone why I'd actually left HubSpot for a year, and it took a few more years for me to speak candidly about it with coworkers. 
 
@@ -58,6 +58,6 @@ In retrospect, getting fired was probably the best thing that could have happene
 
 My work situation at HubSpot was tremendously morale and energy draining, and I'm grateful that somebody told me, "It's over. Stop fighting." I'm not sure I would have been able to extricate myself from that situation otherwise.Afterwards, I had the mental space to sincerely consider what I wanted to do next. That's how I got [started on machine learning](/essays/my_ml_path) and (spoiler alert) ended up as a tech lead at Google Brain.
 
-Like some cheesy movie epilogue, I ended up running into someone from HubSpot's ML division at NeurIPS 2019, and heard that my old manager was now working in ML. Seeing what could have been, I'm doubly glad I was fired!
+Like some cheesy movie epilogue, I ended up running into someone from HubSpot's ML group at NeurIPS 2019, and heard that my old manager had transferred into that group. Seeing what could have been, I'm doubly glad I was fired!
 
 The year I spent teaching myself ML and building a Go AI remains one of the most fulfilling years of my life. If you find yourself in a similar situation, I highly recommend the [Recurse Center](https://www.recurse.com/) as a place to pursue that project you've always wanted to work on.

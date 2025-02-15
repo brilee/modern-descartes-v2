@@ -29,7 +29,12 @@
     --hljs-variable: #ffa657;
     --hljs-comment: #8b949e;
     font-size: large;
-    }
+    font-weight: lighter;
+  }
+
+  h1,h2,h3,h4 {
+    font-weight: normal
+  }
 }
 
 body {
