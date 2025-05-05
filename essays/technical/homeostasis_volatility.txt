@@ -6,7 +6,7 @@ Nature is remarkably resilient to a wide range of environmental conditions. One 
 
 Homeostasis is a strategy that works well as long as the volatility doesn't exceed the system's response capacity. This capacity is typically designed or evolved (in Nature) in response to some historical range of experience. Levees might be designed to withstand a hundred year flood; supply chains build stockpiles to buffer monthly fluctuations in supply and demand. But what happens when a system's response capacity is overwhelmed?
 
-In this essay, I'll talk about some of Nature's homeostatic systems, response to extinction-level events, and the parallels in humanity's response to COVID-19. Understanding these natural adaptation strategies helps us better respond to future crises.
+In this essay, I'll talk about some of Nature's homeostatic systems, response to extinction-level events, and the parallels in humanity's response to COVID-19. Understanding these natural adaptation strategies will help us better respond to future crises.
 
 # Trees and Climatological Homeostasis
 
@@ -49,6 +49,7 @@ This is somewhat of an evolutionary magic trick. How does evolution favor the pr
 The answer is robustness to environmental volatility. Imagine a population of bacteria, some individuals with a working mutagenesis gene, some without. When environmental shifts occur, a large fraction of individuals begin to die out - both those with and without the gene. If the environmental shift persists long enough, the individuals without a mutagenesis gene die out completely, but the individuals with a working mutagenesis gene will have adapted, surviving to reestablish the population.
 
 The U.K. and U.S. responses to COVID-19 are a demonstration of cultural mutagenesis (or lack thereof). The U.K. has demonstrated itself capable of rapidly adopting strategies like [first doses first](https://www.technologyreview.com/2021/03/02/1020169/should-the-us-start-prioritizing-first-vaccine-doses-to-beat-the-variants/), while the U.S. sticks with the boring but suboptimal two-dose strategy. Of course, mutagenesis can also generate suboptimal strategies, like the U.K.'s initial embrace of the "cocoon strategy", in which the elderly and vulnerable were encouraged to cocoon while the rest of society was encouraged to carry on in their path to herd immunity. Still, I think the U.K.'s ability to try unconventional strategies bodes well for its future success as a country.
+
 
 # A plea for cultural acceptance
 

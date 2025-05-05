@@ -2,7 +2,7 @@ From GnuGo to AlphaGo Zero: A Roadmap for Solving Difficult Problems
 2025/4/14
 alphago,machine_learning,strategy
 
-What do difficult problems like digital assistants, self-driving cars, theorem-proving systems, and compilers have in common? They all have a certain level of fuzziness in their problem specification and a large solution space that makes it incredibly difficult to find optimal solutions.
+What do difficult problems like digital assistants, self-driving cars, theorem-proving systems, robotics, and compilers have in common? They all have a certain level of fuzziness in their problem specification and a large solution space that makes it incredibly difficult to find optimal solutions.
 
 As it turns out, the game of Go is difficult in many of the same ways, and has proven to be a fertile testbed for artificial intelligence techniques. Computer Go researchers have gone through many iterations, and the ways in which each iteration fell short are instructive to understand. In this essay, I review four distinct eras of computer Go, and draw a roadmap for how to tackle difficult problems.
 
