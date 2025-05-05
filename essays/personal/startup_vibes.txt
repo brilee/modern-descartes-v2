@@ -1,5 +1,5 @@
 Leaving Databricks to Build an LLM-First Company
-2025/4/30
+2025/5/5
 personal,llms,strategy
 
 A year ago, Databricks acquired Lilac, the startup where I had been first engineer. I thought there might be some years of stability after [two years of tumult](/essays/new_mountains), but strangely enough, I found myself longing for the startup days at Lilac. I'd only been at Lilac for six months, and we were acquired pre-seed -- a very early stage to be acquired -- and felt like I'd missed out on some part of the journey. So I'm leaving to do a startup. This time, though - I'm putting myself in the driver's seat as the founder, rather than as an employee.
@@ -26,7 +26,7 @@ Over the next 3-6 months, I'm going to prototype, release, and see if I can find
 
 Finding a profitable LLM-wrapper niche is my primary goal. Along the way, I hope to explore LLM augmentation and delegation patterns - most obviously in coding, but also in functions like marketing, sales, support, and management. For example, I'm tinkering around with a startup advisory board consisting of LLMs, to which I will submit weekly progress updates for feedback, mentorship, and new ideas. I'm heavily inspired by Manfred's glasses from the now nearly 20-year old [Accelerando](https://www.antipope.org/charlie/blog-static/fiction/accelerando/accelerando-intro.html).
 
-Even if I fail at building a company, I anticipate that what I learn about LLM-first companies will prepare me well for the coming decade. The world is more fragile today, and nobody is safe from change. An essay I wrote about [homeostasis and volatility](http://localhost:8888/essays/homeostasis_volatility/) four years ago now feels oddly prescient. In that essay, I mention stress-induced mutagenesis as an adaptation to volatile times. Success requires embracing risk, not just adapting to changes.
+Even if I fail at building a company, I anticipate that what I learn about LLM-first companies will prepare me well for the coming decade. The world is more fragile today, and nobody is safe from change. An essay I wrote about [homeostasis and volatility](/essays/homeostasis_volatility/) four years ago now feels oddly prescient. In that essay, I mention stress-induced mutagenesis as an adaptation to volatile times. Success requires embracing risk, not just adapting to changes.
 
 # Stay in touch
 
