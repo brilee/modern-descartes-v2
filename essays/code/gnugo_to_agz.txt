@@ -2,7 +2,7 @@ From GnuGo to AlphaGo Zero: A Roadmap for Solving Difficult Problems
 2025/4/14
 alphago,machine_learning,strategy
 
-What do difficult problems like digital assistants, self-driving cars, theorem-proving systems, robotics, and compilers have in common? They all have a certain level of fuzziness in their problem specification and a large solution space that makes it incredibly difficult to find optimal solutions.
+What do difficult problems like LLM agents, digital assistants, self-driving cars, theorem-proving systems, robotics, and compilers have in common? They all have a certain level of fuzziness in their problem specification and a large solution space that makes it incredibly difficult to find optimal solutions.
 
 As it turns out, the game of Go is difficult in many of the same ways, and has proven to be a fertile testbed for artificial intelligence techniques. Computer Go researchers have gone through many iterations, and the ways in which each iteration fell short are instructive to understand. In this essay, I review four distinct eras of computer Go, and draw a roadmap for how to tackle difficult problems.
 
@@ -79,8 +79,8 @@ See also: [Minigo](https://openreview.net/forum?id=H1eerhIpLV), [LeelaZero](http
 
 Recall that when DeepMind trained neural networks on human professional data, those neural networks had a distillation gap - the raw neural network couldn't play as well as the humans it trained from. They then recovered that gap through additional compute and tree search techniques. Researchers at DeepMind would work on three primary directions:
 
-- (tick) neural architecture/training innovations that minimized the distillation gap from data -> neural network.
-- (tock) tree search innovations that maximized the strength uplift per search iteration.
+- (tick) neural architecture and optimizer innovations that minimized the training distillation gap from data -> neural network.
+- (tock) tree search innovations that maximized the strength uplift per inference-time search iteration.
 - (clock) optimization of macro parameters such as self-play/training compute ratio, training lookback windows, explore/exploit balance, and data quality maximization through early resignation.
 
 The first two of these three directions are doable in isolation: one does not need to run the full reinforcement learning loop in order to optimize the individual steps. In fact, you can think of DeepMind's original AlphaGo as a single manually executed tick/tock cycle. An intermediate version of AlphaGo called [AlphaGo Master](https://en.wikipedia.org/wiki/Master_(software)) was the result of several more manual tick/tock cycles. Once this reinforcement learning loop was ironed out and optimized, it became so robust that AlphaGo Zero was able to bootstrap itself from completely random play, not even needing human professional data. AlphaGo Zero's policy network (with no search) plays at the 99%ile of human players, and the full system is probably 1000+ Elo points stronger than any human.
@@ -92,7 +92,7 @@ If we compress 30 years of Computer Go into a roadmap, it would look like the fo
 - Start with brute-force search, guided by some hand-encoded heuristics.
 - Replace with smarter search and machine-learned heuristics.
 - Optimize the tick-tock cycle of better search and better machine learned heuristics.
-- Fully automate the tick-tock steps as a reinforcement learning.
+- Fully automate the tick-tock steps as a reinforcement learning pipeline.
 
 Put this way, it seems pretty obvious, right? But there are many ways to screw this up.
 
@@ -109,15 +109,15 @@ When I look at the GnuGo codebase from a modern machine learning lens, this effo
 3. in the long run it plateaus and even inhibits further progress, and
 4. breakthrough progress eventually arrives by an opposing approach based on scaling computation by search and learning.
 
-I offer another point: that these stages happen over the span of a decade or so. Over this decade, PhDs are minted, career identities built,  promotion criteria set, and organizational culture annealed. Much in the way that science progresses one funeral at a time, progress on difficult problems progresses one company/project/organizational shutdown at a time.
+I offer another point: that these stages happen over the span of a decade or so. Over this decade, PhDs are minted, career identities built,  promotion criteria set, culture defined, and org charts annealed. Much in the way that science progresses one funeral at a time, progress on difficult problems progresses one organization shutdown at a time.
 
 ## Jumping straight to Reinforcement Learning
 
 The last stage, reinforcement learning, is so powerful and tempting, yet incredibly hard to get right. If you ever take a class on RL theory, you might think that RL can only be done by theory geniuses who understand inscrutable math equations - just skim through [Barto and Sutton's textbook](http://www.incompleteideas.net/book/RLbook2020.pdf) for a taste of this. The set of people who graduate with PhDs in RL don't help this picture, either - the math is indeed so hard that students don't have time to gain experience with such mundanities as building a working RL system.
 
-In practice, jumping straight to RL is like pouring rocket fuel into your car's gas tank and expecting it to magically work. All of your car's systems are designed for a certain amount of engine power, requiring a certain amount of cooling capacity, delivering a certain amount of power through the drivetrain, and designed around the limitations of physics and human biology. The result isn't a supercar, but a car that randomly explodes on the test track, and veers uncontrollably off-course. See [Alex Irpan's compilation of RL failures](https://www.alexirpan.com/2018/02/14/rl-hard.html) for countless examples of RL PhDs adding rocket fuel to cars.
+In practice, jumping straight to RL is like pouring rocket fuel into your car's gas tank and expecting it to magically work. All of your car's systems are designed for a certain amount of engine power, requiring a certain amount of cooling capacity, delivering a certain amount of power through the drivetrain, and designed around the laws of physics and human response times. The result isn't a supercar, but a car that randomly explodes on the test track, and veers uncontrollably off-course. See [Alex Irpan's compilation of RL failures](https://www.alexirpan.com/2018/02/14/rl-hard.html) for countless examples of RL PhDs adding rocket fuel to cars.
 
-Unfortunately, the only way to build a really fast car is to start with a slow car and work your way up, figuring out what breaks at each stage of scaleup. Looking back at the time I [replicated AlphaGo Zero](https://openreview.net/forum?id=H1eerhIpLV), I'm most surprised at how much effort went into building monitoring systems and inspection tools, to understand when and how our system was broken. We introduced and fixed countless bugs related to edge cases in endgame scoring, in tree search, incomplete shuffling, random noise injection, and MCTS parameter selection.
+Unfortunately, the only way to build a really fast car is to start with a slow car and work your way up, figuring out what breaks at each stage of scaleup. Looking back at the time I [replicated AlphaGo Zero](https://openreview.net/forum?id=H1eerhIpLV), I'm most surprised at how much effort went into building monitoring systems and inspection tools, to understand when and how our system was broken. We introduced, identified, and fixed countless bugs related to edge cases in endgame scoring, in tree search, incomplete shuffling, random noise injection, and MCTS parameter selection.
 
 Successful applications of RL are far more mundane than the theory suggests: a focus on the basic tick-tock cycle of search and deep learning, combined with a strong emphasis on developing correct objective functions and supporting infrastructure, like monitoring and inspection tools.
 
