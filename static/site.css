@@ -157,7 +157,7 @@ a.heading-link:hover {
   background: var(--background-color);
   padding: 0.5em;
   color: var(--text-color);
-  overflow-x: auto;
+  overflow-x: overflow;
 }
 
 
