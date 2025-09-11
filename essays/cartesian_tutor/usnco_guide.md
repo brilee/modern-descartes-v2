@@ -1,6 +1,6 @@
 How to study for the USNCO Chemistry Olympiads
 2025/8/29
-cartesian_tutor,chemistry
+cartesian tutor,chemistry
 
 In 2006 and 2007, I competed in the USNCO, making it to the Study Camp in 2006 (my junior year in high school) and then to the IChO in 2007, winning a silver medal in Moscow, Russia. Afterwards, I majored in Chemistry at MIT and mentored students at the Study Camp from 2010-2012. In 2013-15, I wrote the majority of the [ChemWOOT](https://artofproblemsolving.com/school/course/woot-chem) course, which I credit for the massive difficulty bump that happened in 2017 at the USNCO National level.
 

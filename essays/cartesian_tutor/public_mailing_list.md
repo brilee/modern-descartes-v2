@@ -1,6 +1,6 @@
 Making my startup weekly updates public
 2025/7/14
-cartesian_tutor,personal
+cartesian tutor,personal
 
 In my [startup announcement](/essays/startup_vibes/) I alluded to a private mailing list. That's been going quite well and I find the weekly posting cadence to be a great way to stay accountable, take stock of my current situation, and plan out the next week of work. These weekly updates have also generated a decent amount of conversation and fortuitous connections.
 

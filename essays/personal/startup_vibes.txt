@@ -1,6 +1,6 @@
 Leaving Databricks to Build an LLM-First Company
 2025/5/5
-personal,llms,strategy,cartesian_tutor
+personal,llms,strategy,cartesian tutor
 
 A year ago, Databricks acquired Lilac, the startup where I had been first engineer. I thought there might be some years of stability after [two years of tumult](/essays/new_mountains), but strangely enough, I found myself longing for the startup days at Lilac. I'd only been at Lilac for six months, and we were acquired pre-seed -- a very early stage to be acquired -- and felt like I'd missed out on some part of the journey. So I'm leaving to do a startup. This time, though - I'm putting myself in the driver's seat as the founder, rather than as an employee.
 

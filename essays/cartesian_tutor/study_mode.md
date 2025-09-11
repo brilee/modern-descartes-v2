@@ -1,6 +1,6 @@
 What ChatGPT Study Mode gets right and wrong
 2025/7/29
-cartesian_tutor,llms
+cartesian tutor,llms
 
 # Introduction
 

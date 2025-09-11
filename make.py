@@ -131,6 +131,8 @@ def compile_all():
     essays_by_tag = defaultdict(list)
     for essay in essays_sorted:
         for tag in essay.tags:
+            if "_" in tag:
+                print("WARNING: tag {} in {} should use a space, not underscore".format(tag, essay.title))
             essays_by_tag[tag].append(essay)
     compile_and_write_html('essay_index.html', 'essays/index.html',
         essays_sorted=essays_sorted, tags=essays_by_tag)
