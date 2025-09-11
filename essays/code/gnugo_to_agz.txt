@@ -1,6 +1,6 @@
 From GnuGo to AlphaGo Zero: A Roadmap for Solving Difficult Problems
 2025/4/14
-alphago,machine_learning,strategy
+alphago,machine learning,strategy
 
 What do difficult problems like LLM agents, digital assistants, self-driving cars, theorem-proving systems, robotics, and compilers have in common? They all have a certain level of fuzziness in their problem specification and a large solution space that makes it incredibly difficult to find optimal solutions.
 

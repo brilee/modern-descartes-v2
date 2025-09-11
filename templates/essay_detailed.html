@@ -33,9 +33,8 @@
 
 {% block maintext %}
 <h1>{{essay.title|safe}} </h1>
-<p> Originally posted {{essay.date}}</p>
+<p> {{essay.date}}</p>
 <p> Tagged: {{macros.tag_link_list(ESSAY_WEBDIR, essay.tags)}}</p>
-<p> <em>Obligatory disclaimer: all opinions are mine and not of my employer </em></p>
 <hr />
 
 {{essay.content|safe}}
