@@ -1,6 +1,6 @@
 LLM Shibboleths determine AI effectiveness
 2025/5/28
-llms,software engineering
+llms,software engineering,popular
 
 Coding assistants promise to revolutionize software development, but why do some developers sing praises while others find them useless? The answer lies between the keyboard and the chair, but it's more than just simple user error. Your level of expertise silently shapes the way you interact with the AI, allowing two people to have completely different experiences despite interacting with the same AI on the same subject.
 

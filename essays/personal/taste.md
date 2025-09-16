@@ -1,6 +1,6 @@
 Taste
 2025/9/12
-personal
+personal,popular
 
 A meditation on humanity's last edge over AI.
 
