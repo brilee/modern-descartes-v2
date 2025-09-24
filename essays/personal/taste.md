@@ -102,4 +102,4 @@ As individuals, how can we refine our tastes? Some general advice:
 
 # Conclusion
 
-Having dissected the phenomenon of _taste_ along many dimensions, I think it's appropriate to ask: what remains? The answer is left as an exercise to the tasteful reader.
+Having dissected the phenomenon of _taste_ along many dimensions, I think it's appropriate to ask: what remains? The answer is left as an exercise to the tasteful reader. ([You can find my answers here](/essays/9_16_2025/#taste).)
