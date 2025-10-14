@@ -60,9 +60,11 @@ Your codebase will be most greppable when each concept has a distinct, consisten
 
 ## Set up frameworks for success.
 
-AI is very good at following existing patterns in your codebase. I'd been using Svelte 5/Sveltekit for my frontend code. I felt like perhaps I'd made a mistake, as everybody was talking about how React/Next would become the LLM frontend dialect/framework of choice. And yes, the first month was indeed painful, because neither I nor the LLM knew how to write Svelte 5 code.
+AI is very good at following existing patterns in your codebase.
 
-But over the first 2-3 months, I learned frontend; I thought about how I wanted my frontend code structured, and spent a lot of time figuring out how to handwrite a few components/data stores in the way I wanted to organize the codebase. Since then, I have basically vibecoded every single frontend feature, and I really do mean vibecode -- I barely glance at the svelte code before checking it in and deploying it. Every so often I double-check the code to make sure it looks roughly correct, and other than the [unnecessary try-catch blocks that LLMs can't stop writing](https://x.com/karpathy/status/1976077806443569355), the AI basically wrote the code that I would have written myself.
+I've been using Svelte 5/Sveltekit for my startup's frontend code. The first month was painful, because neither I nor the LLM knew how to write Svelte 5 code. Everyone else was talking about how React/Next would become the LLM frontend dialect/framework of choice, and I wondered if I should switch over. But over the next 2 months, I learned frontend; I thought about how I wanted my frontend code structured, and spent a lot of time figuring out how to handwrite a few components/data stores in the way I wanted to organize the codebase. Claude can then look at these files for inspiration/templates for how to design new components and data stores. (I also rely heavily on OpenAPI codegen for client code, and Claude also knows this.)
+
+Since then, I have basically vibecoded every single frontend feature, and I really do mean vibecode -- I barely glance at the svelte code before checking it in and deploying it. Every so often I double-check the code to make sure it looks roughly correct, and other than the [unnecessary try-catch blocks that LLMs can't stop writing](https://x.com/karpathy/status/1976077806443569355), the AI basically wrote the code that I would have written myself.
 
 Now, this has led to a number of hilarious failures, which I have progressively introduced more structure/frameworks to fix.
 
