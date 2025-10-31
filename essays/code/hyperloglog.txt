@@ -1,6 +1,6 @@
 Using Linear Counting, LogLog, and HyperLogLog to Estimate Cardinality
 2016/12/4
-computer science,statistics
+software engineering,math
 
 Introduction
 ------------

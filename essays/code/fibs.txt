@@ -1,6 +1,6 @@
 Fibs
 2014/3/7
-software engineering,computer science,python
+software engineering
 
 Recently, I've been addicted to the game [Threes](http://asherv.com/threes/). Go check it out; the gameplay is rather simple, so I won't bother reexplaining it here. 
 

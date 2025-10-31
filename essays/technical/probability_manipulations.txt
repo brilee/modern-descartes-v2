@@ -1,6 +1,6 @@
 Manipulating Probability Distribution Functions
 2017/1/20
-math,statistics
+math
 
 Introduction
 ------------

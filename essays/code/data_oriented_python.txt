@@ -1,6 +1,6 @@
 Data-oriented Programming in Python
 2020/9/13
-software engineering,computer science,python,popular
+software engineering,popular
 
 Many users of Python deprioritize performance in favor of soft benefits like ergonomics, business value, and simplicity. Users who prioritize performance typically end up on faster compiled languages like C++ or Java.
 

@@ -1,11 +1,11 @@
 Estimating the Birthday Paradox Cutoff
 2016/11/6
-statistics
+math
 
 Introduction
 ------------
 
-The Birthday Paradox states that in a room of 23 people, it is more likely than not that two people have the same birthday. It is a "paradox" because 23 is (unexpectedly) much smaller than 365, the range of possible birthdays. The birthday paradox shows up in many places in computer science, so it's not just a fun fact.
+The Birthday Paradox states that in a room of 23 people, it is more likely than not that two people have the same birthday. It is a "paradox" because 23 is (unexpectedly) much smaller than 365, the range of possible birthdays. The birthday paradox shows up in many places in software engineering, so it's not just a fun fact.
 
 In this essay I'll talk about how to estimate this cutoff point for arbitrary ranges, and for arbitrary probabilities.
 

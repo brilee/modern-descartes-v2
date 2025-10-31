@@ -2,7 +2,7 @@ Better ways to name your utils module
 2023/9/6
 software engineering
 
-As the joke goes, the two hardest problems in computer science are 1) cache invalidation and 2) naming. Like all good jokes, there's a kernel of truth in there. Naming is poetry; the perfect name has both precise meaning but also precise connotation. Naming is also mathematics; the judicious choice of which concepts deserve a name can trivialize a problem. In software engineering terms, good naming is equivalent to good factoring of the problem domain into the right abstractions and APIs.
+As the joke goes, the two hardest problems in computer science are 1) cache invalidation and 2) naming. Like all good jokes, there's a kernel of truth in there. Naming is poetry; the perfect name has both precise meaning but also precise connotation. Naming is also mathematics; the judicious choice of which concepts deserve a name can trivialize a problem. In computer science terms, good naming is equivalent to good factoring of the problem domain into the right abstractions and APIs.
 
 A utils.py module is a failure of naming. Let's talk about ways we can improve the situation.
 

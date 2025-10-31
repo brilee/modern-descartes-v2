@@ -1,6 +1,6 @@
 How to shuffle in TensorFlow
 2018/4/4
-computer science,machine learning,popular
+software engineering,machine learning,popular
 
 # Introduction
 

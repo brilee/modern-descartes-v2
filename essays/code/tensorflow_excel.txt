@@ -1,6 +1,6 @@
 What's a TensorFlow?
 2016/6/7
-computer science,machine learning
+software engineering,machine learning
 
 TensorFlow is an open-source library from Google for numerical computation. Its intended application is in neural networks, but in fact it's quite more general than that.
 

@@ -1,6 +1,6 @@
 Strategies and Tactics for working with Coding Agents
 2025/10/12
-llms,software engineering,cartesian tutor
+llms,software engineering,popular
 
 For the last 6 months, I've been building an AI-powered tutor for teaching advanced chemistry. The codebase is roughly 98% AI-generated, but 98% is a highly misleading number. Yes, it's true that if you look at the authorship by lines of code, Claude wrote 98%. But there has been so much human intervention that it would be more accurate to say that my codebase is 250% AI-generated, with my contribution totalling +2%/-152%.
 

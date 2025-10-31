@@ -1,6 +1,6 @@
 How to Detect Edges using ConvNets
 2016/9/2
-computer science,machine learning,alphago
+software engineering,machine learning,alphago
 
 Convolutional neural networks (CNNs) are great for processing inputs having spatial structure - for example, images, where the input at pixel (17, 17) is closely related to the input at pixel (17, 18). CNNs work by taking a small detection region (for example, a 5 x 5 square), and scanning (convolving) that detector region over the entire image. The same detector is applied to the whole image, and so, a feature can be detected regardless of whether it appears in the center of the image, or the upper left corner of the image.
 
