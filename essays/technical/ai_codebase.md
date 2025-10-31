@@ -1,8 +1,8 @@
-This Codebase is 250% AI-Generated
+Strategies and Tactics for working with Coding Agents
 2025/10/12
 llms,software engineering,cartesian tutor
 
-For the last 6 months, I've been building an AI-powered tutor for teaching advanced chemistry. The codebase is roughly 98% AI-generated, but 98% is a highly misleading number. Yes, it's true that if you look at the authorship by lines of code, Claude wrote 98%. But there has been so much human intervention that it would be more accurate to say that my codebase is 250% AI-generated.
+For the last 6 months, I've been building an AI-powered tutor for teaching advanced chemistry. The codebase is roughly 98% AI-generated, but 98% is a highly misleading number. Yes, it's true that if you look at the authorship by lines of code, Claude wrote 98%. But there has been so much human intervention that it would be more accurate to say that my codebase is 250% AI-generated, with my contribution totalling +2%/-152%.
 
 Here are some of the ways in which simple vibecoding has failed me, and how I've coevolved with AI coding assistants over the last six months.
 
@@ -12,7 +12,7 @@ Here are some of the ways in which simple vibecoding has failed me, and how I've
 
 Every single "no-code platform for non-coders" has run into this issue sooner or later: the person using the platform doesn't actually know how to communicate what they want to have built. (Let's pretend it's a communication issue.)
 
-The answer to "what do you want to build?" is the information architecture (IA). From this IA, everything else flows. Information Architecture (IA) constitutes the following things:
+The answer to "what do you want to build?" is the information architecture (IA), also called the data model. From this IA, everything else flows. Information Architecture (IA) constitutes the following things:
 
 - Who "owns" an object? (both in the sense of who is authorized to take various actions, as well as any parent entities whose lifecycle is linked to this object.)
 - What uniquely identifies an object?
@@ -25,6 +25,8 @@ The reason I say these should be handwritten is not because AI is incapable of t
 In practice, "handwriting an IA" to me, means sitting down and writing the Pydantic/SQLAlchemy models by hand. It usually takes just 10-50 lines of code, and this is precisely the 2% of my codebase that is handwritten.
 
 If you do not design your IA, AI will intentionlessly design it for you.
+
+See [Your Data Model is Your Destiny](https://notes.mtb.xyz/p/your-data-model-is-your-destiny) for a great compilation of the ways in which IA are fundamental to a product.
 
 ## Useless features should be removed
 
