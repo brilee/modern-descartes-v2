@@ -33,6 +33,8 @@ USNCO Nationals are at the level of a typical college introductory course in Gen
 - "trivia": flame test colors, advanced solubility rules, transition metal ion colors, properties of unusual ions with niche uses (cyanide, superoxides, carbides, peroxides, thiocyanates, azides, thiosulfate, triiodide, fulminates).
 - organic chemistry: knowledge roughly equivalent to an introductory class at the college level.
 
+You can [try taking a USNCO in an interactive online format at Cartesian Tutor](https://www.cartesiantutor.com/app/contests)
+
 The Study Camp and IChO test your chemistry understanding at a level comparable to a college junior majoring in Chemistry. 
 
 Compared to the other olympiads, the USNCO is more difficult than the USABO (biology) exam, but less difficult than the USAPhO (Physics) exam. The USAMO is by far the most difficult exam of the group.
@@ -49,7 +51,7 @@ The environmental: To understand issues on sustainability and climate change, yo
 
 The foxy: ("Fox", as in the idiom ["a fox knows many things, but a hedgehog knows one big thing](https://en.wikipedia.org/wiki/The_Hedgehog_and_the_Fox)) The chemistry "rules" you learn at the AP chemistry level are misleadingly simple -- real chemistry is a volatile mix of heuristics and modeling approaches. You _must_ learn to think from multiple angles, to weigh competing models, and decide which is the right approach. The AP Chemistry curriculum does not teach at a rigorous enough level to achieve this effect. **For parents**: I think this is the strongest reason to encourage your kid(s) to try the Chemistry olympiad in particular over the other subjects.
 
-The multitasking: At the national/international level, the lab tasks involve an impressive level of multitasking. Chemical reactions take time to finish, and the lab exams are always set so that you must always be interleaving the preparation of one reaction with the waiting on another reaction's completion.
+The multitasking: At the national/international level, the lab tasks involve an impressive level of multitasking. Chemical reactions take time to finish, and the lab exams are always set so that you must always be interleaving one task with the waiting period of another task. This is tremendously useful when I'm cooking and can juggle multiple dishes at the same time! Typically by the time dinner is ready, all the dishes and cutting boards are already clean and put away.
 
 # Strategies for Studying
 
@@ -86,5 +88,3 @@ By the time you've done all the past USNCOs, you're probably in contention for t
 [Cartesian Tutor](https://www.cartesiantutor.com) is my implementation of these best practices for studying for the USNCO. It's under active development, but features should roll out in time for anyone preparing for the 2026 USNCOs.
 
 I'll be building AI features that enable you to get carefully calibrated hints, interactive lessons on advanced topics, and instant feedback on your solutions, as well as non-AI features like difficulty ratings, progress tracking and time management.
-
-[Sign up here for future updates](https://docs.google.com/forms/d/e/1FAIpQLSeaocTF3pWNK8HbqwBsxtEGPC4M7c6tnnSb9SGNbkN3ihfkaw/viewform?usp=dialog)
