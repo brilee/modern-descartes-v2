@@ -7,8 +7,7 @@
 
 <h2> Essays</h2>
 
-<p><a href="/{{ESSAY_WEBDIR}}/rss.xml">Atom (RSS) feed</a></p>
-
+{{macros.followme()}}
 <hr />
 <h3>...by tag</h3>
 <p>{{macros.tag_link_list(ESSAY_WEBDIR, tags)}}</p>
@@ -22,5 +21,3 @@
 </ul>
 
 {% endblock maintext %}
-{# remove rc scout header from front page #}
-{% block rc_scout %}{% endblock rc_scout %}

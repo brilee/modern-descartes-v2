@@ -5,3 +5,12 @@
 {% macro essay_link(ESSAY_WEBDIR, essay) -%}
 {{essay.date}}&nbsp;|&nbsp; <a href="/{{ESSAY_WEBDIR}}/{{essay.slug}}/">{{essay.title | safe}}</a>{% if "popular" in essay.tags %} ⭐️{% endif %}
 {%- endmacro %}
+
+{% macro followme() -%}
+<p>Follow me via <a href="/{{ESSAY_WEBDIR}}/rss.xml"><img src="/static/rss_icon.gif" border="0" style="padding: 0 2px;" width="16" height="16">RSS</a> or via <a href="https://buttondown.com/briankihoonlee">the newsletter</a>.</p>
+{%- endmacro %}
+
+{% macro rc_scout() -%}
+<div class="rc-scout"></div>
+<script async defer src="https://www.recurse-scout.com/loader.js?t=61e6e8c2779e25f15f4f00c10223d575"></script>
+{%- endmacro %}

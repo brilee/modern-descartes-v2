@@ -6,7 +6,7 @@
 <link rel="shortcut icon" type="image/png" href="/static/favicon.png"/>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="utf-8"/>
-<meta name="keywords" content="{% block keywords %}Brian Lee,Brian K Lee,Brian Kihoon Lee,TensorFlow,AutoGraph,Python,Chemistry,Go,software{% endblock %}">
+<meta name="keywords" content="{% block keywords %}Brian Lee,Brian K Lee,Brian Kihoon Lee,Software,Machine Learning,Python,Math,Programming{% endblock %}">
 <title>{% block title %}Brian Lee's Website{% endblock %}</title>
 
 {% block scripts %}{% endblock %}
@@ -34,13 +34,13 @@
     </div>
 </div>
 {% endblock content %}
-{% block rc_scout %}
-<hr />
-<div class="rc-scout"></div>
-<script async defer src="https://www.recurse-scout.com/loader.js?t=61e6e8c2779e25f15f4f00c10223d575"></script>
-{% endblock rc_scout %}
 </div>
-<script data-goatcounter="https://moderndescartes.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script></body>
 
+
+<div id="footer">
+{% block footer %}
+{% endblock footer %}
+</div>
+<script data-goatcounter="https://moderndescartes.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
 </html>
