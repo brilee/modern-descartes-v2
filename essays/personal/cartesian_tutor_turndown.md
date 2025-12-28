@@ -4,7 +4,7 @@ personal,cartesian tutor,strategy
 
 6 months ago, I started building Cartesian Tutor to explore AI tutors as the future of education. It's been an incredibly rewarding journey and despite the lack of commercial success, I've learned a tremendous amount. A++ experience, highly recommended.
 
-I'll be job searching over the next few months. If you are looking for an AI-pilled staff software engineer with deep expertise in ML and LLMs who is also capable of fullstack prototyping and thinking holistically about product/technology/strategy, let me know. My search pipeline is currently underindexed on Boston-area / remote jobs, so these are especially welcome.
+I'll be job searching over the next few months. If you are looking for an AI-pilled staff software engineer with deep expertise in ML and LLMs who is also capable of fullstack prototyping and thinking holistically about product/technology/strategy, let me know. My search pipeline is currently underindexed on Boston-area / remote jobs, so these are especially welcome. **EDIT: my calendar is pretty full right now, no longer looking to start new interview processes.**
 
 I'm happy to keep Cartesian Tutor up and running for students' sake, and as a continuing hobby project.
 
@@ -73,7 +73,7 @@ Physical health could have used more attention. My previous daily routine includ
 
 ## Fortuitous encounters
 
-I think, overall, I was surprised at how often much I enjoyed random meetings with old and new friends. Part of this was undoubtedly the social isolation that comes with being a solo founder. I also found the conversations helpful in refining and developing ideas for my startup. On balance, it was well worth spending ~5-10% of my time meeting people. As a Boston-based founder, the base rate of fortuitous encounters is a lot lower, so it's worth being deliberate about finding and chatting with people.
+Overall, I was surprised at how often much I enjoyed random meetings with old and new friends. Part of this was undoubtedly the social isolation that comes with being a solo founder. I also found the conversations helpful in refining and developing ideas for my startup. This time, I spent ~2% of my time meeting people, and next time I think I should spend more like 5-10% meeting people. As a Boston-based founder, the base rate of fortuitous encounters is a lot lower, so it's worth being deliberate about finding and chatting with people.
 
 # Things I wouldn't change
 
