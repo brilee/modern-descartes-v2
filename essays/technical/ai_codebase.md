@@ -12,8 +12,10 @@ Here are some of the ways in which simple vibecoding has failed me, and how I've
 
 Every single "no-code platform for non-coders" has run into this issue sooner or later: the person using the platform doesn't actually know how to communicate what they want to have built. (Let's pretend it's a communication issue.)
 
-The answer to "what do you want to build?" is the information architecture (IA), also called the data model. From this IA, everything else flows. Information Architecture (IA) constitutes the following things:
+The answer to "what do you want to build?" is the information architecture (IA), also called the data model. From this IA, everything else flows. IA constitutes the following things:
 
+- What are the objects?
+- What actions can be taken on objects?
 - Who "owns" an object? (both in the sense of who is authorized to take various actions, as well as any parent entities whose lifecycle is linked to this object.)
 - What uniquely identifies an object?
 - Where is the source of truth / what is merely a clone or derived value?

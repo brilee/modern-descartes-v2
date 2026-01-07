@@ -58,9 +58,9 @@ I would do this by requesting a position-relevant project deep dive. Perhaps tha
 
 # Redesigning the ML interview loop
 
-If we examine the requirements of an ML engineer interview loop, we can see that an ML system design interview can be swapped out in almost all cases.
-
 A good interview loop measures the candidate's abilities and growth potential, while rejecting talkers who can't do the work. A great interview loop will also identify factors that might prevent candidate from realizing their potential, like cultural mismatches, poor fit for remote work, misalignment in type of work, etc.
+
+If we examine the requirements of an ML engineer interview loop, we can see that an ML system design interview can be swapped out in almost all cases.
 
 ## Job requirements
 
