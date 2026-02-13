@@ -65,4 +65,4 @@ Another type of LLM value is their scalability and flexibility. Imagine the effo
 
 # Conclusion
 
-A simple extrapolations of trends that I think have robust foundations, with a dash of history. And yet the conclusions are surprising. The world of 2030 will be as unrecognizable to us as the world of cellphones today was in 2010, and as the world of the connected Internet was in 2000.
+A simple extrapolation of trends that I think have robust foundations, with a dash of history. And yet the conclusions are surprising. The world of 2030 will be as unrecognizable to us as the world of cellphones today was in 2010, and as the world of the connected Internet was in 2000.

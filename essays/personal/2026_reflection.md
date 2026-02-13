@@ -10,7 +10,7 @@ My Eurotrip, intended to be a breather before my new job, has unintentionally be
 
 # Corporate ronin
 
-My situation at Google became unstable when Osmo spun out from Google in June 2022. Instead of simply joining an existing team, I'd been trying to pitch a new project in Climate+ML, ableit unsuccessfully: "your project is credible at 10 megatons of $\ce{CO2}$ offset (\$100M equivalent), but that still isn't big enough. 100 megatons or bust", they told me. Defeated, I spent my paternity leave thinking deeply about the [incentive structures driving Google Research](/essays/why_brain/).
+My situation at Google became unstable when Osmo spun out from Google in June 2022. Instead of simply joining an existing team, I'd been trying to pitch a new project in Climate+ML, albeit unsuccessfully: "your project is credible at 10 megatons of $\ce{CO2}$ offset (\$100M equivalent), but that still isn't big enough. 100 megatons or bust", they told me. Defeated, I spent my paternity leave thinking deeply about the [incentive structures driving Google Research](/essays/why_brain/).
 
 A week before I was scheduled to return from leave, I was laid off. I bounced in between ideas and opportunities, trying to decide what [new mountain](/essays/new_mountains/) I wanted to climb. I ruled out drug discovery + ML. I tried getting into management consulting but nobody was hiring. I tried a self-driving car startup but found the startup incurably dysfunctional (they had 30% layoff a few months after I left). Finally, I thought I'd found a home with Lilac, a LLM data tooling startup run by two former coworkers from Google Research. Alas, it was not to be.
 
@@ -26,7 +26,7 @@ I wondered at times if it was a "me" problem. Many people seemed capable of doin
 
 EEF, for me, is finding a company that 1. needs cutting-edge research 2. believes they need cutting edge research 3. has a culture of enabling researchers to solve problems.
 
-Many companies that believe they need cutting edge research don't actually need cutting edge research, and when reality comes knocking, they fold their research bets, reorging their researchers into the corporate machine. A few need cutting edge research but are structurally incapable of believing it due to [innovator's dilemna](https://en.wikipedia.org/wiki/The_Innovator%27s_Dilemma). And some that need it and know they need it, can't help but stick their fingers into the cake while it's being made, leading to mutual dissatisfaction.
+Many companies that believe they need cutting edge research don't actually need cutting edge research, and when reality comes knocking, they fold their research bets, reorging their researchers into the corporate machine. A few need cutting edge research but are structurally incapable of believing it due to [innovator's dilemma](https://en.wikipedia.org/wiki/The_Innovator%27s_Dilemma). And some that need it and know they need it, can't help but stick their fingers into the cake while it's being made, leading to mutual dissatisfaction.
 
 Jane Street needs agents, believe they need agents, and have a culture that has been lovingly described as an anarchist commune. I did a lot more due diligence on culture fit this time around, compared to the very short time I had to think through the Databricks-Lilac acquisition, so I'm optimistic and hopeful that this will be a good EEF.
 

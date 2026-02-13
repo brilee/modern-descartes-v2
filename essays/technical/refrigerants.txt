@@ -66,7 +66,7 @@ By creating "weak spots" in the molecule, R-1234yf degrades in the atmosphere ov
 The downside is that these "weak spots" also enable a small amount of flammability.
 Testing revealed that this flammability would not be an issue even in a severe auto collision, and R-1234yf is today rolled out in cars and light trucks in the US and EU.
 
-Of course, this didn't stop Daimler, parent of Mercedes-Benz, Volkswagen ([what is it with these execs](https://en.wikipedia.org/wiki/Volkswagen_emissions_scandal)?) for [using this as an excuse to delay the HFO transition](https://www.caranddriver.com/news/a15372080/daimler-claims-dupont-and-honeywell-developed-refrigerant-flammable-gm-continues-use/).
+Of course, this didn't stop Daimler, parent of Mercedes-Benz, Volkswagen ([what is it with these execs](https://en.wikipedia.org/wiki/Volkswagen_emissions_scandal)?) from [using this as an excuse to delay the HFO transition](https://www.caranddriver.com/news/a15372080/daimler-claims-dupont-and-honeywell-developed-refrigerant-flammable-gm-continues-use/).
 
 Nowadays, the greenhouse potential of refrigerants is well known - the [Kigali amendment](https://en.wikipedia.org/wiki/Kigali_Amendment) to the Montreal Protocol mandates a reduction in fluorinated gas emissions, and
 R-1234yf will undoubtedly play a major role in this transition once the [patent](https://patents.google.com/patent/US8071826B2/en) expires and prices come down.

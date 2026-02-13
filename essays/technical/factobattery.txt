@@ -76,7 +76,7 @@ In this scenario, a conventional lithium-ion battery has the following stats:
 </tr>
 </tbody>
 </table>
-To make all of our batteries comparable, everything is scaled to 100MW. For a conventional battery, this means a daily cycle of 300MW charging for 6 hours followed by 100MW discharge for 18 hours (a total of 1.8GWh of capacity). I normalize for varying lifetimes by annualizing capital borrowing costs. $516M at an 8% annual interest rate over 10 years gives a yearly capex of 75M dollars. (Think of it as a really big mortgage.)
+To make all of our batteries comparable, everything is scaled to 100MW. For a conventional battery, this means a daily cycle of 300MW charging for 6 hours followed by 100MW discharge for 18 hours (a total of 1.8GWh of capacity). I normalize for varying lifetimes by annualizing capital borrowing costs. $522M at an 8% annual interest rate over 10 years gives a yearly capex of 76M dollars. (Think of it as a really big mortgage.)
 
 ## Some less conventional batteries
 
@@ -230,7 +230,7 @@ Another more favorable example is an electrolysis-driven fertilizer plant. In th
 </tbody>
 </table>
 
-It turns out that overbuilding a plant by 3x is expensive and wasteful and if you don't actually use it.
+It turns out that overbuilding a plant by 3x is expensive and wasteful if you don't actually use it.
 
 ## Minimizing the overbuild
 

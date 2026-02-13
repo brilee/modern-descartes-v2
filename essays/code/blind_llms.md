@@ -29,7 +29,7 @@ Here are some of the oddities I observed while working on my project.
 
 <img src="/static/blind_llms/sucrose_padded.png" alt="Badly cropped sucrose molecule" width="200" style="margin:auto; display:block">
 
-- When Gemini was asked to generate bounding boxes for the four molecular structures identified by Claude, it game me back bounding boxes for the benzene ring, excluding the text "SO3H".
+- When Gemini was asked to generate bounding boxes for the four molecular structures identified by Claude, it gave me back bounding boxes for the benzene ring, excluding the text "SO3H".
 
 <img src="/static/blind_llms/benzenesulfonic_acid.png" alt="Badly cropped benzenesulfonic acid molecule" width="200" style="margin:auto; display:block">
 

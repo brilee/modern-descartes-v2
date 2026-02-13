@@ -45,7 +45,7 @@ Here is some [representative code](https://git.savannah.gnu.org/cgit/gnugo.git/t
 Note:
 
 - A variety of hand-tuned magic numbers.
-- Black and white determinations like "INVICIBLE", no shades of grey.
+- Black and white determinations like "INVINCIBLE", no shades of grey.
 - Human-interpretable concepts like "dragons" reified in code.
 - Giant hand-tuned if-else trees.
 

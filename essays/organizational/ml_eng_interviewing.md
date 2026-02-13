@@ -36,7 +36,7 @@ The good scenario naturally invites good questions: "what are the downsides to p
 
 The good scenario, again, naturally invites good questions: "are all messages to the slack channel necessarily questions that need routing?" "how annoyed would people be if they're @tagged on a question they can't answer?" "can we @tag anyone in the company, or do we need an opt-in/opt-out mechanism?" "what if the same person gets too many @tags?" "how much slack history do we have from the channel?" "what supplementary data do we have on org chart, tenure, team affiliations for everyone?"
 
-When you craft detail into a scenario, you should do due dilligence: can you find industry reports/papers/blog posts detailing the peculiarities and customization needed for that scenario?
+When you craft detail into a scenario, you should do due diligence: can you find industry reports/papers/blog posts detailing the peculiarities and customization needed for that scenario?
 
 ## Outdated problem
 

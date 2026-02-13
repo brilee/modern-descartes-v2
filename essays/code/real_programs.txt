@@ -4,7 +4,7 @@ software engineering
 
 I got my programming start by writing solutions to Project Euler problems. My programs would be short scripts that ran some computation, printed out the result, and then exited.
 
-For the longest time, I didn't understand how one could make "real programs", like, say, Microsoft Word, that waited for user input and didn't just disappear after doing something. It took me an embarassingly long time to figure this out, but eventually, I realized that the trick was very simple: just have a listener loop! 
+For the longest time, I didn't understand how one could make "real programs", like, say, Microsoft Word, that waited for user input and didn't just disappear after doing something. It took me an embarrassingly long time to figure this out, but eventually, I realized that the trick was very simple: just have a listener loop! 
 
     settings = load_settings()
     while True:
